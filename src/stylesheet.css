@@ -1,0 +1,95 @@
+:root {
+    --redor: #FC4747;
+    --whole-page: #10141E;
+    --blue-gray: #5A698F;
+    --navy-blue: #161D2F;
+    --white: #FFF
+
+}
+
+.outfit-light {
+    font-family: outfit-light, sans-serif;
+    font-weight: 300;
+}
+
+.outfit-medium{
+font-family: outfit-medium, sans-serif;
+    font-weight: 500;
+}
+
+.page-bg {
+    background-color: var(--whole-page);
+}
+
+.sideBar {
+    background-color: var(--navy-blue);
+    width: 8rem;
+    height: 48rem;
+}
+
+.navy-blue {
+    color: var(--navy-blue);
+}
+
+.blue-gray {
+    color: var(--blue-gray);
+}
+
+
+.category:hover svg path, .category:hover {
+    transition: fill 0.2s ease 0s;
+    fill: var(--white);
+}
+
+.input:focus{
+    border-bottom:solid 1px var(--blue-gray);
+    caret-color: var(--redor);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.seasonal-box{
+    width: 30rem;
+    display: inline-block;
+    height: 15rem;
+    margin-right: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.seasonal-img-box {
+    width: 30rem;
+    height: 15rem;
+    border-radius: 10px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.standard-box {
+    width: 12rem;
+    display: inline-block;
+    height: 18rem;
+    margin-right: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.anime-box {
+    display: inline-block;
+    width: 12rem;
+    height: 18rem;
+    border-radius: 10px;
+    object-fit: fill;
+}
+
+.redor-button {
+    background-color: var(--redor);
+}
