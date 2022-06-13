@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg";
 
 const Sidebar = () => {
   return (
-    <div className="mt-8 ml-8 sideBar rounded-3xl fixed">
+    <div className="mt-8 mx-4 sideBar rounded-3xl fixed">
       <img alt="logo" className="mx-auto pt-8" src={logo} />
       <div className="flex flex-col mx-auto mt-16 gap-10">
         <div className="mx-auto category cursor-pointer">

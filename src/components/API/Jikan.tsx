@@ -1,2 +1,1 @@
-import React from "react";
-import axios from "axios";
+export const TOP_ANIME = "top/anime";

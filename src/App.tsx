@@ -1,14 +1,14 @@
 import React from "react";
-
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
-import Sidebar from "./components/Home/Sidebar";
+import SearchResults from "./components/SearchResults/SearchResults";
 
 function App() {
   return (
-    <div className="flex">
-      <Sidebar />
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path={"/search-results"} element={<SearchResults />} />
+    </Routes>
   );
 }
 

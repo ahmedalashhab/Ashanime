@@ -1,0 +1,116 @@
+import { Fragment, useRef } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { anime } from "../../types/type";
+
+interface props {
+  setToggle: (toggle: boolean) => void;
+  toggle: boolean;
+  data: anime;
+}
+
+export default function ModalAnimeList({ setToggle, toggle, data }: props) {
+  const cancelButtonRef = useRef(null);
+
+  return (
+    <Transition.Root show={toggle} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={() => setToggle(false)}
+      >
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="h-full w-92 flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="h-5/6 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
+                <div className="w-92 flex flex-col page-bg pb-4">
+                  {/*Checks if video URL is available*/}
+                  {data.trailer.embed_url ? (
+                    <iframe
+                      title="video player"
+                      style={{ height: 400 }}
+                      src={data.trailer.embed_url}
+                      className="h-full w-full"
+                    />
+                  ) : (
+                    <div
+                      className="flex justify-center items-center"
+                      style={{ height: 400 }}
+                    >
+                      <span className="text-white outfit-medium ">
+                        {/*if no video URL then display below message*/}
+                        No trailer available :(
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-6 mt-3 text-left px-8">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg leading-6 outfit-medium text-redor"
+                  >
+                    {data.title}
+                  </Dialog.Title>
+                  <span className="text-white outfit-light text-[12px] self-end">
+                    {data.type}
+                  </span>
+                  <span className="text-white outfit-light text-[12px] self-end">
+                    Score: {data.score}
+                  </span>
+                  <span className="text-white outfit-light text-[12px] self-end">
+                    Episodes Aired: {data.episodes}
+                  </span>
+                  <span className="text-white outfit-light text-[12px] self-end">
+                    {data.status}
+                  </span>
+                </div>
+
+                {/*synopsis*/}
+                <div className="my-4 px-8 overflow-y-auto">
+                  <p className="text-white outfit-light text-[12px]">
+                    {data.synopsis}
+                  </p>
+                </div>
+                <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row-reverse justify-between">
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 redor-button text-base font-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
+                    Add to watchlist
+                  </button>
+                  <div className="flex self-end">
+                    <span className="outfit-medium text-white text-[14px] ">
+                      Genres:{" "}
+                      {data.genres.map((genre) => genre.name).join(", ")}
+                    </span>
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+}

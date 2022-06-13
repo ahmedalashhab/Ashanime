@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Modal from "./AnimeTrailerModal";
 
 const AnimeTrailersHome = () => {
   const [animeTrailer, setAnimeTrailer] = useState<any[]>([]);
+  const [modalData, setModalData] = useState({
+    entry: { title: "", mal_id: 0 },
+    trailer: { embed_url: "", images: { large_image_url: "" } },
+    title: "",
+    url: "",
+  });
+  const [modal, setModal] = useState<any>(false);
 
   const getAnimeTrailer = async () => {
     await axios
@@ -20,31 +28,43 @@ const AnimeTrailersHome = () => {
     getAnimeTrailer();
   }, []);
 
+  const handleModal = (active: boolean, data: any) => {
+    setModal(active);
+    if (data) {
+      setModalData(data);
+    }
+  };
+
   return (
-    <div className="mt-8">
-      <div className="outfit-light text-white text-[32px] mb-4">
-        Popular Anime
-      </div>
-      <div className="overflow-x-scroll whitespace-nowrap hide-scrollbar">
-        {animeTrailer.map(
-          (anime: {
-            entry: { mal_id: number };
-            title: string;
-            trailer: { images: { large_image_url: string } };
-            url: string;
-          }) => {
-            return (
-              <div key={anime.entry.mal_id} className="seasonal-box rounded-xl">
-                <img
-                  alt={`thumbnail of ${anime.title}`}
-                  src={anime.trailer.images.large_image_url}
-                  className="rounded-xl seasonal-img-box"
-                />
+    <div className="mt-8 overflow-visible ">
+      <div className="outfit-light text-white text-[32px] mb-4 ">Discover</div>
+      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden">
+        {animeTrailer.map((anime) => {
+          return (
+            <div key={anime.entry.mal_id} className="seasonal-box rounded-xl ">
+              <img
+                alt={`thumbnail of ${anime.title}`}
+                src={anime.trailer.images.large_image_url}
+                /*TODO fix the overflow on all sides*/
+                className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
+                onClick={() => handleModal(true, anime)}
+              />
+              <div className="flex justify-center">
+                <span className="text-white outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                  {anime.entry.title}
+                </span>
               </div>
-            );
-          }
-        )}
+            </div>
+          );
+        })}
       </div>
+      <Modal
+        setToggle={(boolean: boolean) => {
+          return setModal(boolean);
+        }}
+        data={modalData}
+        toggle={modal}
+      />
     </div>
   );
 };

@@ -1,13 +1,19 @@
-import SearchBar from "./SearchBar";
+import SearchBar from "../Shared/SearchBar";
 import AnimeTrailersHome from "./AnimeTrailersHome";
 import TopAnime from "./TopAnime";
+import Sidebar from "../Shared/Sidebar";
 
 const Home = () => {
   return (
-    <div className="flex flex-col w-full ml-52 mt-16 overflow-x-hidden">
-      <SearchBar />
-      <AnimeTrailersHome />
-      <TopAnime />
+    <div>
+      <Sidebar />
+      <div className="flex justify-center">
+        <div className="flex flex-col screen-width ml-44 mt-16 overflow-x-hidden">
+          <SearchBar currentPage={1} paginate={1} />
+          <AnimeTrailersHome />
+          <TopAnime />
+        </div>
+      </div>
     </div>
   );
 };
