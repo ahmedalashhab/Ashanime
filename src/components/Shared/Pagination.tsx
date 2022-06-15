@@ -4,7 +4,11 @@ import {
   ArrowNarrowRightIcon,
 } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState, useAppDispatch } from "../../redux/store";
+import {
+  searchLoadingAction,
+  setPageLoadingAction,
+} from "../../redux/search-slice";
 
 interface props {
   currentPage: number;
@@ -19,6 +23,8 @@ const Pagination = ({ currentPage, paginate }: props) => {
   const [nextPage, setNextPage] = useState<number>(2);
   const [clickedNext, setClickedNext] = useState<boolean>(false);
   const [clickedPrev, setClickedPrev] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const windowLocation = window.location.pathname;
 
   useEffect(() => {
     if (currentPage % 10 === 1 && currentPage !== 1 && clickedNext) {
@@ -38,35 +44,42 @@ const Pagination = ({ currentPage, paginate }: props) => {
       behavior: "smooth",
       block: "start",
     });
-  }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev]);
+  }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev, pageRange]);
 
   const hasNextPage = useSelector(
     (state: RootState) => state.anime.hasNextPage
   );
 
-  const handlePreviousPage = () => {
-    currentPage > 1 && paginate(currentPage - 1);
-    setNextPage(currentPage + 1);
-    setPrevPage(currentPage - 1);
-    setClickedNext(false);
-    setClickedPrev(true);
-  };
-
-  const handleNextPage = () => {
-    setNextPage(currentPage + 1);
-    setPrevPage(currentPage - 1);
-    setClickedNext(true);
-    setClickedPrev(false);
-    paginate(currentPage + 1);
-  };
-
-  const handleNumberClick = (page: number) => {
-    if (page <= lastPage) {
-      paginate(page);
-      setNextPage(currentPage + 1);
-      setPrevPage(currentPage - 1);
-      setClickedNext(false);
-      setClickedPrev(false);
+  const paginationHandler = (arg: string, page?: number) => {
+    if (windowLocation === "/search-results") {
+      dispatch(searchLoadingAction(true));
+    }
+    dispatch(setPageLoadingAction(true));
+    switch (arg) {
+      case "previous":
+        currentPage > 1 && paginate(currentPage - 1);
+        setNextPage(currentPage + 1);
+        setPrevPage(currentPage - 1);
+        setClickedNext(false);
+        setClickedPrev(true);
+        break;
+      case "next":
+        setNextPage(currentPage + 1);
+        setPrevPage(currentPage - 1);
+        setClickedNext(true);
+        setClickedPrev(false);
+        paginate(currentPage + 1);
+        break;
+      case "number":
+        if (page) {
+          if (page <= lastPage) {
+            paginate(page);
+            setNextPage(currentPage + 1);
+            setPrevPage(currentPage - 1);
+            setClickedNext(false);
+            setClickedPrev(false);
+          }
+        }
     }
   };
 
@@ -76,7 +89,7 @@ const Pagination = ({ currentPage, paginate }: props) => {
     <nav className="border-t border-redor px-4 mx-8 flex items-center justify-between sm:px-0">
       <div className="-mt-px w-0 flex-1 flex">
         <span
-          onClick={handlePreviousPage}
+          onClick={() => paginationHandler("previous")}
           className="cursor-pointer border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-white hover:text-redor hover:border-redor transition-all ease-in-out"
         >
           <ArrowNarrowLeftIcon className="mr-3 h-5 w-5" aria-hidden="true" />
@@ -87,7 +100,7 @@ const Pagination = ({ currentPage, paginate }: props) => {
         {pageRange.map((page: number) => {
           return (
             <span
-              onClick={() => handleNumberClick(page)}
+              onClick={() => paginationHandler("number", page)}
               className={`${page === currentPage ? "text-redor" : ""} ${
                 page <= lastPage
                   ? "cursor-pointer  hover:text-redor hover:border-redor"
@@ -101,7 +114,12 @@ const Pagination = ({ currentPage, paginate }: props) => {
       </div>
       <div className="-mt-px w-0 flex-1 flex justify-end">
         <span
-          onClick={handleNextPage}
+          onClick={() => {
+            if (!hasNextPage) {
+              return alert("You are on the last page");
+            }
+            paginationHandler("next");
+          }}
           className={` ${
             hasNextPage
               ? "cursor-pointer hover:text-redor hover:border-redor"

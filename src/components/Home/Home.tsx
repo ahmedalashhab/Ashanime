@@ -9,9 +9,9 @@ const Home = () => {
       <Sidebar />
       <div className="flex justify-center">
         <div className="flex flex-col screen-width ml-44 mt-16 overflow-x-hidden">
-          <SearchBar currentPage={1} paginate={1} />
+          <SearchBar />
           <AnimeTrailersHome />
-          <TopAnime />
+          {<TopAnime />}
         </div>
       </div>
     </div>

@@ -41,11 +41,17 @@ font-family: outfit-medium, sans-serif;
     color: var(--blue-gray);
 }
 
+.category-state svg path{
+    fill: var(--white);
+    transition: fill 0.2s ease 0s;
+}
+
 
 .category:hover svg path, .category:hover {
     transition: fill 0.2s ease 0s;
     fill: var(--white);
 }
+
 
 .input{
     border-bottom:solid 1px var(--whole-page);

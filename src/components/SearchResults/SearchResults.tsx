@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "../Shared/Sidebar";
 import SearchBar from "../Shared/SearchBar";
 import { useSelector } from "react-redux";
@@ -45,14 +45,14 @@ const SearchResults = () => {
 
   const animeReducer = useSelector((state: RootState) => state.anime);
   const searchResults = animeReducer.searchResults;
-  const searchQuery = animeReducer.searchQuery;
+  const searchQueryView = animeReducer.searchQueryView;
 
-  const handleSearchTitle = () => {
-    if (searchQuery === "") {
-      return;
-    } else {
-      return `Search results for "${searchQuery}"`;
-    }
+  const handleSearchTitleStart = () => {
+    return `Search results for`;
+  };
+
+  const handleSearchTitleEnd = () => {
+    return ` ${searchQueryView}`;
   };
 
   const handleModal = (active: boolean, data: anime) => {
@@ -72,15 +72,20 @@ const SearchResults = () => {
       <div className="flex justify-center ">
         <div className="flex flex-col screen-width ml-44 mt-16">
           <SearchBar
+            setCurrentPage={(pageNumber) => setCurrentPage(pageNumber)}
             currentPage={currentPage}
-            paginate={(pageNumber: number) => paginate(pageNumber)}
           />
         </div>
       </div>
       <div className="flex justify-center">
         <div className="mt-8 ml-40 screen-width" id="top-anime">
-          <div className="outfit-light text-white text-[32px] ml-4 mb-4">
-            {handleSearchTitle()}
+          <div className=" ml-4 mb-4">
+            <span className="outfit-light text-white text-[32px]">
+              {handleSearchTitleStart()}
+            </span>
+            <span className="outfit-light text-redor text-[32px] ">
+              {handleSearchTitleEnd()}
+            </span>
           </div>
           <div className="grid grid-cols-5 grid-rows-5">
             {searchResults.map((anime: anime) => {

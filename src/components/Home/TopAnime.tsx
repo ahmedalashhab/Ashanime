@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import { anime } from "../../types/type";
 import Pagination from "../Shared/Pagination";
 import { TOP_ANIME } from "../API/Jikan";
+import { setHasNextPage, setLastPage } from "../../redux/search-slice";
+import ToggleAiring from "./ToggleAiring";
 
 const TopAnime = () => {
   const initialDataState: anime = {
@@ -43,28 +47,36 @@ const TopAnime = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
   const [modal, setModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const animeReducer = useSelector((state: RootState) => state.anime);
+
+  const dispatch = useAppDispatch();
 
   const paginate = (pageNumber: number) => {
     return setCurrentPage(pageNumber);
   };
 
-  const getTopAnime = async () => {
-    const response = await axios
+  const type = animeReducer.type;
+  const airing = animeReducer.airing;
+
+  const getTopAnime = async (type: string) => {
+    return await axios
       .get(`https://api.jikan.moe/v4/${TOP_ANIME}?=${currentPage}`, {
         params: {
           page: currentPage,
+          type: type,
+          filter: airing ? "airing" : "",
         },
       })
-      .then((res) => {
-        return res.data;
+      .then((response) => {
+        dispatch(setHasNextPage(response.data.pagination.has_next_page));
+        dispatch(setLastPage(response.data.pagination.last_visible_page));
+        setTopAnimeList(response.data.data);
       });
-    setTopAnimeList(response.data);
-    console.log(response);
   };
 
   useEffect(() => {
-    getTopAnime();
-  }, [currentPage]);
+    getTopAnime(type);
+  }, [currentPage, type, airing]);
 
   const handleModal = (active: boolean, data: anime) => {
     setModal(active);
@@ -72,10 +84,26 @@ const TopAnime = () => {
       setModalData(data);
     }
   };
+
+  const handleTitle = () => {
+    if (type === "") {
+      return "Top Anime";
+    } else if (type === "tv") {
+      return "Top TV Shows";
+    } else if (type === "movie") {
+      return "Top Movies";
+    }
+  };
+
   return (
     //    make a grid of top anime
     <div className="mt-8" id="top-anime">
-      <div className="outfit-light text-white text-[32px] mb-4">Top Anime</div>
+      <div className="flex justify-between">
+        <h2 className="outfit-light text-white text-[32px] mb-4">
+          {handleTitle()}
+        </h2>
+        <div>{type !== "movie" && <ToggleAiring />}</div>
+      </div>
       <div className="grid grid-cols-5 grid-rows-5">
         {topAnimeList.map((anime: anime) => {
           return (

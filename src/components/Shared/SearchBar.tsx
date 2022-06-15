@@ -1,52 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
 import {
   animeSearch,
   setHasNextPage,
   setLastPage,
+  searchLoadingAction,
+  setPageLoadingAction,
 } from "../../redux/search-slice";
-import { setSearchQuery } from "../../redux/search-slice";
-import { useAppDispatch } from "../../redux/store";
+import { setSearchQuery, setSearchQueryView } from "../../redux/search-slice";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 interface props {
-  currentPage: { currentPage: number };
-  paginate: ((arg: number) => void) | number;
+  currentPage?: number;
+  setCurrentPage?: (page: number) => void;
+  paginate?: (page: number) => void;
 }
 
-const SearchBar = ({ currentPage, paginate }: props) => {
-  const [search, setSearch] = useState("");
+const SearchBar = ({ currentPage, setCurrentPage }: props) => {
+  const { searchLoading, searchQuery, pageLoading } = useSelector(
+    (state: RootState) => state.anime
+  );
+
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
+  const handleSubmit = useCallback(
+    (e?: React.FormEvent<HTMLFormElement>) => {
+      e?.preventDefault();
+      dispatch(setSearchQueryView(searchQuery));
+      if (searchQuery === "") {
+        return alert("Please input a search term");
+      }
+      dispatch(setPageLoadingAction(false));
+      dispatch(searchLoadingAction(true));
+      dispatch(setSearchQuery(searchQuery));
+      if (pageLoading === false) navigate(`/search-results`);
+      const getSearch = async () => {
+        await axios
+          .get(`https://api.jikan.moe/v4/anime`, {
+            params: {
+              q: searchQuery,
+              sfw: true,
+              page: currentPage,
+            },
+          })
+          .then((res) => {
+            const { data } = res.data;
+            dispatch(searchLoadingAction(false));
+            if (data.length === 0 && setCurrentPage) {
+              setCurrentPage(1);
+            }
+            dispatch(animeSearch(data));
+            dispatch(setHasNextPage(res.data.pagination.has_next_page));
+            dispatch(setLastPage(res.data.pagination.last_visible_page));
+          });
+      };
+      getSearch();
+    },
+    [currentPage, dispatch, navigate, searchQuery, setCurrentPage, pageLoading]
+  );
+
+  // The search loading state is used so that the handleSubmit function does not keep rerunning infinitely.
+  // TODO: add a loading animation to results.
   useEffect(() => {
-    handleSubmit();
-  }, [currentPage.currentPage]);
-
-  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
-    dispatch(setSearchQuery(search));
-    e?.preventDefault();
-    const getSearch = async () => {
-      await axios
-        .get(`https://api.jikan.moe/v4/anime`, {
-          params: {
-            q: search,
-            sfw: true,
-            page: currentPage.currentPage,
-          },
-        })
-        .then((res) => {
-          const { data } = res.data;
-          const response = res.data;
-          console.log(response);
-          return (
-            dispatch(animeSearch(data)),
-            dispatch(setHasNextPage(response.pagination.has_next_page)),
-            dispatch(setLastPage(response.pagination.last_visible_page))
-          );
-        });
-    };
-    getSearch();
-    paginate(1);
-  };
+    if (searchLoading) {
+      handleSubmit();
+    }
+  }, [currentPage, handleSubmit, searchLoading]);
 
   return (
     <div className="flex">
@@ -60,8 +82,15 @@ const SearchBar = ({ currentPage, paginate }: props) => {
         <input
           type="text"
           placeholder="Search for movies or TV series"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
+          onChange={(e) => {
+            dispatch(setSearchQuery(e.target.value));
+            if (e.target.value !== searchQuery) {
+              if (setCurrentPage) {
+                setCurrentPage(1);
+              }
+            }
+          }}
+          value={searchQuery}
           className="outfit-light text-[24px] page-bg appearance-none w-11/12 py-2 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
         />
         <button type="submit" />
