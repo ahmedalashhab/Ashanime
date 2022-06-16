@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
-import Pagination from "../Shared/Pagination";
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import Sidebar from "../Shared/Sidebar";
 import SearchBar from "../Shared/SearchBar";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
+import LocalPagination from "./LocalPagination";
 
 const Bookmarks = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
@@ -26,6 +26,14 @@ const Bookmarks = () => {
   const paginate = (pageNumber: number) => {
     return setCurrentPage(pageNumber);
   };
+
+  //get current elements
+  const indexOfLastBookmark = currentPage * 25;
+  const indexOfFirstBookmark = indexOfLastBookmark - 25;
+  const currentBookmarks = bookmarks.slice(
+    indexOfFirstBookmark,
+    indexOfLastBookmark
+  );
 
   return (
     <div>
@@ -46,7 +54,7 @@ const Bookmarks = () => {
             </span>
           </div>
           <div className="grid grid-cols-5 grid-rows-5">
-            {bookmarks.map((anime: anime) => {
+            {currentBookmarks.map((anime: anime) => {
               return (
                 <div
                   onClick={() => handleModal(true, anime)}
@@ -84,9 +92,9 @@ const Bookmarks = () => {
             })}
           </div>
           <div className="mb-10 mt-5">
-            <Pagination
+            <LocalPagination
               currentPage={currentPage}
-              paginate={(pageNumber) => paginate(pageNumber)}
+              paginate={(pageNumber: number) => paginate(pageNumber)}
             />
           </div>
           <ModalAnimeList

@@ -81,7 +81,6 @@ export const {
   setType,
   setAiring,
   setBookmarks,
-  setCurrentPage,
 } = animeSlice.actions;
 
 export default animeSlice.reducer;

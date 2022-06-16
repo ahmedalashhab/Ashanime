@@ -31,6 +31,7 @@ const Sidebar = () => {
     setIsClickedBookmarks(false);
     dispatch(setType("movie"));
     dispatch(setAiring(false));
+    navigate("/");
     window.scroll({ top: 500, behavior: "smooth" });
   };
 
@@ -41,6 +42,7 @@ const Sidebar = () => {
     setIsClickedBookmarks(false);
     dispatch(setType("tv"));
     dispatch(setAiring(false));
+    navigate("/");
     window.scroll({ top: 500, behavior: "smooth" });
   };
 
