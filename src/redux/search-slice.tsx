@@ -1,18 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { anime } from "../types/type";
+
+interface initialStateInterface {
+  searchResults: anime[];
+  searchQuery: string;
+  searchQueryView: string;
+  searchLoading: boolean;
+  pageLoading: boolean;
+  hasNextPage: boolean;
+  lastPage: number;
+  type: string;
+  airing: boolean;
+  bookmarks: anime[];
+  currentPage: number;
+}
+
+const initialState: initialStateInterface = {
+  searchResults: [],
+  searchQuery: "",
+  searchQueryView: "",
+  searchLoading: false,
+  pageLoading: false,
+  hasNextPage: false,
+  lastPage: 0,
+  type: "",
+  airing: false,
+  bookmarks: [],
+  currentPage: 1,
+};
 
 export const animeSlice = createSlice({
   name: "anime",
-  initialState: {
-    searchResults: [],
-    searchQuery: "",
-    searchQueryView: "",
-    searchLoading: false,
-    pageLoading: false,
-    hasNextPage: false,
-    lastPage: 0,
-    type: "",
-    airing: false,
-  },
+  initialState: initialState,
   reducers: {
     animeSearch: (state, action: PayloadAction<[]>) => {
       state.searchResults = action.payload;
@@ -41,6 +60,12 @@ export const animeSlice = createSlice({
     setAiring: (state, action: PayloadAction<boolean>) => {
       state.airing = action.payload;
     },
+    setBookmarks: (state, action: PayloadAction<anime[]>) => {
+      state.bookmarks = action.payload;
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
   },
 });
 
@@ -55,6 +80,8 @@ export const {
   setPageLoadingAction,
   setType,
   setAiring,
+  setBookmarks,
+  setCurrentPage,
 } = animeSlice.actions;
 
 export default animeSlice.reducer;

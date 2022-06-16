@@ -9,40 +9,9 @@ import Pagination from "../Shared/Pagination";
 import { TOP_ANIME } from "../API/Jikan";
 import { setHasNextPage, setLastPage } from "../../redux/search-slice";
 import ToggleAiring from "./ToggleAiring";
+import { initialDataState } from "../Shared/initialDataState";
 
 const TopAnime = () => {
-  const initialDataState: anime = {
-    year: 0,
-    mal_id: 0,
-    type: "",
-    score: 0,
-    title: "",
-    trailer: { embed_url: "" },
-    images: {
-      jpg: { large_image_url: "" },
-      webp: { large_image_url: "" },
-    },
-    synopsis: "",
-    episodes: 0,
-    status: "",
-    demographics: [
-      {
-        mal_id: 0,
-        type: "",
-        name: "",
-        url: "",
-      },
-    ],
-    genres: [
-      {
-        mal_id: 0,
-        type: "",
-        name: "",
-        url: "",
-      },
-    ],
-  };
-
   const [topAnimeList, setTopAnimeList] = useState<anime[]>([]);
   const [modalData, setModalData] = useState<anime>(initialDataState);
   const [modal, setModal] = useState(false);
@@ -60,7 +29,7 @@ const TopAnime = () => {
 
   const getTopAnime = async (type: string) => {
     return await axios
-      .get(`https://api.jikan.moe/v4/${TOP_ANIME}?=${currentPage}`, {
+      .get(`https://api.jikan.moe/v4/${TOP_ANIME}`, {
         params: {
           page: currentPage,
           type: type,
@@ -96,7 +65,6 @@ const TopAnime = () => {
   };
 
   return (
-    //    make a grid of top anime
     <div className="mt-8" id="top-anime">
       <div className="flex justify-between">
         <h2 className="outfit-light text-white text-[32px] mb-4">
@@ -104,6 +72,7 @@ const TopAnime = () => {
         </h2>
         <div>{type !== "movie" && <ToggleAiring />}</div>
       </div>
+      {/*make a grid of top anime*/}
       <div className="grid grid-cols-5 grid-rows-5">
         {topAnimeList.map((anime: anime) => {
           return (

@@ -1,29 +1,20 @@
 import React, { useState } from "react";
-import Sidebar from "../Shared/Sidebar";
-import SearchBar from "../Shared/SearchBar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+
 import Pagination from "../Shared/Pagination";
 import ModalAnimeList from "../Shared/ModalAnimeList";
+import Sidebar from "../Shared/Sidebar";
+import SearchBar from "../Shared/SearchBar";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
 
-const SearchResults = () => {
+const Bookmarks = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
   const [modal, setModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const animeReducer = useSelector((state: RootState) => state.anime);
-  const searchResults = animeReducer.searchResults;
-  const searchQueryView = animeReducer.searchQueryView;
-
-  const handleSearchTitleStart = () => {
-    return `Search results for`;
-  };
-
-  const handleSearchTitleEnd = () => {
-    return ` ${searchQueryView}`;
-  };
+  const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
 
   const handleModal = (active: boolean, data: anime) => {
     setModal(active);
@@ -51,14 +42,11 @@ const SearchResults = () => {
         <div className="mt-8 ml-40 screen-width" id="top-anime">
           <div className=" ml-4 mb-4">
             <span className="outfit-light text-white text-[32px]">
-              {handleSearchTitleStart()}
-            </span>
-            <span className="outfit-light text-redor text-[32px] ">
-              {handleSearchTitleEnd()}
+              Your watchlist
             </span>
           </div>
           <div className="grid grid-cols-5 grid-rows-5">
-            {searchResults.map((anime: anime) => {
+            {bookmarks.map((anime: anime) => {
               return (
                 <div
                   onClick={() => handleModal(true, anime)}
@@ -114,4 +102,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default Bookmarks;

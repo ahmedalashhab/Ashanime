@@ -90,10 +90,18 @@ const Pagination = ({ currentPage, paginate }: props) => {
       <div className="-mt-px w-0 flex-1 flex">
         <span
           onClick={() => paginationHandler("previous")}
-          className="cursor-pointer border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-white hover:text-redor hover:border-redor transition-all ease-in-out"
+          className={` ${
+            currentPage > 1
+              ? "cursor-pointer hover:text-redor hover:border-redor"
+              : ""
+          }   border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-white  transition-all ease-in-out`}
         >
-          <ArrowNarrowLeftIcon className="mr-3 h-5 w-5" aria-hidden="true" />
-          Previous
+          {currentPage > 1 ? (
+            <ArrowNarrowLeftIcon className="mr-3 h-5 w-5" aria-hidden="true" />
+          ) : (
+            ""
+          )}
+          {currentPage > 1 ? "Previous" : "This is the first page"}
         </span>
       </div>
       <div className="hidden md:-mt-px md:flex">
@@ -101,6 +109,7 @@ const Pagination = ({ currentPage, paginate }: props) => {
           return (
             <span
               onClick={() => paginationHandler("number", page)}
+              key={page}
               className={`${page === currentPage ? "text-redor" : ""} ${
                 page <= lastPage
                   ? "cursor-pointer  hover:text-redor hover:border-redor"

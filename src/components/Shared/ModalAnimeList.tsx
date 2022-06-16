@@ -1,6 +1,9 @@
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { anime } from "../../types/type";
+import { setBookmarks } from "../../redux/search-slice";
+import { RootState, useAppDispatch } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -10,6 +13,41 @@ interface props {
 
 export default function ModalAnimeList({ setToggle, toggle, data }: props) {
   const cancelButtonRef = useRef(null);
+
+  const dispatch = useAppDispatch();
+  const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
+
+  const addToBookmarks = () => {
+    dispatch(setBookmarks([...bookmarks, data]));
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    setToggle(false); // close modal
+  };
+
+  const removeFromBookmarks = () => {
+    const newBookmarks = bookmarks.filter(
+      (item) => item.mal_id !== data.mal_id
+    );
+    dispatch(setBookmarks(newBookmarks));
+    localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+    setToggle(false); // close modal
+  };
+
+  // get bookmarks from localStorage
+  useEffect(() => {
+    const getBookmarks = localStorage.getItem("bookmarks");
+    if (getBookmarks) {
+      dispatch(setBookmarks(JSON.parse(getBookmarks)));
+    } else {
+      dispatch(setBookmarks([]));
+    }
+  }, [dispatch]);
+
+  // check if items are in bookmarks
+  useEffect(() => {
+    if (bookmarks.length > 0) {
+      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    }
+  }, [bookmarks]);
 
   return (
     <Transition.Root show={toggle} as={Fragment}>
@@ -95,9 +133,26 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                 <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row-reverse justify-between">
                   <button
                     type="button"
+                    // save the bookmark to localstorage or remove it if it already exists
+                    onClick={
+                      bookmarks.find(
+                        (bookmark) => bookmark.mal_id === data.mal_id
+                      )
+                        ? removeFromBookmarks
+                        : addToBookmarks
+                    }
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 redor-button text-base font-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    Add to watchlist
+                    {/*check if item is in bookmarks*/}
+                    {bookmarks.includes(data) ? (
+                      <span className="text-white outfit-medium">
+                        Remove from Bookmarks
+                      </span>
+                    ) : (
+                      <span className="text-white outfit-medium">
+                        Add to Bookmarks
+                      </span>
+                    )}
                   </button>
                   <div className="flex self-end">
                     <span className="outfit-medium text-white text-[14px] ">

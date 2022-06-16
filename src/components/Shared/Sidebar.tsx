@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { setType, setAiring } from "../../redux/search-slice";
 import { useAppDispatch } from "../../redux/store";
+import { useNavigate } from "react-router";
 
 const Sidebar = () => {
   const [isClickedAll, setIsClickedAll] = useState(false);
@@ -11,6 +12,7 @@ const Sidebar = () => {
   const [isClickedBookmarks, setIsClickedBookmarks] = useState(false);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleClickAll = () => {
     setIsClickedAll(true);
@@ -47,6 +49,7 @@ const Sidebar = () => {
     setIsClickedMovie(false);
     setIsClickedTV(false);
     setIsClickedBookmarks(true);
+    navigate(`/bookmarks`);
   };
 
   return (
