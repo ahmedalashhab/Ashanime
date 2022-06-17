@@ -1,9 +1,12 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { anime } from "../../types/type";
 import { setBookmarks } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
+import Notification from "./Notification";
+import { notificationMessage } from "../../redux/notification-slice";
+import { useNotification } from "../../hooks/useNotification";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -13,12 +16,13 @@ interface props {
 
 export default function ModalAnimeList({ setToggle, toggle, data }: props) {
   const cancelButtonRef = useRef(null);
-
+  const { notificationHandler } = useNotification();
   const dispatch = useAppDispatch();
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
 
   const addToBookmarks = () => {
     dispatch(setBookmarks([...bookmarks, data]));
+    notificationHandler("Added to bookmarks", "success", true);
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     setToggle(false); // close modal
   };
@@ -27,6 +31,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
     const newBookmarks = bookmarks.filter(
       (item) => item.mal_id !== data.mal_id
     );
+    notificationHandler("Removed from bookmarks", "success", true);
     dispatch(setBookmarks(newBookmarks));
     localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
     setToggle(false); // close modal
@@ -156,7 +161,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                   </button>
                   <div className="flex self-end">
                     <span className="outfit-medium text-white text-[14px] ">
-                      Genres:{" "}
+                      Genres:
                       {data.genres.map((genre) => genre.name).join(", ")}
                     </span>
                   </div>
@@ -164,6 +169,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
               </Dialog.Panel>
             </Transition.Child>
           </div>
+          <Notification />
         </div>
       </Dialog>
     </Transition.Root>
