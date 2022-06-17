@@ -12,7 +12,7 @@ import {
 
 interface props {
   currentPage: number;
-  paginate: (arg: number) => void;
+  paginate: (page: number) => void;
 }
 
 const Pagination = ({ currentPage, paginate }: props) => {

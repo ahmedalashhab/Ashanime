@@ -50,7 +50,9 @@ const Bookmarks = () => {
         <div className="mt-8 ml-40 screen-width" id="top-anime">
           <div className=" ml-4 mb-4">
             <span className="outfit-light text-white text-[32px]">
-              Your watchlist
+              {bookmarks.length > 0
+                ? "Your watchlist"
+                : "Build your watchlist by checking out some anime!"}
             </span>
           </div>
           <div className="grid grid-cols-5 grid-rows-5">
@@ -91,12 +93,14 @@ const Bookmarks = () => {
               );
             })}
           </div>
-          <div className="mb-10 mt-5">
-            <LocalPagination
-              currentPage={currentPage}
-              paginate={(pageNumber: number) => paginate(pageNumber)}
-            />
-          </div>
+          {bookmarks.length > 0 && (
+            <div className="mb-10 mt-5">
+              <LocalPagination
+                currentPage={currentPage}
+                paginate={(pageNumber: number) => paginate(pageNumber)}
+              />
+            </div>
+          )}
           <ModalAnimeList
             setToggle={(boolean: boolean) => {
               return setModal(boolean);

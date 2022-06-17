@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import { setType, setAiring } from "../../redux/search-slice";
+import { setType, setAiring, setSearchQuery } from "../../redux/search-slice";
 import { useAppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router";
 
-const Sidebar = () => {
+interface props {
+  paginate?: (page: number) => void;
+}
+
+const Sidebar = ({ paginate }: props) => {
   const [isClickedAll, setIsClickedAll] = useState(false);
   const [isClickedMovie, setIsClickedMovie] = useState(false);
   const [isClickedTV, setIsClickedTV] = useState(false);
@@ -21,6 +25,10 @@ const Sidebar = () => {
     setIsClickedBookmarks(false);
     dispatch(setType(""));
     dispatch(setAiring(false));
+    dispatch(setSearchQuery(""));
+    if (paginate) {
+      paginate(1);
+    }
     window.scroll({ top: 500, behavior: "smooth" });
   };
 
@@ -31,6 +39,10 @@ const Sidebar = () => {
     setIsClickedBookmarks(false);
     dispatch(setType("movie"));
     dispatch(setAiring(false));
+    dispatch(setSearchQuery(""));
+    if (paginate) {
+      paginate(1);
+    }
     navigate("/");
     window.scroll({ top: 500, behavior: "smooth" });
   };
@@ -42,6 +54,10 @@ const Sidebar = () => {
     setIsClickedBookmarks(false);
     dispatch(setType("tv"));
     dispatch(setAiring(false));
+    dispatch(setSearchQuery(""));
+    if (paginate) {
+      paginate(1);
+    }
     navigate("/");
     window.scroll({ top: 500, behavior: "smooth" });
   };
@@ -51,6 +67,7 @@ const Sidebar = () => {
     setIsClickedMovie(false);
     setIsClickedTV(false);
     setIsClickedBookmarks(true);
+    dispatch(setSearchQuery(""));
     navigate(`/bookmarks`);
   };
 

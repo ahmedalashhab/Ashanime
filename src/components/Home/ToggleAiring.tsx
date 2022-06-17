@@ -3,7 +3,11 @@ import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { setAiring } from "../../redux/search-slice";
 
-export default function AiringToggle() {
+interface props {
+  paginate?: (page: number) => void;
+}
+
+export default function ToggleAiring({ paginate }: props) {
   const animeReducer = useSelector((state: RootState) => state.anime);
   const dispatch = useAppDispatch();
 
@@ -15,6 +19,9 @@ export default function AiringToggle() {
 
   const toggleAiring = () => {
     dispatch(setAiring(!airing));
+    if (paginate) {
+      paginate(1);
+    }
   };
 
   return (

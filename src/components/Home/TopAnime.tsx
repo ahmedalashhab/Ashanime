@@ -11,18 +11,19 @@ import { setHasNextPage, setLastPage } from "../../redux/search-slice";
 import ToggleAiring from "./ToggleAiring";
 import { initialDataState } from "../Shared/initialDataState";
 
-const TopAnime = () => {
+interface props {
+  currentPage: number;
+  paginate: (pageNumber: number) => void;
+}
+
+const TopAnime = ({ currentPage, paginate }: props) => {
   const [topAnimeList, setTopAnimeList] = useState<anime[]>([]);
   const [modalData, setModalData] = useState<anime>(initialDataState);
   const [modal, setModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const animeReducer = useSelector((state: RootState) => state.anime);
 
   const dispatch = useAppDispatch();
-
-  const paginate = (pageNumber: number) => {
-    return setCurrentPage(pageNumber);
-  };
 
   const type = animeReducer.type;
   const airing = animeReducer.airing;
@@ -45,6 +46,7 @@ const TopAnime = () => {
 
   useEffect(() => {
     getTopAnime(type);
+    console.log(currentPage);
   }, [currentPage, type, airing]);
 
   const handleModal = (active: boolean, data: anime) => {
@@ -70,7 +72,13 @@ const TopAnime = () => {
         <h2 className="outfit-light text-white text-[32px] mb-4">
           {handleTitle()}
         </h2>
-        <div>{type !== "movie" && <ToggleAiring />}</div>
+        <div>
+          {type !== "movie" && (
+            <ToggleAiring
+              paginate={(pageNumber: number) => paginate(pageNumber)}
+            />
+          )}
+        </div>
       </div>
       {/*make a grid of top anime*/}
       <div className="grid grid-cols-5 grid-rows-5">
