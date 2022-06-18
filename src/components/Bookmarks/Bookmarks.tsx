@@ -27,6 +27,15 @@ const Bookmarks = () => {
     return setCurrentPage(pageNumber);
   };
 
+  const handleGridRows = () => {
+    //  make a new grid row for every 5 bookmarks
+    const gridRows =
+      bookmarks.length % 5 === 0
+        ? bookmarks.length / 5
+        : Math.ceil(bookmarks.length / 5);
+    return `grid-rows-${gridRows}`;
+  };
+
   //get current elements
   const indexOfLastBookmark = currentPage * 25;
   const indexOfFirstBookmark = indexOfLastBookmark - 25;
@@ -55,7 +64,7 @@ const Bookmarks = () => {
                 : "Build your watchlist by checking out some anime!"}
             </span>
           </div>
-          <div className="grid grid-cols-5 grid-rows-5">
+          <div className={`grid grid-cols-5 ${handleGridRows}`}>
             {currentBookmarks.map((anime: anime) => {
               return (
                 <div
@@ -67,7 +76,7 @@ const Bookmarks = () => {
                     <img
                       alt={`thumbnail of ${anime.title}`}
                       src={anime.images.jpg.large_image_url}
-                      className="anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
+                      className="skeleton anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
                     />
                   </div>
                   <div className="flex gap-3 mt-2">

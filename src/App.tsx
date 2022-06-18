@@ -12,6 +12,7 @@ function App() {
     (state: RootState) => state.notification
   );
   const { show } = notificationReducer.notification;
+
   return (
     <>
       <Routes>

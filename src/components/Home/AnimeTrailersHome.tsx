@@ -12,9 +12,25 @@ const AnimeTrailersHome = () => {
   });
   const [modal, setModal] = useState<any>(false);
 
+  // const getAnimeTrailer = async () => {
+  //   await axios
+  //     .get("https://api.jikan.moe/v4/watch/promos/popular")
+  //     .then((res) => {
+  //       const { data } = res.data;
+  //       setAnimeTrailer(data);
+  //     })
+  //     .catch((err) => {
+  //       return console.log(err.status);
+  //     });
+  // };
+
   const getAnimeTrailer = async () => {
     await axios
-      .get("https://api.jikan.moe/v4/watch/promos/popular")
+      .get("https://api.jikan.moe/v4/top/anime", {
+        params: {
+          filter: "upcoming",
+        },
+      })
       .then((res) => {
         const { data } = res.data;
         setAnimeTrailer(data);
@@ -41,20 +57,24 @@ const AnimeTrailersHome = () => {
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden">
         {animeTrailer.map((anime) => {
           return (
-            <div key={anime.entry.mal_id} className="seasonal-box rounded-xl ">
-              <img
-                alt={`thumbnail of ${anime.title}`}
-                src={anime.trailer.images.large_image_url}
-                /*TODO fix the overflow on all sides*/
-                className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
-                onClick={() => handleModal(true, anime)}
-              />
-              <div className="flex justify-center">
-                <span className="text-white outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
-                  {anime.entry.title}
-                </span>
-              </div>
-            </div>
+            <>
+              {!anime.trailer.images.large_image_url ? null : (
+                <div className="seasonal-box rounded-xl" key={anime.mal_id}>
+                  <img
+                    alt={`thumbnail of ${anime.title}`}
+                    src={anime.trailer.images.large_image_url}
+                    /*TODO fix the overflow on all sides*/
+                    className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
+                    onClick={() => handleModal(true, anime)}
+                  />
+                  <div className="flex justify-center">
+                    <span className="text-white outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                      {anime.title}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </>
           );
         })}
       </div>

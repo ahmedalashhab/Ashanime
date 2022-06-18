@@ -7,6 +7,7 @@ import Pagination from "../Shared/Pagination";
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
+import SkeletonLoader from "../Shared/SkeletonLoader";
 
 const SearchResults = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
@@ -36,6 +37,15 @@ const SearchResults = () => {
     return setCurrentPage(pageNumber);
   };
 
+  const handleGridRows = () => {
+    //  make a new grid row for every 5 bookmarks
+    const gridRows =
+      searchResults.length % 5 === 0
+        ? searchResults.length / 5
+        : Math.ceil(searchResults.length / 5);
+    return `grid-rows-${gridRows}`;
+  };
+
   return (
     <div>
       <Sidebar />
@@ -57,7 +67,7 @@ const SearchResults = () => {
               {handleSearchTitleEnd()}
             </span>
           </div>
-          <div className="grid grid-cols-5 grid-rows-5">
+          <div className={`grid grid-cols-5 ${handleGridRows()}`}>
             {searchResults.map((anime: anime) => {
               return (
                 <div
@@ -69,7 +79,7 @@ const SearchResults = () => {
                     <img
                       alt={`thumbnail of ${anime.title}`}
                       src={anime.images.jpg.large_image_url}
-                      className="anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
+                      className="skeleton anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
                     />
                   </div>
                   <div className="flex gap-3 mt-2">

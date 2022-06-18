@@ -93,7 +93,7 @@ const TopAnime = ({ currentPage, paginate }: props) => {
                 <img
                   alt={`thumbnail of ${anime.title}`}
                   src={anime.images.jpg.large_image_url}
-                  className="anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
+                  className="skeleton anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
                 />
               </div>
               <div className="flex gap-3 mt-2">
