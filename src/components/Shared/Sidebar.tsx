@@ -4,6 +4,8 @@ import logo from "../../assets/logo.svg";
 import { setType, setAiring, setSearchQuery } from "../../redux/search-slice";
 import { useAppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface props {
   paginate?: (page: number) => void;
@@ -71,8 +73,12 @@ const Sidebar = ({ paginate }: props) => {
     navigate(`/bookmarks`);
   };
 
+  const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
+  const bookmarksCount = bookmarks.length;
+  const bookmarksCountView = bookmarksCount > 0 ? bookmarksCount : "";
+
   return (
-    <div className="mt-8 mx-4 sideBar rounded-3xl fixed">
+    <div className="mt-10 mx-4 sideBar rounded-3xl fixed">
       <img alt="logo" className="mx-auto pt-8" src={logo} />
       <div className="flex flex-col mx-auto mt-16 gap-10">
         <div
@@ -119,7 +125,7 @@ const Sidebar = ({ paginate }: props) => {
         <div
           className={`mx-auto ${
             isClickedBookmarks && "category-state"
-          } category cursor-pointer`}
+          } category cursor-pointer relative`}
           onClick={handleClickBookmarks}
         >
           <svg width="17" height="20" xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +134,20 @@ const Sidebar = ({ paginate }: props) => {
               fill="#5A698F"
             />
           </svg>
+          {bookmarksCountView && (
+            <div className="inline-block flex justify-center items-center bg-redor h-14 w-14 rounded-full mx-auto absolute top-0 right-0 translate-x-2 -translate-y-2 w-4 h-4">
+              <p className="outfit-light text-white text-[12px]">
+                {bookmarks.length}
+              </p>
+            </div>
+          )}
         </div>
+
+        <img
+          className="inline-block h-14 w-14 rounded-full mx-auto mt-72"
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          alt="profile pic"
+        />
       </div>
     </div>
   );

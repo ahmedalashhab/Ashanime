@@ -5,7 +5,6 @@ import { setBookmarks } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Notification from "./Notification";
-import { notificationMessage } from "../../redux/notification-slice";
 import { useNotification } from "../../hooks/useNotification";
 
 interface props {
@@ -22,7 +21,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
 
   const addToBookmarks = () => {
     dispatch(setBookmarks([...bookmarks, data]));
-    notificationHandler("Added to bookmarks", "success", true);
+    notificationHandler("Added to Watchlist", "Success", true);
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     setToggle(false); // close modal
   };
@@ -31,7 +30,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
     const newBookmarks = bookmarks.filter(
       (item) => item.mal_id !== data.mal_id
     );
-    notificationHandler("Removed from bookmarks", "success", true);
+    notificationHandler("Removed from Watchlist", "Success", true);
     dispatch(setBookmarks(newBookmarks));
     localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
     setToggle(false); // close modal
@@ -151,11 +150,11 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                     {/*check if item is in bookmarks*/}
                     {bookmarks.includes(data) ? (
                       <span className="text-white outfit-medium">
-                        Remove from Bookmarks
+                        Remove from Watchlist
                       </span>
                     ) : (
                       <span className="text-white outfit-medium">
-                        Add to Bookmarks
+                        Add to Watchlist
                       </span>
                     )}
                   </button>
