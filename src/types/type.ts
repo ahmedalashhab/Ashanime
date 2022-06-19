@@ -1,4 +1,5 @@
 export interface anime {
+  studios: [{ name: string }];
   year: number;
   mal_id: number;
   type: string;

@@ -53,7 +53,9 @@ const AnimeTrailersHome = () => {
 
   return (
     <div className="mt-8 overflow-visible ">
-      <div className="outfit-light text-white text-[32px] mb-4 ">Discover</div>
+      <div className="outfit-light text-white text-[32px] mb-4 ">
+        Upcoming Anime
+      </div>
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden">
         {animeTrailer.map((anime) => {
           return (

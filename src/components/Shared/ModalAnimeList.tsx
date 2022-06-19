@@ -159,10 +159,16 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                     )}
                   </button>
                   <div className="flex self-end">
-                    <span className="outfit-medium text-white text-[14px] ">
-                      Genres:
-                      {data.genres.map((genre) => genre.name).join(", ")}
-                    </span>
+                    <div className="flex">
+                      <span className="outfit-medium text-white text-[14px] ">
+                        Genres:&nbsp;
+                        {data.genres.map((genre) => genre.name).join(", ")}
+                      </span>
+                      <span className="ml-8 outfit-medium text-white text-[14px] ">
+                        Studio:&nbsp;
+                        {data.studios.map((studio) => studio.name).join(", ")}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </Dialog.Panel>

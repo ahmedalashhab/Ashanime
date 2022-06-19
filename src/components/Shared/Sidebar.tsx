@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { setType, setAiring, setSearchQuery } from "../../redux/search-slice";
@@ -19,6 +19,26 @@ const Sidebar = ({ paginate }: props) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const path = window.location;
+  const type = useSelector((state: RootState) => state.anime.type);
+
+  useEffect(() => {
+    if (type === "") {
+      setIsClickedAll(true);
+    }
+    if (type === "movie") {
+      setIsClickedMovie(true);
+    }
+    if (type === "tv") {
+      setIsClickedTV(true);
+    }
+    if (path.pathname === "/bookmarks") {
+      setIsClickedBookmarks(true);
+      setIsClickedAll(false);
+      setIsClickedMovie(false);
+      setIsClickedTV(false);
+    }
+  }, [path.pathname, type]);
 
   const handleClickAll = () => {
     setIsClickedAll(true);
@@ -64,11 +84,14 @@ const Sidebar = ({ paginate }: props) => {
     window.scroll({ top: 500, behavior: "smooth" });
   };
 
+  console.log(path.pathname);
+  const inBookmarks = path.pathname === "/bookmarks";
+
   const handleClickBookmarks = () => {
     setIsClickedAll(false);
     setIsClickedMovie(false);
     setIsClickedTV(false);
-    setIsClickedBookmarks(true);
+    inBookmarks && setIsClickedBookmarks(true);
     dispatch(setSearchQuery(""));
     navigate(`/bookmarks`);
   };

@@ -6,6 +6,7 @@ export const initialDataState: anime = {
   type: "",
   score: 0,
   title: "",
+  studios: [{ name: "" }],
   trailer: { embed_url: "" },
   images: {
     jpg: { large_image_url: "" },

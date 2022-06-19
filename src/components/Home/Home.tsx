@@ -12,7 +12,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="home-wallpaper">
       <Sidebar paginate={(pageNumber: number) => paginate(pageNumber)} />
       <div className="flex justify-center">
         <div className="flex flex-col screen-width ml-44 mt-16 overflow-x-hidden">
