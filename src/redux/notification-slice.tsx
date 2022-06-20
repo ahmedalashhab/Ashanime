@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { anime } from "../types/type";
 
 interface notification {
   title: string;
@@ -20,7 +19,7 @@ const initialState: initialStateInterface = {
 };
 
 export const notificationSlice = createSlice({
-  name: "anime",
+  name: "notification",
   initialState: initialState,
   reducers: {
     notificationMessage: (state, action: PayloadAction<notification>) => {

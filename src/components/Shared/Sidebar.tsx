@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import LogoutButton from "../Login/LogoutButton";
 
 interface props {
   paginate?: (page: number) => void;
@@ -21,6 +22,7 @@ const Sidebar = ({ paginate }: props) => {
   const navigate = useNavigate();
   const path = window.location;
   const type = useSelector((state: RootState) => state.anime.type);
+  const profile = useSelector((state: RootState) => state.google.profileObject);
 
   useEffect(() => {
     if (type === "") {
@@ -48,6 +50,7 @@ const Sidebar = ({ paginate }: props) => {
     dispatch(setType(""));
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
+    navigate("/home");
     if (paginate) {
       paginate(1);
     }
@@ -65,7 +68,7 @@ const Sidebar = ({ paginate }: props) => {
     if (paginate) {
       paginate(1);
     }
-    navigate("/");
+    navigate("/home");
     window.scroll({ top: 500, behavior: "smooth" });
   };
 
@@ -80,18 +83,14 @@ const Sidebar = ({ paginate }: props) => {
     if (paginate) {
       paginate(1);
     }
-    navigate("/");
+    navigate("/home");
     window.scroll({ top: 500, behavior: "smooth" });
   };
-
-  console.log(path.pathname);
-  const inBookmarks = path.pathname === "/bookmarks";
 
   const handleClickBookmarks = () => {
     setIsClickedAll(false);
     setIsClickedMovie(false);
     setIsClickedTV(false);
-    inBookmarks && setIsClickedBookmarks(true);
     dispatch(setSearchQuery(""));
     navigate(`/bookmarks`);
   };
@@ -165,13 +164,16 @@ const Sidebar = ({ paginate }: props) => {
             </div>
           )}
         </div>
-
         <img
-          className="inline-block h-14 w-14 rounded-full mx-auto mt-72"
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          className="inline-block h-14 w-14 rounded-full mx-auto mt-52"
+          src={profile.picture ? profile.picture : ""}
           alt="profile pic"
         />
+        <div className="flex justify-center">
+          <LogoutButton />
+        </div>
       </div>
+      <div className="flex justify-center mt-8">{/*<LogoutButton />*/}</div>
     </div>
   );
 };

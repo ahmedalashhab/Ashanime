@@ -41,6 +41,18 @@ font-family: outfit-medium, sans-serif;
     color: var(--blue-gray);
 }
 
+.login-background {
+    /*style background image*/
+    background-image: url("https://wallpapercave.com/wp/wc1783047.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+
+}
+
 .category-state svg path{
     fill: var(--white);
     transition: fill 0.2s ease 0s;

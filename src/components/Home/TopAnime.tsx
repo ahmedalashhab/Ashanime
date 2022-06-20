@@ -10,6 +10,8 @@ import { TOP_ANIME } from "../API/Jikan";
 import { setHasNextPage, setLastPage } from "../../redux/search-slice";
 import ToggleAiring from "./ToggleAiring";
 import { initialDataState } from "../Shared/initialDataState";
+import { setUser } from "../../redux/google-slice";
+import { useNavigate } from "react-router";
 
 interface props {
   currentPage: number;
@@ -46,8 +48,8 @@ const TopAnime = ({ currentPage, paginate }: props) => {
 
   useEffect(() => {
     getTopAnime(type);
-    console.log(currentPage);
-  }, [currentPage, type, airing]);
+    dispatch(setUser(JSON.parse(localStorage.getItem("user") as string)));
+  }, [type, airing, currentPage]);
 
   const handleModal = (active: boolean, data: anime) => {
     setModal(active);

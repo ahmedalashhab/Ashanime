@@ -12,18 +12,6 @@ const AnimeTrailersHome = () => {
   });
   const [modal, setModal] = useState<any>(false);
 
-  // const getAnimeTrailer = async () => {
-  //   await axios
-  //     .get("https://api.jikan.moe/v4/watch/promos/popular")
-  //     .then((res) => {
-  //       const { data } = res.data;
-  //       setAnimeTrailer(data);
-  //     })
-  //     .catch((err) => {
-  //       return console.log(err.status);
-  //     });
-  // };
-
   const getAnimeTrailer = async () => {
     await axios
       .get("https://api.jikan.moe/v4/top/anime", {

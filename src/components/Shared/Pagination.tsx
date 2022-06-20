@@ -44,6 +44,8 @@ const Pagination = ({ currentPage, paginate }: props) => {
       behavior: "smooth",
       block: "start",
     });
+
+    console.log(currentPage);
   }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev, pageRange]);
 
   const hasNextPage = useSelector(
