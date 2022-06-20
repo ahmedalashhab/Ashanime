@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import axios from "axios";
 import {
   animeSearch,
@@ -68,7 +68,7 @@ const SearchBar = ({ currentPage, setCurrentPage }: props) => {
     if (searchLoading) {
       handleSubmit();
     }
-  }, [currentPage, handleSubmit, searchLoading]);
+  }, [currentPage, searchLoading]);
 
   return (
     <div className="flex">

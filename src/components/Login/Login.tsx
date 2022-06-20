@@ -11,7 +11,8 @@ const Login = () => {
   console.log(userSignedIn);
 
   useEffect(() => {
-    if (userSignedIn && pathName === "/login") {
+    //  Go to home page if user is already signed in
+    if (userSignedIn) {
       navigate("/home");
     }
   }, []);

@@ -7,7 +7,6 @@ import Pagination from "../Shared/Pagination";
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
-import SkeletonLoader from "../Shared/SkeletonLoader";
 
 const SearchResults = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
