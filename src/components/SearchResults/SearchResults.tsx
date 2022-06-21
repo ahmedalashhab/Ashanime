@@ -7,6 +7,7 @@ import Pagination from "../Shared/Pagination";
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
+import AnimeGrid from "../Shared/AnimeGrid";
 
 const SearchResults = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
@@ -66,44 +67,11 @@ const SearchResults = () => {
               {handleSearchTitleEnd()}
             </span>
           </div>
-          <div className={`grid grid-cols-5 ${handleGridRows()}`}>
-            {searchResults.map((anime: anime) => {
-              return (
-                <div
-                  onClick={() => handleModal(true, anime)}
-                  className="flex flex-col w-full h-full items-center"
-                  key={anime.mal_id}
-                >
-                  <div className="standard-box cursor-pointer">
-                    <img
-                      alt={`thumbnail of ${anime.title}`}
-                      src={anime.images.jpg.large_image_url}
-                      className="skeleton anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
-                    />
-                  </div>
-                  <div className="flex gap-3 mt-2">
-                    <span className="outfit-light text-white text-[13px]">
-                      {anime.year}
-                    </span>
-                    <span className="outfit-light text-white text-[13px]">
-                      {anime.type}
-                    </span>
-                    <span className="flex outfit-light text-white text-[13px] items-center">
-                      Score: {anime.score}
-                    </span>
-                  </div>
-                  <div className="w-52 flex justify-center">
-                    <span
-                      className="outfit-medium mb-4 text-white hover:text-redor transition-all ease-in-out text-[16px] cursor-pointer text-center"
-                      onClick={() => handleModal(true, anime)}
-                    >
-                      {anime.title}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <AnimeGrid
+            animeList={searchResults}
+            handleModal={handleModal}
+            handleGridRows={handleGridRows}
+          />
           <div className="mb-10 mt-5">
             <Pagination
               currentPage={currentPage}

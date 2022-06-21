@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "./AnimeTrailerModal";
+import { motion } from "framer-motion";
 
 const AnimeTrailersHome = () => {
   const [animeTrailer, setAnimeTrailer] = useState<any[]>([]);
@@ -45,28 +46,35 @@ const AnimeTrailersHome = () => {
         Upcoming Anime
       </div>
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden">
-        {animeTrailer.map((anime) => {
-          return (
-            <>
-              {!anime.trailer.images.large_image_url ? null : (
-                <div className="seasonal-box rounded-xl" key={anime.mal_id}>
-                  <img
-                    alt={`thumbnail of ${anime.title}`}
-                    src={anime.trailer.images.large_image_url}
-                    /*TODO fix the overflow on all sides*/
-                    className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
-                    onClick={() => handleModal(true, anime)}
-                  />
-                  <div className="flex justify-center">
-                    <span className="text-white outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
-                      {anime.title}
-                    </span>
+        <motion.div
+          initial={{ opacity: 0, translateX: -100 }}
+          animate={{ opacity: 1, translateX: 0 }}
+          transition={{ duration: 1, delay: 0.1 }}
+        >
+          {animeTrailer.map((anime) => {
+            return (
+              // Code acts funny if fragments isn't used here
+              <>
+                {!anime.trailer.images.large_image_url ? null : (
+                  <div className="seasonal-box rounded-xl" key={anime.mal_id}>
+                    <img
+                      alt={`thumbnail of ${anime.title}`}
+                      src={anime.trailer.images.large_image_url}
+                      /*TODO fix the overflow on all sides*/
+                      className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
+                      onClick={() => handleModal(true, anime)}
+                    />
+                    <div className="flex justify-center">
+                      <span className="text-white outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                        {anime.title}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          );
-        })}
+                )}
+              </>
+            );
+          })}
+        </motion.div>
       </div>
       <Modal
         setToggle={(boolean: boolean) => {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { motion } from "framer-motion";
 
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import Sidebar from "../Shared/Sidebar";
@@ -8,6 +9,7 @@ import SearchBar from "../Shared/SearchBar";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
 import LocalPagination from "./LocalPagination";
+import AnimeGrid from "../Shared/AnimeGrid";
 
 const Bookmarks = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
@@ -64,44 +66,13 @@ const Bookmarks = () => {
                 : "Build your watchlist by checking out some anime!"}
             </span>
           </div>
-          <div className={`grid grid-cols-5 ${handleGridRows}`}>
-            {currentBookmarks.map((anime: anime) => {
-              return (
-                <div
-                  onClick={() => handleModal(true, anime)}
-                  className="flex flex-col w-full h-full items-center"
-                  key={anime.mal_id}
-                >
-                  <div className="standard-box cursor-pointer">
-                    <img
-                      alt={`thumbnail of ${anime.title}`}
-                      src={anime.images.jpg.large_image_url}
-                      className="skeleton anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
-                    />
-                  </div>
-                  <div className="flex gap-3 mt-2">
-                    <span className="outfit-light text-white text-[13px]">
-                      {anime.year}
-                    </span>
-                    <span className="outfit-light text-white text-[13px]">
-                      {anime.type}
-                    </span>
-                    <span className="flex outfit-light text-white text-[13px] items-center">
-                      Score: {anime.score}
-                    </span>
-                  </div>
-                  <div className="w-52 flex justify-center">
-                    <span
-                      className="outfit-medium mb-4 text-white hover:text-redor transition-all ease-in-out text-[16px] cursor-pointer text-center"
-                      onClick={() => handleModal(true, anime)}
-                    >
-                      {anime.title}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+
+          <AnimeGrid
+            animeList={currentBookmarks}
+            handleModal={handleModal}
+            handleGridRows={handleGridRows}
+          />
+
           {bookmarks.length > 0 && (
             <div className="mb-10 mt-5">
               <LocalPagination
