@@ -29,12 +29,6 @@ const Login = () => {
           <div className="mb-32">
             <img className="h-16" src={logo} alt="logo" />
           </div>
-          {/*<button*/}
-          {/*  type="button"*/}
-          {/*  className="w-full inline-flex justify-center rounded-md  shadow-sm px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 hover:scale-105 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"*/}
-          {/*>*/}
-          {/*  Login with Google*/}
-          {/*</button>*/}
           <LoginButton />
         </div>
       </div>
