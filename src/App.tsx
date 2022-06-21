@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 
 function App() {
   const navigate = useNavigate();
+  // checks if user is signed in
   const userSignedIn = typeof localStorage.getItem("user") === "string";
 
   useEffect(() => {

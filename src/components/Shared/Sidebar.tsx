@@ -42,6 +42,7 @@ const Sidebar = ({ paginate }: props) => {
     }
   }, [path.pathname, type]);
 
+  // Handles the click highlighting of the Home button
   const handleClickAll = () => {
     setIsClickedAll(true);
     setIsClickedMovie(false);
@@ -50,13 +51,14 @@ const Sidebar = ({ paginate }: props) => {
     dispatch(setType(""));
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
-    navigate("/home");
     if (paginate) {
       paginate(1);
     }
-    window.scroll({ top: 500, behavior: "smooth" });
+    navigate("/home");
+    window.scroll({ top: 1190, behavior: "smooth" });
   };
 
+  //Handles the click highlighting of the movie button
   const handleClickMovie = () => {
     setIsClickedAll(false);
     setIsClickedMovie(true);
@@ -69,9 +71,10 @@ const Sidebar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 500, behavior: "smooth" });
+    window.scroll({ top: 1190, behavior: "smooth" });
   };
 
+  // Handles the highlighting of the TV shows button
   const handleClickTV = () => {
     setIsClickedAll(false);
     setIsClickedMovie(false);
@@ -84,9 +87,10 @@ const Sidebar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 500, behavior: "smooth" });
+    window.scroll({ top: 1190, behavior: "smooth" });
   };
 
+  // Handles the highlighting of the bookmarks button
   const handleClickBookmarks = () => {
     setIsClickedAll(false);
     setIsClickedMovie(false);
@@ -100,7 +104,7 @@ const Sidebar = ({ paginate }: props) => {
   const bookmarksCountView = bookmarksCount > 0 ? bookmarksCount : "";
 
   return (
-    <div className="mt-10 mx-4 sideBar rounded-3xl fixed">
+    <div className="mt-10 mx-4 sideBar rounded-3xl fixed drop-shadow-2xl">
       <img alt="logo" className="mx-auto pt-8" src={logo} />
       <div className="flex flex-col mx-auto mt-16 gap-10">
         <div

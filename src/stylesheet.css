@@ -88,6 +88,15 @@ font-family: outfit-medium, sans-serif;
     -webkit-box-shadow: inset 0 0 6px var(--redor);
 }
 
+input {
+    padding-left: 2rem;
+}
+
+
+.animeTrailersHomeMargin {
+    margin-top: 45rem;
+}
+
 .seasonal-box{
     width: 30rem;
     display: inline-block;
