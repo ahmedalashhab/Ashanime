@@ -12,7 +12,7 @@ const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
             animate={{ opacity: 1, translateX: 0 }}
             transition={{ duration: 0.3, delay: i * 0.1 }}
             onClick={() => handleModal(true, anime)}
-            className="flex flex-col w-full h-full items-center"
+            className="flex flex-col w-full h-full items-center z-10"
             key={anime.mal_id}
           >
             <div className="standard-box cursor-pointer">
