@@ -156,6 +156,7 @@ const Sidebar = ({ paginate }: props) => {
             isClickedBookmarks && "category-state"
           } category cursor-pointer relative`}
           onClick={handleClickBookmarks}
+          title="Watchlist"
         >
           <svg width="17" height="20" xmlns="http://www.w3.org/2000/svg">
             <path

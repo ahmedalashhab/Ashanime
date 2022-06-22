@@ -41,7 +41,7 @@ const AnimeTrailersHome = () => {
   };
 
   return (
-    <div>
+    <div className="z-10">
       <div className="outfit-light text-white text-[32px] mb-4 relative">
         Upcoming Anime
       </div>

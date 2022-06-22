@@ -84,7 +84,7 @@ const Home = () => {
       </div>
 
       <div
-        style={{ marginTop: "50rem" }}
+        style={{ marginTop: "40rem" }}
         className="flex flex-col screen-width pl-44 overflow-x-hidden pr-8"
       >
         <AnimeTrailersHome />
