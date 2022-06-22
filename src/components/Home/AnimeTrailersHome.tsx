@@ -41,8 +41,8 @@ const AnimeTrailersHome = () => {
   };
 
   return (
-    <div className="overflow-visible absolute screen-width trailer-position ">
-      <div className="outfit-light text-white text-[32px] mb-4 ">
+    <div>
+      <div className="outfit-light text-white text-[32px] mb-4 relative">
         Upcoming Anime
       </div>
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden">

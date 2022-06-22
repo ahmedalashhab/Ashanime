@@ -69,34 +69,36 @@ const TopAnime = ({ currentPage, paginate }: props) => {
   };
 
   return (
-    <div className="mt-8" id="top-anime">
-      <div className="flex justify-between">
-        <h2 className="outfit-light text-white text-[32px] mb-4">
-          {handleTitle()}
-        </h2>
-        <div>
-          {type !== "movie" && (
-            <ToggleAiring
-              paginate={(pageNumber: number) => paginate(pageNumber)}
-            />
-          )}
+    <div>
+      <div className="mt-8" id="top-anime">
+        <div className="flex justify-between">
+          <h2 className="outfit-light text-white text-[32px] mb-4">
+            {handleTitle()}
+          </h2>
+          <div>
+            {type !== "movie" && (
+              <ToggleAiring
+                paginate={(pageNumber: number) => paginate(pageNumber)}
+              />
+            )}
+          </div>
         </div>
-      </div>
-      {/*make a grid of top anime*/}
-      <AnimeGrid animeList={topAnimeList} handleModal={handleModal} />
-      <div className="mb-10 mt-5">
-        <Pagination
-          currentPage={currentPage}
-          paginate={(value) => paginate(value)}
+        {/*make a grid of top anime*/}
+        <AnimeGrid animeList={topAnimeList} handleModal={handleModal} />
+        <div className="mb-10 mt-5">
+          <Pagination
+            currentPage={currentPage}
+            paginate={(value) => paginate(value)}
+          />
+        </div>
+        <ModalAnimeList
+          setToggle={(boolean: boolean) => {
+            return setModal(boolean);
+          }}
+          data={modalData}
+          toggle={modal}
         />
       </div>
-      <ModalAnimeList
-        setToggle={(boolean: boolean) => {
-          return setModal(boolean);
-        }}
-        data={modalData}
-        toggle={modal}
-      />
     </div>
   );
 };
