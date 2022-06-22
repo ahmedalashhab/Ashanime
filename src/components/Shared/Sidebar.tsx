@@ -55,7 +55,7 @@ const Sidebar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 1190, behavior: "smooth" });
+    window.scroll({ top: 1150, behavior: "smooth" });
   };
 
   //Handles the click highlighting of the movie button
@@ -71,7 +71,7 @@ const Sidebar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 1190, behavior: "smooth" });
+    window.scroll({ top: 1150, behavior: "smooth" });
   };
 
   // Handles the highlighting of the TV shows button
@@ -87,7 +87,7 @@ const Sidebar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 1190, behavior: "smooth" });
+    window.scroll({ top: 1150, behavior: "smooth" });
   };
 
   // Handles the highlighting of the bookmarks button
@@ -112,6 +112,7 @@ const Sidebar = ({ paginate }: props) => {
             isClickedAll && "category-state"
           } category cursor-pointer`}
           onClick={handleClickAll}
+          title="All Anime"
         >
           <Link to={"/"}>
             <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
@@ -127,6 +128,7 @@ const Sidebar = ({ paginate }: props) => {
             isClickedMovie && "category-state"
           } category cursor-pointer`}
           onClick={handleClickMovie}
+          title="Movie Anime"
         >
           <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -140,6 +142,7 @@ const Sidebar = ({ paginate }: props) => {
             isClickedTV && "category-state"
           } category cursor-pointer`}
           onClick={handleClickTV}
+          title="TV Anime"
         >
           <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
             <path

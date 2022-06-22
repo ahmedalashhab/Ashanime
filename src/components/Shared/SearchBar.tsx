@@ -85,6 +85,7 @@ const SearchBar = ({ currentPage, setCurrentPage }: props) => {
   return (
     <div className="flex">
       <div
+        className="cursor-pointer"
         onClick={() => {
           if (showInput) {
             setShowInput(false);
