@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import logo from "../../assets/logo.svg";
 import LoginButton from "./LoginButton";
 import { useNavigate } from "react-router";
+// @ts-ignore
+import spirited from "../../assets/spirited.png";
+// @ts-ignore
+import happy from "../../assets/happy-dude.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,6 +31,7 @@ const Login = () => {
           <div className="mb-20">
             <img className="h-16" src={logo} alt="logo" />
           </div>
+
           <h3 className="text-white outfit-medium text-[32px] mb-6">Login</h3>
           <LoginButton />
         </div>

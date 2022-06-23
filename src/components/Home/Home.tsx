@@ -30,7 +30,7 @@ const Home = () => {
     >
       <div className="absolute top-0 w-full">
         <YoutubeBackground
-          videoId={"NooIc3dMncc"} /* default -> null */
+          videoId={"z9Ug-3qhrwY"} /* default -> null */
           aspectRatio={"16:9"} /* default -> "16:9" */
           overlay={
             "rgba(0,0,0,.4)"
@@ -42,9 +42,9 @@ const Home = () => {
             false
           } /* default -> false | sets host to https:/*www.youtube-nocookie.com to avoid loading Google's cookies */
           playerOptions={{
-            loop: true,
-            autoplay: true,
-            modestBranding: false,
+            loop: 1,
+            autoplay: 1,
+            modestBranding: 1,
           }} /* default -> {}  | https://developers.google.com/youtube/player_parameters*/
           onReady={
             null
@@ -66,6 +66,8 @@ const Home = () => {
           onPlaybackQualityChange={
             null
           } /* default -> null | returns event with player object */
+          loop={1}
+          playlist={["F0evM-hBlcI"]}
         >
           <div>
             <Sidebar paginate={(pageNumber: number) => paginate(pageNumber)} />
@@ -73,9 +75,7 @@ const Home = () => {
               <div className="screen-width ml-44 mt-16 overflow-y-hidden">
                 <SearchBar />
                 <h3 className="text-white outfit-medium text-[32px] mt-4">
-                  Kimi no Na wa
                   <br />
-                  (Your Name)
                 </h3>
               </div>
             </div>

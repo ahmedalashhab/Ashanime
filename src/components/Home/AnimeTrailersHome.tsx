@@ -11,7 +11,7 @@ const AnimeTrailersHome = () => {
     title: "",
     url: "",
   });
-  const [modal, setModal] = useState<any>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   const getAnimeTrailer = async () => {
     await axios
@@ -42,10 +42,10 @@ const AnimeTrailersHome = () => {
 
   return (
     <div className="z-10">
-      <div className="outfit-light text-white text-[32px] mb-4 relative">
+      <h3 className="outfit-light text-white text-[32px] mb-4 relative">
         Upcoming Anime
-      </div>
-      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden">
+      </h3>
+      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden h-80 flex items-center">
         <motion.div
           initial={{ opacity: 0, translateX: -100 }}
           animate={{ opacity: 1, translateX: 0 }}

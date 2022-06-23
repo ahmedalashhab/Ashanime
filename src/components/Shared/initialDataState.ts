@@ -1,6 +1,7 @@
 import { anime } from "../../types/type";
 
 export const initialDataState: anime = {
+  rank: 0,
   year: 0,
   mal_id: 0,
   type: "",

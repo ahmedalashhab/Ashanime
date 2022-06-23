@@ -24,8 +24,13 @@ const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
             </div>
             <div className="flex gap-3 mt-2">
               <span className="outfit-light text-white text-[13px]">
-                {anime.year}
+                Rank: {anime.rank}
               </span>
+              {anime.year && (
+                <span className="outfit-light text-white text-[13px]">
+                  {anime.year}
+                </span>
+              )}
               <span className="outfit-light text-white text-[13px]">
                 {anime.type}
               </span>

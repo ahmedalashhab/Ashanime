@@ -107,25 +107,27 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                   )}
                 </div>
 
-                <div className="flex gap-6 mt-3 text-left px-8">
+                <div className="flex gap-6 mt-3 justify-between px-8">
                   <Dialog.Title
                     as="h3"
                     className="text-lg leading-6 outfit-medium text-redor"
                   >
                     {data.title}
                   </Dialog.Title>
-                  <span className="text-white outfit-light text-[12px] self-end">
-                    {data.type}
-                  </span>
-                  <span className="text-white outfit-light text-[12px] self-end">
-                    Score: {data.score}
-                  </span>
-                  <span className="text-white outfit-light text-[12px] self-end">
-                    Episodes Aired: {data.episodes}
-                  </span>
-                  <span className="text-white outfit-light text-[12px] self-end">
-                    {data.status}
-                  </span>
+                  <div className="flex text-right items-center gap-6 content-end">
+                    <span className="text-white outfit-light text-[12px] text-right">
+                      {data.type}
+                    </span>
+                    <span className="text-white outfit-light text-[12px] text-right">
+                      Score: {data.score}
+                    </span>
+                    <span className="text-white outfit-light text-[12px] text-right">
+                      Episodes Aired: {data.episodes}
+                    </span>
+                    <span className="text-white outfit-light text-[12px] text-right">
+                      {data.status}
+                    </span>
+                  </div>
                 </div>
 
                 {/*synopsis*/}
