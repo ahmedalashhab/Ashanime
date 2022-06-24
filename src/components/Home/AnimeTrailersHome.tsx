@@ -60,7 +60,6 @@ const AnimeTrailersHome = () => {
                     <img
                       alt={`thumbnail of ${anime.title}`}
                       src={anime.trailer.images.large_image_url}
-                      /*TODO fix the overflow on all sides*/
                       className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
                       onClick={() => handleModal(true, anime)}
                     />

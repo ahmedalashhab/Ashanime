@@ -46,7 +46,7 @@ const Pagination = ({ currentPage, paginate }: props) => {
     });
 
     console.log(currentPage);
-  }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev, pageRange]);
+  }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev]);
 
   const hasNextPage = useSelector(
     (state: RootState) => state.anime.hasNextPage

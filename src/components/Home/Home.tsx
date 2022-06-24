@@ -28,7 +28,7 @@ const Home = () => {
       style={{ height: "auto" }}
       className="overflow-x-hidden flex flex-col justify-center items-center"
     >
-      <div className="absolute top-0 w-full">
+      <div className="absolute top-0 w-full bg-fixed">
         <YoutubeBackground
           videoId={"z9Ug-3qhrwY"} /* default -> null */
           aspectRatio={"16:9"} /* default -> "16:9" */

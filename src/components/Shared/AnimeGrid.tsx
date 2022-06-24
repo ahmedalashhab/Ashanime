@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { anime } from "../../types/type";
+import Tooltip from "./Tooltip";
+import tippy from "tippy.js";
 
 const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
+  tippy("[data-tippy-content]");
   return (
     <div className={`grid grid-cols-5 ${handleGridRows}`}>
       {animeList.map((anime: anime, i: number) => {
@@ -15,7 +18,10 @@ const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
             className="flex flex-col w-full h-full items-center z-10"
             key={anime.mal_id}
           >
-            <div className="standard-box cursor-pointer">
+            <div
+              className="standard-box cursor-pointer"
+              data-tippy-content="Tooltip"
+            >
               <img
                 alt={`thumbnail of ${anime.title}`}
                 src={anime.images.jpg.large_image_url}

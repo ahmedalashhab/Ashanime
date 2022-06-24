@@ -125,7 +125,7 @@ const SearchBar = ({ currentPage, setCurrentPage }: props) => {
                   }
                 }}
                 value={searchQuery}
-                className="outfit-light text-[24px] page-bg appearance-none w-11/12 py-2 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
+                className="outfit-light text-[24px] appearance-none w-11/12 py-2 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
               />
               <button type="submit" />
             </form>

@@ -38,7 +38,7 @@ const LocalPagination = ({ currentPage, paginate }: props) => {
       behavior: "smooth",
       block: "start",
     });
-  }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev, pageRange]);
+  }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev]);
 
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
 
