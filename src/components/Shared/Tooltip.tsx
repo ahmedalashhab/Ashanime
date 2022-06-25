@@ -10,8 +10,7 @@ const Tooltip = ({ children, text }: any) => {
       arrow: true,
       animation: "scale",
       theme: "dark",
-      placement: "top",
-      trigger: "click",
+      placement: "left",
       interactive: true,
       content: text,
     });
