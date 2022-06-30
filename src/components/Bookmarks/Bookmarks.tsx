@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { motion } from "framer-motion";
 
 import ModalAnimeList from "../Shared/ModalAnimeList";
 import Sidebar from "../Shared/Sidebar";
-import SearchBar from "../Shared/SearchBar";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
 import LocalPagination from "./LocalPagination";
@@ -49,20 +47,13 @@ const Bookmarks = () => {
   return (
     <div>
       <Sidebar />
-      <div className="flex justify-center ">
-        <div className="flex flex-col screen-width ml-44 mt-16">
-          <SearchBar
-            setCurrentPage={(pageNumber) => setCurrentPage(pageNumber)}
-            currentPage={currentPage}
-          />
-        </div>
-      </div>
+
       <div className="flex justify-center">
-        <div className="mt-8 ml-40 screen-width" id="top-anime">
-          <div className=" ml-4 mb-4">
+        <div className="mt-8 screen-width px-12" id="top-anime">
+          <div className=" ml-8 mb-4">
             <span className="outfit-light text-white text-[32px]">
               {bookmarks.length > 0
-                ? "Your watchlist"
+                ? "My Watchlist"
                 : "Build your watchlist by checking out some anime!"}
             </span>
           </div>
@@ -71,6 +62,7 @@ const Bookmarks = () => {
             animeList={currentBookmarks}
             handleModal={handleModal}
             handleGridRows={handleGridRows}
+            className=""
           />
 
           {bookmarks.length > 0 && (

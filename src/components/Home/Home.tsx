@@ -73,7 +73,6 @@ const Home = () => {
             <Sidebar paginate={(pageNumber: number) => paginate(pageNumber)} />
             <div className="flex justify-center">
               <div className="screen-width ml-44 mt-16 overflow-y-hidden">
-                <SearchBar />
                 <h3 className="text-white outfit-medium text-[32px] mt-4">
                   <br />
                 </h3>
@@ -85,7 +84,7 @@ const Home = () => {
 
       <div
         style={{ marginTop: "40rem" }}
-        className="flex flex-col screen-width pl-44 overflow-x-hidden pr-8"
+        className="flex flex-col screen-width px-12 overflow-x-hidden"
       >
         <AnimeTrailersHome />
         {

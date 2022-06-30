@@ -6,6 +6,7 @@ import {
   setLastPage,
   searchLoadingAction,
   setPageLoadingAction,
+  setCurrentPage,
 } from "../../redux/search-slice";
 import { setSearchQuery, setSearchQueryView } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
@@ -15,12 +16,10 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
 interface props {
-  currentPage?: number;
-  setCurrentPage?: (page: number) => void;
   paginate?: (page: number) => void;
 }
 
-const SearchBar = ({ currentPage, setCurrentPage }: props) => {
+const SearchBar = () => {
   const { searchLoading, searchQuery, pageLoading } = useSelector(
     (state: RootState) => state.anime
   );
@@ -28,6 +27,9 @@ const SearchBar = ({ currentPage, setCurrentPage }: props) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const currentPage = useSelector(
+    (state: RootState) => state.anime.currentPage
+  );
 
   const closeSearchBar = (e: any) => {
     if (showInput && e.target.id === "search-bar") {
@@ -105,7 +107,7 @@ const SearchBar = ({ currentPage, setCurrentPage }: props) => {
       <AnimatePresence>
         {showInput && (
           <motion.div
-            className="w-2/5 h-1"
+            className="w-full h-1"
             id="search-bar"
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -114,7 +116,7 @@ const SearchBar = ({ currentPage, setCurrentPage }: props) => {
             <form onSubmit={handleSubmit} className="h-1">
               <input
                 type="text"
-                placeholder="Search for movies or TV series"
+                placeholder="Titles, Movies, Shows"
                 id="search-bar"
                 onChange={(e) => {
                   dispatch(setSearchQuery(e.target.value));
