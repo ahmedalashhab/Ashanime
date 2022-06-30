@@ -18,7 +18,6 @@ const Sidebar = ({ paginate }: props) => {
   const [isClickedMovie, setIsClickedMovie] = useState(false);
   const [isClickedTV, setIsClickedTV] = useState(false);
   const [isClickedBookmarks, setIsClickedBookmarks] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -106,8 +105,8 @@ const Sidebar = ({ paginate }: props) => {
   const bookmarksCountView = bookmarksCount > 0 ? bookmarksCount : "";
 
   return (
-    <div className="bg-none">
-      <div className="flex justify-between pt-4 px-4">
+    <div className="flex justify-center bg-none">
+      <div className="flex justify-between pt-4 px-4 screen-width">
         <div className="flex">
           <div>
             <img alt="logo" className="mx-auto" src={logo} />

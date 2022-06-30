@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Shared/Sidebar";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
@@ -14,6 +14,10 @@ const SearchResults = () => {
   const [modal, setModal] = useState(false);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setCurrentPage(1));
+  }, []);
 
   const animeReducer = useSelector((state: RootState) => state.anime);
   const searchResults = animeReducer.searchResults;

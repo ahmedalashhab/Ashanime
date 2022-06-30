@@ -15,14 +15,9 @@ import { useNavigate } from "react-router";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
-interface props {
-  paginate?: (page: number) => void;
-}
-
 const SearchBar = () => {
-  const { searchLoading, searchQuery, pageLoading } = useSelector(
-    (state: RootState) => state.anime
-  );
+  const { searchLoading, searchQuery, searchQueryView, pageLoading } =
+    useSelector((state: RootState) => state.anime);
   const [showInput, setShowInput] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -120,9 +115,10 @@ const SearchBar = () => {
                 id="search-bar"
                 onChange={(e) => {
                   dispatch(setSearchQuery(e.target.value));
-                  if (e.target.value !== searchQuery) {
+                  // sets the page to 1 when searching something new
+                  if (searchQueryView !== searchQuery) {
                     if (setCurrentPage) {
-                      setCurrentPage(1);
+                      dispatch(setCurrentPage(1));
                     }
                   }
                 }}
