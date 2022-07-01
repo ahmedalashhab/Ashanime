@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
@@ -13,6 +13,10 @@ const Bookmarks = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
   const [modal, setModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    window.scroll({ top: 0 });
+  }, []);
 
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
 
@@ -47,8 +51,7 @@ const Bookmarks = () => {
   return (
     <div>
       <Navbar />
-
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-12">
         <div className="mt-8 screen-width px-12" id="top-anime">
           <div className=" ml-8 mb-4">
             <span className="outfit-light text-white text-[32px]">

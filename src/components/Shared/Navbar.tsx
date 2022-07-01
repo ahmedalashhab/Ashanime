@@ -29,7 +29,7 @@ const Navbar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 1020, behavior: "smooth" });
+    window.scroll({ top: 975, behavior: "smooth" });
   };
 
   //Handles the click highlighting of the movie button
@@ -41,7 +41,7 @@ const Navbar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 1020, behavior: "smooth" });
+    window.scroll({ top: 975, behavior: "smooth" });
   };
 
   // Handles the highlighting of the TV shows button
@@ -53,7 +53,7 @@ const Navbar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 1020, behavior: "smooth" });
+    window.scroll({ top: 975, behavior: "smooth" });
   };
 
   // Handles the highlighting of the bookmarks button
@@ -65,21 +65,17 @@ const Navbar = ({ paginate }: props) => {
   useEffect(() => {
     // change nav background to black when scrolling
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      window.scrollY > 25 ? setScrolled(true) : setScrolled(false);
     });
   }, []);
 
   return (
     <div
-      className={`flex justify-center items-center bg-none dark-gradient-nav sticky-nav ${
+      className={`flex justify-center items-center bg-none dark-gradient-nav transition-all sticky-nav ${
         scrolled ? "scrolled-nav" : ""
       }`}
     >
-      <div className="flex justify-between pt-4 px-12 screen-width">
+      <div className="flex justify-between items-center py-4 px-12 screen-width">
         <div className="flex gap-8">
           <div>
             <img alt="logo" className="mx-auto" src={logo} />
@@ -89,17 +85,17 @@ const Navbar = ({ paginate }: props) => {
               className="outfit-medium text-concrete hover:text-white transition-colors duration-200"
               to={"/"}
             >
-              All Anime
+              Top Anime
             </Link>
           </div>
           <div onClick={handleClickMovie} title="Anime Movies">
             <span className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
-              Anime Movies
+              Top Movies
             </span>
           </div>
           <div onClick={handleClickTV} title="Anime Shows">
             <span className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
-              Anime Shows
+              Top Shows
             </span>
           </div>
           <div onClick={handleClickBookmarks} title="Watchlist">
@@ -113,7 +109,7 @@ const Navbar = ({ paginate }: props) => {
             <SearchBar />
           </div>
           <img
-            className="inline-block h-7 w-7 rounded-full mx-auto"
+            className="inline-block h-8 w-8 rounded-full mx-auto"
             src={profile.picture ? profile.picture : ""}
             alt="profile pic"
           />
@@ -122,7 +118,6 @@ const Navbar = ({ paginate }: props) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-8">{/*<LogoutButton />*/}</div>
     </div>
   );
 };

@@ -84,11 +84,7 @@ const SearchBar = () => {
       <div
         className="cursor-pointer"
         onClick={() => {
-          if (showInput) {
-            setShowInput(false);
-          } else {
-            if (!showInput) setShowInput(true);
-          }
+          if (!showInput) setShowInput(true);
         }}
         id="search-input"
       >
@@ -104,9 +100,9 @@ const SearchBar = () => {
           <motion.div
             className="w-full h-1"
             id="search-bar"
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 40 }}
           >
             <form onSubmit={handleSubmit} className="h-1">
               <input
@@ -123,7 +119,7 @@ const SearchBar = () => {
                   }
                 }}
                 value={searchQuery}
-                className="outfit-light text-[24px] appearance-none w-11/12 py-2 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
+                className="outfit-light text-[16px] appearance-none w-11/12 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
               />
               <button type="submit" />
             </form>
