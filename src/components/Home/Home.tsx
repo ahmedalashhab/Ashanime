@@ -1,7 +1,7 @@
 import SearchBar from "../Shared/SearchBar";
 import AnimeTrailersHome from "./AnimeTrailersHome";
 import TopAnime from "./TopAnime";
-import Sidebar from "../Shared/Sidebar";
+import Navbar from "../Shared/Navbar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 // @ts-ignore
@@ -70,7 +70,7 @@ const Home = () => {
           playlist={["F0evM-hBlcI"]}
         >
           <div>
-            <Sidebar paginate={(pageNumber: number) => paginate(pageNumber)} />
+            <Navbar paginate={(pageNumber: number) => paginate(pageNumber)} />
             <div className="flex justify-center">
               <div className="screen-width ml-44 mt-16 overflow-y-hidden">
                 <h3 className="text-white outfit-medium text-[32px] mt-4">

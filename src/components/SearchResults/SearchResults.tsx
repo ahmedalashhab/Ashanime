@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../Shared/Sidebar";
+import Navbar from "../Shared/Navbar";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import Pagination from "../Shared/Pagination";
@@ -54,7 +54,7 @@ const SearchResults = () => {
 
   return (
     <div>
-      <Sidebar />
+      <Navbar />
       <div className="flex justify-center">
         <div className="mt-8 mx-12 screen-width" id="top-anime">
           <div className=" ml-4 mb-4">

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 import ModalAnimeList from "../Shared/ModalAnimeList";
-import Sidebar from "../Shared/Sidebar";
+import Navbar from "../Shared/Navbar";
 import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
 import LocalPagination from "./LocalPagination";
@@ -46,7 +46,7 @@ const Bookmarks = () => {
 
   return (
     <div>
-      <Sidebar />
+      <Navbar />
 
       <div className="flex justify-center">
         <div className="mt-8 screen-width px-12" id="top-anime">

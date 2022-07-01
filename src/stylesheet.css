@@ -24,13 +24,8 @@ font-family: outfit-medium, sans-serif;
     background-color: var(--whole-page);
 }
 
-.sideBar {
-    background-color: var(--navy-blue);
-    width: 8rem;
-    height: 48rem;
-    top: 45%;
-    left: 5%;
-    transform: translate(-50%, -50%);
+.text-concrete {
+    color: #bdc3c7;
 }
 
 .navy-blue {
@@ -81,7 +76,25 @@ font-family: outfit-medium, sans-serif;
 
 .dark-gradiant-video {
     background: rgb(16, 20, 30,0) linear-gradient(to bottom, rgb(16, 20, 30, 0.1) 10%, rgb(16, 20, 30, 0.3) 40%, rgb(16, 20, 30, 0.5) 80%, rgba(16, 20, 30, 1) 100%) repeat scroll 0 0;
+}
 
+
+
+.dark-gradient-nav {
+background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0, 0.001))
+}
+
+.sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.scrolled-nav{
+    background-color: var(--whole-page);
+    transition: background-color 0.5s ease 0s;
 
 }
 
