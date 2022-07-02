@@ -1,3 +1,30 @@
+export interface streamSearch {
+  animeId: string;
+  animeTitle: string;
+  animeUrl: string;
+  animeImg: string;
+  status: string;
+}
+
+export interface streamModal {
+  animeTitle: string;
+  type: string;
+  releasedDate: string;
+  status: string;
+  genres: [string];
+  otherNames: string;
+  synopsis: string;
+  animeImg: string;
+  totalEpisodes: number;
+  episodesList: [
+    {
+      episodeId: string;
+      episodeNum: number;
+      episodeUrl: string;
+    }
+  ];
+}
+
 export interface anime {
   rank: number;
   studios: [{ name: string }];

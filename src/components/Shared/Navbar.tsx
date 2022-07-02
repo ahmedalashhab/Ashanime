@@ -20,6 +20,13 @@ const Navbar = ({ paginate }: props) => {
   const navigate = useNavigate();
   const profile = useSelector((state: RootState) => state.google.profileObject);
 
+  // Handles logo click
+  const handleLogoClick = () => {
+    navigate("/home");
+    //  Smooth scroll to top of page
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   // Handles the click highlighting of the Home button
   const handleClickAll = () => {
     dispatch(setType(""));
@@ -77,7 +84,7 @@ const Navbar = ({ paginate }: props) => {
     >
       <div className="flex justify-between items-center py-4 px-12 screen-width">
         <div className="flex gap-8">
-          <div>
+          <div className="cursor-pointer" onClick={handleLogoClick}>
             <img alt="logo" className="mx-auto" src={logo} />
           </div>
           <div onClick={handleClickAll} title="All Anime">

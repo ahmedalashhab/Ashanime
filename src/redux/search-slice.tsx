@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { anime } from "../types/type";
+import { anime, streamSearch } from "../types/type";
 
 interface initialStateInterface {
-  searchResults: anime[];
+  searchResults: streamSearch[];
   searchQuery: string;
   searchQueryView: string;
   searchLoading: boolean;

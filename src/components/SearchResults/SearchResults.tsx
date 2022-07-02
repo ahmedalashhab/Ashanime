@@ -3,14 +3,13 @@ import Navbar from "../Shared/Navbar";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import Pagination from "../Shared/Pagination";
-import ModalAnimeList from "../Shared/ModalAnimeList";
-import { anime } from "../../types/type";
-import { initialDataState } from "../Shared/initialDataState";
-import AnimeGrid from "../Shared/AnimeGrid";
+import { streamSearch } from "../../types/type";
+import AnimeGridStream from "../Shared/AnimeGridStream";
 import { setCurrentPage } from "../../redux/search-slice";
+import ModalStream from "../Shared/ModalStream";
 
 const SearchResults = () => {
-  const [modalData, setModalData] = useState<anime>(initialDataState);
+  const [modalId, setModalId] = useState<string>("");
   const [modal, setModal] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -32,10 +31,10 @@ const SearchResults = () => {
     return ` ${searchQueryView}`;
   };
 
-  const handleModal = (active: boolean, data: anime) => {
+  const handleModal = (active: boolean, animeId: string) => {
     setModal(active);
-    if (data) {
-      setModalData(data);
+    if (animeId) {
+      setModalId(animeId);
     }
   };
 
@@ -55,7 +54,7 @@ const SearchResults = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-12">
         <div className="mt-8 mx-12 screen-width" id="top-anime">
           <div className=" ml-4 mb-4">
             <span className="outfit-light text-white text-[32px]">
@@ -65,7 +64,7 @@ const SearchResults = () => {
               {handleSearchTitleEnd()}
             </span>
           </div>
-          <AnimeGrid
+          <AnimeGridStream
             animeList={searchResults}
             handleModal={handleModal}
             handleGridRows={handleGridRows}
@@ -76,11 +75,11 @@ const SearchResults = () => {
               paginate={(pageNumber) => paginate(pageNumber)}
             />
           </div>
-          <ModalAnimeList
+          <ModalStream
             setToggle={(boolean: boolean) => {
               return setModal(boolean);
             }}
-            data={modalData}
+            modalId={modalId}
             toggle={modal}
           />
         </div>

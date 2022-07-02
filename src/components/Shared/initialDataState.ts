@@ -1,4 +1,24 @@
 import { anime } from "../../types/type";
+import { streamModal } from "../../types/type";
+
+export const streamDataState: streamModal = {
+  animeTitle: "",
+  type: "",
+  releasedDate: "",
+  status: "",
+  genres: [""],
+  otherNames: "",
+  synopsis: "",
+  animeImg: "",
+  totalEpisodes: 0,
+  episodesList: [
+    {
+      episodeId: "",
+      episodeNum: 0,
+      episodeUrl: "",
+    },
+  ],
+};
 
 export const initialDataState: anime = {
   rank: 0,

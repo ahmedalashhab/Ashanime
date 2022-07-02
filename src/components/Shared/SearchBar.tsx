@@ -49,22 +49,22 @@ const SearchBar = () => {
       if (pageLoading === false) navigate(`/search-results`);
       const getSearch = async () => {
         await axios
-          .get(`https://api.jikan.moe/v4/anime`, {
+          .get(`https://gogoanime.herokuapp.com/search`, {
             params: {
-              q: searchQuery,
-              sfw: true,
+              keyw: searchQuery,
               page: currentPage,
             },
           })
           .then((res) => {
-            const { data } = res.data;
+            const data = res.data;
+            console.log(data);
             dispatch(searchLoadingAction(false));
             if (data.length === 0 && setCurrentPage) {
               setCurrentPage(1);
             }
             dispatch(animeSearch(data));
-            dispatch(setHasNextPage(res.data.pagination.has_next_page));
-            dispatch(setLastPage(res.data.pagination.last_visible_page));
+            // dispatch(setHasNextPage(res.data.pagination.has_next_page));
+            // dispatch(setLastPage(res.data.pagination.last_visible_page));
           });
       };
       getSearch();
