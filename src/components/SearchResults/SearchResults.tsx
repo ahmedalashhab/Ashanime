@@ -3,9 +3,12 @@ import Navbar from "../Shared/Navbar";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import Pagination from "../Shared/Pagination";
-import { streamSearch } from "../../types/type";
 import AnimeGridStream from "../Shared/AnimeGridStream";
-import { setCurrentPage } from "../../redux/search-slice";
+import {
+  setCurrentPage,
+  setModalData,
+  setStream,
+} from "../../redux/search-slice";
 import ModalStream from "../Shared/ModalStream";
 
 const SearchResults = () => {
@@ -77,7 +80,11 @@ const SearchResults = () => {
           </div>
           <ModalStream
             setToggle={(boolean: boolean) => {
-              return setModal(boolean);
+              if (!boolean) {
+                dispatch(setStream({}));
+                dispatch(setModalData({} as any));
+              }
+              setModal(boolean);
             }}
             modalId={modalId}
             toggle={modal}

@@ -6,6 +6,12 @@ export interface streamSearch {
   status: string;
 }
 
+export interface episodesList {
+  episodeId: string;
+  episodeNum: number;
+  episodeUrl: string;
+}
+
 export interface streamModal {
   animeTitle: string;
   type: string;
@@ -16,13 +22,7 @@ export interface streamModal {
   synopsis: string;
   animeImg: string;
   totalEpisodes: number;
-  episodesList: [
-    {
-      episodeId: string;
-      episodeNum: number;
-      episodeUrl: string;
-    }
-  ];
+  episodesList: episodesList[];
 }
 
 export interface anime {

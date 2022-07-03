@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { anime, streamSearch } from "../types/type";
+import { anime, streamModal, streamSearch } from "../types/type";
+import { streamDataState } from "../components/Shared/initialDataState";
 
 interface initialStateInterface {
   searchResults: streamSearch[];
@@ -13,6 +14,9 @@ interface initialStateInterface {
   airing: boolean;
   bookmarks: anime[];
   currentPage: number;
+  modalData: streamModal;
+  stream: any;
+  streamId: string;
 }
 
 const initialState: initialStateInterface = {
@@ -27,6 +31,11 @@ const initialState: initialStateInterface = {
   airing: false,
   bookmarks: [],
   currentPage: 1,
+  modalData: {
+    ...streamDataState,
+  },
+  stream: {},
+  streamId: "",
 };
 
 export const animeSlice = createSlice({
@@ -66,6 +75,15 @@ export const animeSlice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
+    setModalData: (state, action: PayloadAction<streamModal>) => {
+      state.modalData = action.payload;
+    },
+    setStream: (state, action: PayloadAction<any>) => {
+      state.stream = action.payload;
+    },
+    setStreamId: (state, action: PayloadAction<string>) => {
+      state.streamId = action.payload;
+    },
   },
 });
 
@@ -82,6 +100,9 @@ export const {
   setAiring,
   setBookmarks,
   setCurrentPage,
+  setModalData,
+  setStream,
+  setStreamId,
 } = animeSlice.actions;
 
 export default animeSlice.reducer;
