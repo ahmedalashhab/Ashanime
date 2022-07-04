@@ -12,6 +12,7 @@ import {
   setLastPage,
   setModalData,
   setStream,
+  setStreamId,
 } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -34,6 +35,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const dispatch = useAppDispatch();
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
   const modalData = useSelector((state: RootState) => state.anime.modalData);
+  const streamId = useSelector((state: RootState) => state.anime.streamId);
   const episodesList = modalData.episodesList;
 
   const getAnimeDetails = async (modalId: string) => {
@@ -42,14 +44,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
       .then(async (response) => {
         const data = response.data;
         dispatch(setModalData(data));
-        const id = data.episodesList[0].episodeId;
-        console.log(id);
-        return await axios
-          .get(`https://gogoanime.herokuapp.com/vidcdn/watch/${id}`)
-          .then((response) => {
-            const data = response.data;
-            return dispatch(setStream(data));
-          });
+        // const id = data.episodesList[0].episodeId;
+        // console.log(id);
       });
   };
 
@@ -109,27 +105,29 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                   </Dialog.Title>
                   <div>
                     {/*  drop down list for episodes*/}
-                    <select
-                      className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
-                      onChange={(e) => {
-                        const episodeId = e.target.value;
-                        const episode = episodesList.find(
-                          (episode) => episode.episodeId === episodeId
-                        );
-                        dispatch(setStream(episodeId));
-                      }}
-                    >
-                      {episodesList.map((episode) => {
-                        return (
-                          <option
-                            value={episode.episodeId}
-                            key={episode.episodeId}
-                          >
-                            {episode.episodeId}
-                          </option>
-                        );
-                      })}
-                    </select>
+                    {modalData?.episodesList?.length > 1 && (
+                      <select
+                        className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
+                        onChange={(e) => {
+                          const episodeId = e.target.value;
+                          // const episode = episodesList.find(
+                          //   (episode) => episode.episodeId === episodeId
+                          // );
+                          dispatch(setStreamId(episodeId));
+                        }}
+                      >
+                        {episodesList.map((episode) => {
+                          return (
+                            <option
+                              value={episode.episodeId}
+                              key={episode.episodeId}
+                            >
+                              {episode.episodeId}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    )}
                   </div>
                   <div className="flex text-right items-center gap-6 content-end">
                     <span className="text-white outfit-light text-[12px] text-right">
