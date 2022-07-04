@@ -17,6 +17,7 @@ interface initialStateInterface {
   modalData: streamModal;
   stream: any;
   streamId: string;
+  episodeSelected: boolean;
 }
 
 const initialState: initialStateInterface = {
@@ -36,6 +37,7 @@ const initialState: initialStateInterface = {
   },
   stream: {},
   streamId: "",
+  episodeSelected: false,
 };
 
 export const animeSlice = createSlice({
@@ -84,6 +86,9 @@ export const animeSlice = createSlice({
     setStreamId: (state, action: PayloadAction<string>) => {
       state.streamId = action.payload;
     },
+    setEpisodeSelected: (state, action: PayloadAction<boolean>) => {
+      state.episodeSelected = action.payload;
+    },
   },
 });
 
@@ -103,6 +108,7 @@ export const {
   setModalData,
   setStream,
   setStreamId,
+  setEpisodeSelected,
 } = animeSlice.actions;
 
 export default animeSlice.reducer;

@@ -13,6 +13,7 @@ import {
   setModalData,
   setStream,
   setStreamId,
+  setEpisodeSelected,
 } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -21,7 +22,6 @@ import { useNotification } from "../../hooks/useNotification";
 import axios from "axios";
 import { streamDataState } from "./initialDataState";
 import VideoPlayer from "../videoplayer/VideoPlayer";
-import EmbeddedVideo from "../videoplayer/EmbeddedVideo";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -35,7 +35,9 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const dispatch = useAppDispatch();
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
   const modalData = useSelector((state: RootState) => state.anime.modalData);
-  const streamId = useSelector((state: RootState) => state.anime.streamId);
+  const episodeSelected = useSelector(
+    (state: RootState) => state.anime.episodeSelected
+  );
   const episodesList = modalData.episodesList;
 
   const getAnimeDetails = async (modalId: string) => {
@@ -56,6 +58,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
     getData();
   }, [modalId]);
 
+  // Reverse list of episodes to show from first to last.
+
   return (
     <Transition.Root show={toggle} as={Fragment}>
       <Dialog
@@ -66,6 +70,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
           setToggle(false);
           dispatch(setModalData({} as any));
           dispatch(setStream({}));
+          dispatch(setStreamId(""));
         }}
       >
         <Transition.Child
@@ -105,18 +110,24 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                   </Dialog.Title>
                   <div>
                     {/*  drop down list for episodes*/}
-                    {modalData?.episodesList?.length > 1 && (
-                      <select
-                        className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
-                        onChange={(e) => {
-                          const episodeId = e.target.value;
-                          // const episode = episodesList.find(
-                          //   (episode) => episode.episodeId === episodeId
-                          // );
-                          dispatch(setStreamId(episodeId));
-                        }}
-                      >
-                        {episodesList.map((episode) => {
+                    <select
+                      className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
+                      onChange={(e) => {
+                        dispatch(setStreamId(""));
+                        dispatch(setStream({}));
+                        const episodeId = e.target.value;
+                        // const episode = episodesList.find(
+                        //   (episode) => episode.episodeId === episodeId
+                        // );
+                        dispatch(setStreamId(episodeId));
+                        // this is a fake toggle to trigger the video to play
+                        dispatch(setEpisodeSelected(!episodeSelected));
+                      }}
+                    >
+                      {/*Load drop down list from oldest to newest episode*/}
+                      <option>Select an episode</option>
+                      {episodesList &&
+                        [...episodesList].reverse().map((episode) => {
                           return (
                             <option
                               value={episode.episodeId}
@@ -126,8 +137,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                             </option>
                           );
                         })}
-                      </select>
-                    )}
+                    </select>
                   </div>
                   <div className="flex text-right items-center gap-6 content-end">
                     <span className="text-white outfit-light text-[12px] text-right">

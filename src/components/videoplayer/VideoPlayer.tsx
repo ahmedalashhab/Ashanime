@@ -6,37 +6,39 @@ import axios from "axios";
 import { setStream } from "../../redux/search-slice";
 
 const VideoPlayer = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [videoLink, setVideoLink] = useState("");
 
   const streamId = useSelector((state: RootState) => state.anime.streamId);
-  const stream = useSelector((state: RootState) => state.anime.stream);
+  const episodeSelected = useSelector(
+    (state: RootState) => state.anime.episodeSelected
+  );
 
   const dispatch = useAppDispatch();
 
   const hlsConfig = {
     // ...
   };
+  const stream = useSelector((state: RootState) => state.anime.stream);
 
   const getEpisodeStream = async () => {
+    setLoading(true);
     await axios
       .get(`https://gogoanime.herokuapp.com/vidcdn/watch/${streamId}`)
-      .then(async (response) => {
-        const data = response.data;
-        dispatch(setStream(data));
-        setVideoLink(streamData.sources[0].file);
+      .then((response) => {
+        setVideoLink(response.data.sources[0].file);
         setLoading(false);
       });
   };
-
-  const streamData = useSelector((state: RootState) => state.anime.stream);
 
   useEffect(() => {
     const getData = async () => {
       await getEpisodeStream();
     };
-    getData();
-  }, [streamId]);
+    if (videoLink.length > 0) {
+      getData();
+    }
+  }, [episodeSelected]);
 
   // if (streamData.length === 0) {
   //   return <div>Loading...</div>;
@@ -55,24 +57,25 @@ const VideoPlayer = () => {
 
   return (
     <>
-      {loading ? (
+      {(!videoLink && (
         <div
           className="flex justify-center items-center"
           style={{ height: 400 }}
         >
           <span className="text-white outfit-medium ">
             {/*if no video URL then display below message*/}
-            Loading...
+            Select an episode to watch
           </span>
         </div>
-      ) : (
+      )) || (
         <Player controls>
           <Hls version="latest" config={hlsConfig} poster="/media/poster.png">
-            {videoLink && (
+            {!videoLink ? (
+              ""
+            ) : (
               <source data-src={videoLink} type="application/x-mpegURL" />
             )}
           </Hls>
-          {/* ... */}
         </Player>
       )}
     </>
