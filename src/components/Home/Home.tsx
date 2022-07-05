@@ -12,7 +12,6 @@ const Home = () => {
 
   const navigate = useNavigate();
   const userSignedIn = typeof localStorage.getItem("user") === "string";
-  console.log(userSignedIn);
 
   const paginate = (pageNumber: number) => {
     return setCurrentPage(pageNumber);
