@@ -60,11 +60,21 @@ const VideoPlayer = () => {
             </span>
           </div>
         )) || (
-          <Player controls>
-            <Hls version="latest" config={hlsConfig} poster="/media/poster.png">
-              <source data-src={videoLink} type="application/x-mpegURL" />
-            </Hls>
-          </Player>
+          <div style={{ height: 400 }}>
+            <Player controls>
+              <Hls
+                version="latest"
+                config={hlsConfig}
+                poster="/media/poster.png"
+              >
+                {!videoLink ? (
+                  ""
+                ) : (
+                  <source data-src={videoLink} type="application/x-mpegURL" />
+                )}
+              </Hls>
+            </Player>
+          </div>
         )
       )}
     </>
