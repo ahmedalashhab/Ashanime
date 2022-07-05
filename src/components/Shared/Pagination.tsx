@@ -54,9 +54,6 @@ const Pagination = ({ currentPage, paginate }: props) => {
     (state: RootState) => state.anime.hasNextPage
   );
 
-  const searchHasNextPage = [...searchResults].length;
-  console.log(searchHasNextPage);
-
   const paginationHandler = (arg: string, page?: number) => {
     if (windowLocation === "/search-results") {
       dispatch(searchLoadingAction(true));
