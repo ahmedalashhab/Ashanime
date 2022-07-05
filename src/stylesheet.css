@@ -163,6 +163,10 @@ position: absolute;
     z-index: 101;
 }
 
+.notification{
+    z-index: 102
+}
+
 .redor-button {
     background-color: var(--redor);
 }
