@@ -7,7 +7,7 @@ import { setStream } from "../../redux/search-slice";
 
 const VideoPlayer = () => {
   const [loading, setLoading] = useState(false);
-  const [videoLink, setVideoLink] = useState("");
+  const [videoLink, setVideoLink] = useState(null);
 
   const streamId = useSelector((state: RootState) => state.anime.streamId);
   const episodeSelected = useSelector(
@@ -35,7 +35,7 @@ const VideoPlayer = () => {
     const getData = async () => {
       await getEpisodeStream();
     };
-    if (videoLink.length > 0) {
+    if (streamId) {
       getData();
     }
   }, [episodeSelected]);
@@ -57,26 +57,38 @@ const VideoPlayer = () => {
 
   return (
     <>
-      {(!videoLink && (
+      {loading ? (
         <div
           className="flex justify-center items-center"
           style={{ height: 400 }}
         >
           <span className="text-white outfit-medium ">
             {/*if no video URL then display below message*/}
-            Select an episode to watch
+            Loading...
           </span>
         </div>
-      )) || (
-        <Player controls>
-          <Hls version="latest" config={hlsConfig} poster="/media/poster.png">
-            {!videoLink ? (
-              ""
-            ) : (
-              <source data-src={videoLink} type="application/x-mpegURL" />
-            )}
-          </Hls>
-        </Player>
+      ) : (
+        (!videoLink && (
+          <div
+            className="flex justify-center items-center"
+            style={{ height: 400 }}
+          >
+            <span className="text-white outfit-medium ">
+              {/*if no video URL then display below message*/}
+              Select an episode to watch
+            </span>
+          </div>
+        )) || (
+          <Player controls>
+            <Hls version="latest" config={hlsConfig} poster="/media/poster.png">
+              {!videoLink ? (
+                ""
+              ) : (
+                <source data-src={videoLink} type="application/x-mpegURL" />
+              )}
+            </Hls>
+          </Player>
+        )
       )}
     </>
   );

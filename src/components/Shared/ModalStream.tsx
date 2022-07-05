@@ -116,9 +116,6 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                         dispatch(setStreamId(""));
                         dispatch(setStream({}));
                         const episodeId = e.target.value;
-                        // const episode = episodesList.find(
-                        //   (episode) => episode.episodeId === episodeId
-                        // );
                         dispatch(setStreamId(episodeId));
                         // this is a fake toggle to trigger the video to play
                         dispatch(setEpisodeSelected(!episodeSelected));
