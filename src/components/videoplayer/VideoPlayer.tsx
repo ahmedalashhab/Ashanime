@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
 import { Player, Hls } from "@vime/react";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../redux/store";
+import { RootState } from "../../redux/store";
 import axios from "axios";
-import { setStream } from "../../redux/search-slice";
 
 const VideoPlayer = () => {
   const [loading, setLoading] = useState(false);
@@ -15,12 +14,9 @@ const VideoPlayer = () => {
     (state: RootState) => state.anime.episodeSelected
   );
 
-  const dispatch = useAppDispatch();
-
   const hlsConfig = {
     // ...
   };
-  const stream = useSelector((state: RootState) => state.anime.stream);
 
   const getEpisodeStream = async () => {
     setLoading(true);
@@ -40,21 +36,6 @@ const VideoPlayer = () => {
       getData();
     }
   }, [episodeSelected]);
-
-  // if (streamData.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // const videoLink =
-  //   "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8";
-
-  // useEffect(() => {
-  //   if (Object.keys(streamData).length > 0 && streamData.length > 0) {
-  //     setLoading(false);
-  //     console.log("inside effect");
-  //     setVideoLink(streamData?.sources[0]?.file);
-  //   }
-  // }, [streamData, videoLink]);
 
   return (
     <>
@@ -81,11 +62,7 @@ const VideoPlayer = () => {
         )) || (
           <Player controls>
             <Hls version="latest" config={hlsConfig} poster="/media/poster.png">
-              {!videoLink ? (
-                ""
-              ) : (
-                <source data-src={videoLink} type="application/x-mpegURL" />
-              )}
+              <source data-src={videoLink} type="application/x-mpegURL" />
             </Hls>
           </Player>
         )
