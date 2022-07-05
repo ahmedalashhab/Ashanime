@@ -41,21 +41,6 @@ const VideoPlayer = () => {
     }
   }, [episodeSelected]);
 
-  // if (streamData.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // const videoLink =
-  //   "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8";
-
-  // useEffect(() => {
-  //   if (Object.keys(streamData).length > 0 && streamData.length > 0) {
-  //     setLoading(false);
-  //     console.log("inside effect");
-  //     setVideoLink(streamData?.sources[0]?.file);
-  //   }
-  // }, [streamData, videoLink]);
-
   return (
     <>
       {loading ? (

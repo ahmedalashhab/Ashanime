@@ -13,8 +13,6 @@ const LoginButton = () => {
     const userObj = jwt_decode(response.credential);
     localStorage.setItem("user", JSON.stringify(userObj));
     dispatch(setUser(JSON.parse(localStorage.getItem("user") as string)));
-
-    console.log(userObj);
     navigate("/home");
   };
 
@@ -35,33 +33,5 @@ const LoginButton = () => {
 
   return <div id="google-login-button"></div>;
 };
-
-//   const dispatch = useAppDispatch();
-//   const navigate = useNavigate();
-//
-//   const onSuccess = (res: any) => {
-//     console.log("Login success!", res.profileObj);
-//     localStorage.setItem("user", JSON.stringify(res.profileObj));
-//     dispatch(setUser(JSON.parse(localStorage.getItem("user") as string)));
-//     navigate("/home");
-//   };
-//
-//   const onFailure = (res: { error: any }) => {
-//     console.log("Login failed!", res.error);
-//   };
-//
-//   return (
-//     <div id="login-button">
-//       <GoogleLogin
-//         clientId={CLIENT_ID}
-//         buttonText="Login"
-//         onSuccess={onSuccess}
-//         onFailure={onFailure}
-//         cookiePolicy={"single_host_origin"}
-//         isSignedIn={true}
-//       />
-//     </div>
-//   );
-// };
 
 export default LoginButton;
