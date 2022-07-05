@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   anime,
@@ -30,6 +30,7 @@ interface props {
 }
 
 export default function ModalStream({ setToggle, toggle, modalId }: props) {
+  const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
   const { notificationHandler } = useNotification();
   const dispatch = useAppDispatch();
@@ -41,13 +42,13 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const episodesList = modalData.episodesList;
 
   const getAnimeDetails = async (modalId: string) => {
+    setLoading(true);
     await axios
       .get(`https://gogoanime.herokuapp.com/anime-details/${modalId}`)
       .then(async (response) => {
         const data = response.data;
         dispatch(setModalData(data));
-        // const id = data.episodesList[0].episodeId;
-        // console.log(id);
+        setLoading(false);
       });
   };
 
@@ -56,7 +57,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
       await getAnimeDetails(modalId);
     };
     getData();
-  }, [modalId]);
+  }, [modalId, toggle]);
 
   // Reverse list of episodes to show from first to last.
 
@@ -100,67 +101,83 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                 <div className="w-92 flex flex-col page-bg pb-4">
                   <VideoPlayer />
                 </div>
-
-                <div className="flex gap-6 mt-3 justify-between px-8">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg leading-6 outfit-medium text-redor"
+                {loading ? (
+                  <div
+                    className="flex justify-center items-center"
+                    style={{ height: 400 }}
                   >
-                    {modalData.animeTitle}
-                  </Dialog.Title>
-                  <div>
-                    {/*  drop down list for episodes*/}
-                    <select
-                      className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
-                      onChange={(e) => {
-                        dispatch(setStreamId(""));
-                        dispatch(setStream({}));
-                        const episodeId = e.target.value;
-                        dispatch(setStreamId(episodeId));
-                        // this is a fake toggle to trigger the video to play
-                        dispatch(setEpisodeSelected(!episodeSelected));
-                      }}
+                    <span className="text-white outfit-medium ">
+                      {/*if no video URL then display below message*/}
+                      Loading...
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex gap-2 mt-3 justify-between px-8">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg leading-6 outfit-medium text-redor"
                     >
-                      {/*Load drop down list from oldest to newest episode*/}
-                      <option>Select an episode</option>
-                      {episodesList &&
-                        [...episodesList].reverse().map((episode) => {
-                          return (
-                            <option
-                              value={episode.episodeId}
-                              key={episode.episodeId}
-                            >
-                              {episode.episodeId}
-                            </option>
-                          );
-                        })}
-                    </select>
+                      {modalData.animeTitle}
+                    </Dialog.Title>
+                    <div>
+                      {/*  drop down list for episodes*/}
+                      <select
+                        className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
+                        onChange={(e) => {
+                          dispatch(setStreamId(""));
+                          dispatch(setStream({}));
+                          const episodeId = e.target.value;
+                          dispatch(setStreamId(episodeId));
+                          // this is a fake toggle to trigger the video to play
+                          dispatch(setEpisodeSelected(!episodeSelected));
+                        }}
+                      >
+                        {/*Load drop down list from oldest to newest episode*/}
+                        <option>Select an episode</option>
+                        {episodesList &&
+                          [...episodesList].reverse().map((episode) => {
+                            return (
+                              <option
+                                value={episode.episodeId}
+                                key={episode.episodeId}
+                              >
+                                {episode.episodeId}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                    <div className="flex text-right items-center gap-6 content-end">
+                      <span className="text-white outfit-light text-[12px] text-right">
+                        {modalData.type}
+                      </span>
+                      <span className="text-white outfit-light text-[12px] text-right">
+                        Episodes Aired: {modalData.totalEpisodes}
+                      </span>
+                      <span className="text-white outfit-light text-[12px] text-right">
+                        {modalData.status}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex text-right items-center gap-6 content-end">
-                    <span className="text-white outfit-light text-[12px] text-right">
-                      {modalData.type}
-                    </span>
-                    <span className="text-white outfit-light text-[12px] text-right">
-                      Episodes Aired: {modalData.totalEpisodes}
-                    </span>
-                    <span className="text-white outfit-light text-[12px] text-right">
-                      {modalData.status}
-                    </span>
-                  </div>
-                </div>
-
+                )}
                 {/*synopsis*/}
-                <div className="my-4 px-8 overflow-y-auto">
-                  <p className="text-white outfit-light text-[12px]">
-                    {modalData.synopsis}
-                  </p>
-                </div>
-                <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row-reverse justify-between">
-                  <div className="flex self-end">
+                {loading ? (
+                  ""
+                ) : (
+                  <div className="my-4 px-8 overflow-y-auto">
+                    <p className="text-white outfit-light text-[12px]">
+                      {modalData.synopsis}
+                    </p>
+                  </div>
+                )}
+                <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row justify-between">
+                  <div className="flex self-start">
                     <div className="flex">
                       <span className="outfit-medium text-white text-[14px] ">
-                        Genres:&nbsp;
-                        {modalData?.genres?.map((genre) => genre).join(", ")}
+                        {loading ? "" : "Genres: "}
+                        {loading
+                          ? ""
+                          : modalData?.genres?.map((genre) => genre).join(", ")}
                       </span>
                     </div>
                   </div>
