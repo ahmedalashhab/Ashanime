@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import PulseLoader from "react-spinners/PulseLoader";
 import {
   anime,
   episodesList,
@@ -69,7 +70,20 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
         initialFocus={cancelButtonRef}
         onClose={() => {
           setToggle(false);
-          dispatch(setModalData({} as any));
+          dispatch(
+            setModalData({
+              animeTitle: "",
+              type: "",
+              releasedDate: "",
+              status: "",
+              genres: [""],
+              otherNames: "",
+              synopsis: "",
+              animeImg: "",
+              totalEpisodes: 0,
+              episodesList: [],
+            })
+          );
           dispatch(setStream({}));
           dispatch(setStreamId(""));
         }}
@@ -106,10 +120,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                     className="flex justify-center items-center"
                     style={{ height: 400 }}
                   >
-                    <span className="text-white outfit-medium ">
-                      {/*if no video URL then display below message*/}
-                      Loading...
-                    </span>
+                    <PulseLoader color={"white"} loading={loading} size={10} />
                   </div>
                 ) : (
                   <div className="flex gap-2 mt-3 justify-between px-8">

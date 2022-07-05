@@ -5,6 +5,7 @@ import { RootState, useAppDispatch } from "../../redux/store";
 import Pagination from "../Shared/Pagination";
 import AnimeGridStream from "../Shared/AnimeGridStream";
 import {
+  animeSearch,
   setCurrentPage,
   setModalData,
   setStream,
@@ -19,6 +20,9 @@ const SearchResults = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage(1));
+    return () => {
+      dispatch(animeSearch([]));
+    };
   }, []);
 
   const animeReducer = useSelector((state: RootState) => state.anime);
@@ -73,10 +77,10 @@ const SearchResults = () => {
             handleGridRows={handleGridRows}
           />
           <div className="mb-10 mt-5">
-            <Pagination
-              currentPage={currentPage}
-              paginate={(pageNumber) => paginate(pageNumber)}
-            />
+            {/*<Pagination*/}
+            {/*  currentPage={currentPage}*/}
+            {/*  paginate={(pageNumber) => paginate(pageNumber)}*/}
+            {/*/>*/}
           </div>
           <ModalStream
             setToggle={(boolean: boolean) => {

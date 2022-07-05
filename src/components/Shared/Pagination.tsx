@@ -26,6 +26,10 @@ const Pagination = ({ currentPage, paginate }: props) => {
   const dispatch = useAppDispatch();
   const windowLocation = window.location.pathname;
 
+  const searchResults = useSelector(
+    (state: RootState) => state.anime.searchResults
+  );
+
   useEffect(() => {
     if (currentPage % 10 === 1 && currentPage !== 1 && clickedNext) {
       setPageRange(
@@ -44,13 +48,14 @@ const Pagination = ({ currentPage, paginate }: props) => {
       behavior: "smooth",
       block: "start",
     });
-
-    console.log(currentPage);
   }, [currentPage, nextPage, prevPage, clickedNext, clickedPrev]);
 
   const hasNextPage = useSelector(
     (state: RootState) => state.anime.hasNextPage
   );
+
+  const searchHasNextPage = [...searchResults].length;
+  console.log(searchHasNextPage);
 
   const paginationHandler = (arg: string, page?: number) => {
     if (windowLocation === "/search-results") {

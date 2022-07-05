@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import MoonLoader from "react-spinners/MoonLoader";
 import { Player, Hls } from "@vime/react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
@@ -62,10 +63,9 @@ const VideoPlayer = () => {
           className="flex justify-center items-center"
           style={{ height: 400 }}
         >
-          <span className="text-white outfit-medium ">
-            {/*if no video URL then display below message*/}
-            Loading...
-          </span>
+          <div className="sweet-loading">
+            <MoonLoader color={"white"} loading={loading} size={60} />
+          </div>
         </div>
       ) : (
         (!videoLink && (
