@@ -15,7 +15,7 @@ const Login = () => {
   }, []);
 
   return (
-    <section className="login-background">
+    <section className="login-background sm:w-screen">
       <div className="absolute pt-16 pl-16">
         <h1 className="text-redor text-[46px] outfit-medium">Ashanime</h1>
         <h2 className="text-white text-[46px] outfit-medium">

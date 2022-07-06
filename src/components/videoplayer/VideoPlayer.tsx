@@ -15,8 +15,7 @@ const VideoPlayer = () => {
   );
 
   const hlsConfig = {
-    // ...
-
+    crossOrigin: "anonymous",
     enableWorker: false,
   };
 
