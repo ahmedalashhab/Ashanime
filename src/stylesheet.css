@@ -46,6 +46,17 @@ font-family: outfit-medium, sans-serif;
 
 }
 
+/*make login-background responsive for iphone 12*/
+@media only screen and (max-width: 500px) {
+    .login-background {
+        background-image: url("https://wallpapercave.com/wp/wc1783047.png");
+        background-size: 200vh 120vh;
+        background-position: right;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+}
+
 .category-state svg path{
     fill: var(--white);
     transition: fill 0.2s ease 0s;

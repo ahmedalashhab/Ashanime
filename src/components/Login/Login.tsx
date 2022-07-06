@@ -15,20 +15,24 @@ const Login = () => {
   }, []);
 
   return (
-    <section className="login-background sm:w-screen">
-      <div className="absolute pt-16 pl-16">
-        <h1 className="text-redor text-[46px] outfit-medium">Ashanime</h1>
-        <h2 className="text-white text-[46px] outfit-medium">
+    <section className="login-background">
+      <div className="lg:absolute lg:pt-16 lg:pl-16 flex flex-col items-center justify-center pt-28">
+        <h1 className="text-redor lg:text-[46px] text-[42px] flex justify-center outfit-medium">
+          Ashanime
+        </h1>
+        <h2 className="text-white lg:text-[46px] text-[24px] outfit-medium">
           Explore the world of <span className="text-redor inline">Anime</span>
         </h2>
       </div>
-      <div className="flex items-center justify-center h-screen">
-        <div className="flex flex-col justify-center items-center h-96 w-96 bg-whole-page rounded-2xl">
-          <div className="mb-20">
-            <img className="h-16" src={logo} alt="logo" />
+      <div className="flex lg:items-center justify-center lg:h-screen pt-16 ">
+        <div className="flex flex-col justify-center items-center lg:h-96 h-52 lg:w-96 w-80 bg-whole-page rounded-2xl">
+          <div className="lg:mb-20 mb-6">
+            <img className="lg:h-16 h-12" src={logo} alt="logo" />
           </div>
 
-          <h3 className="text-white outfit-medium text-[32px] mb-6">Login</h3>
+          <h3 className="text-white outfit-medium lg:text-[32px] text-[24px] lg:mb-6 mb-6">
+            Login
+          </h3>
           <LoginButton />
         </div>
       </div>
