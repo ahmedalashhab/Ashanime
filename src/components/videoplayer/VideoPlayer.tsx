@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
-import { Player, Hls } from "@vime/react";
+import { Player, Hls, Video } from "@vime/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 
 const VideoPlayer = () => {
   const [loading, setLoading] = useState(false);
-  const [videoLink, setVideoLink] = useState(null);
+  const [videoLink, setVideoLink] = useState("");
 
   const streamId = useSelector((state: RootState) => state.anime.streamId);
   const episodeSelected = useSelector(
@@ -63,13 +63,16 @@ const VideoPlayer = () => {
         )) || (
           <div style={{ height: 400 }}>
             <Player controls>
-              <Hls
-                version="latest"
-                config={hlsConfig}
-                poster="/media/poster.png"
-              >
-                <source data-src={videoLink} type="application/x-mpegURL" />
-              </Hls>
+              {/*ts ignore*/}
+              {videoLink && videoLink.includes("m3u8") ? (
+                <Hls version="latest" config={hlsConfig}>
+                  <source data-src={videoLink} type="application/x-mpegURL" />
+                </Hls>
+              ) : (
+                <Video key={videoLink}>
+                  <source data-src={videoLink} type="video/mp4" />
+                </Video>
+              )}
             </Player>
           </div>
         )
