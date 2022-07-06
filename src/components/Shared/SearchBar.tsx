@@ -105,6 +105,7 @@ const SearchBar = () => {
                 type="text"
                 placeholder="Titles, Movies, Shows"
                 id="search-bar"
+                ref={(input) => input && input.focus()}
                 onChange={(e) => {
                   dispatch(setSearchQuery(e.target.value));
                   // sets the page to 1 when searching something new
