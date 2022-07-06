@@ -2,13 +2,9 @@ import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import {
   animeSearch,
-  setHasNextPage,
-  setLastPage,
   searchLoadingAction,
   setPageLoadingAction,
   setCurrentPage,
-  setModalData,
-  setStream,
 } from "../../redux/search-slice";
 import { setSearchQuery, setSearchQueryView } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
@@ -16,15 +12,11 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
-import SearchResults from "../SearchResults/SearchResults";
-import { streamModal } from "../../types/type";
 
 const SearchBar = () => {
   const { searchLoading, searchQuery, searchQueryView, pageLoading } =
     useSelector((state: RootState) => state.anime);
 
-  const animeReducer = useSelector((state: RootState) => state.anime);
-  const searchResults = animeReducer.searchResults;
   const [showInput, setShowInput] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -32,8 +24,6 @@ const SearchBar = () => {
   const currentPage = useSelector(
     (state: RootState) => state.anime.currentPage
   );
-  const modalData = useSelector((state: RootState) => state.anime.modalData);
-  const episodesList = modalData.episodesList;
 
   const closeSearchBar = (e: any) => {
     if (showInput && e.target.id === "search-bar") {
@@ -71,27 +61,6 @@ const SearchBar = () => {
               setCurrentPage(1);
             }
             dispatch(animeSearch(data));
-
-            // dispatch(setHasNextPage(res.data.pagination.has_next_page));
-            // dispatch(setLastPage(res.data.pagination.last_visible_page));
-
-            // await searchResults.map((result): any => {
-            //   const animeId = result.animeId;
-            //   axios
-            //     .get(`https://gogoanime.herokuapp.com/anime-details/${animeId}`)
-            //     .then(async (response) => {
-            //       const data = response.data;
-            //       dispatch(setModalData(data));
-            //       const id =
-            //         data.episodesList[episodesList.length - 1].episodeId;
-            //       await axios
-            //         .get(`https://gogoanime.herokuapp.com/vidcdn/watch/${id}`)
-            //         .then((response) => {
-            //           const data = response.data;
-            //           dispatch(setStream(data));
-            //         });
-            //     });
-            // });
           });
       };
       getSearch();

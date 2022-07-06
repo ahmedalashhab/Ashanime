@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Shared/Navbar";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
-import Pagination from "../Shared/Pagination";
 import AnimeGridStream from "../Shared/AnimeGridStream";
 import {
   animeSearch,
@@ -28,7 +27,6 @@ const SearchResults = () => {
   const animeReducer = useSelector((state: RootState) => state.anime);
   const searchResults = animeReducer.searchResults;
   const searchQueryView = animeReducer.searchQueryView;
-  const currentPage = animeReducer.currentPage;
 
   const handleSearchTitleStart = () => {
     return `Search results for`;
@@ -43,10 +41,6 @@ const SearchResults = () => {
     if (animeId) {
       setModalId(animeId);
     }
-  };
-
-  const paginate = (pageNumber: number) => {
-    return dispatch(setCurrentPage(pageNumber));
   };
 
   const handleGridRows = () => {
@@ -76,12 +70,7 @@ const SearchResults = () => {
             handleModal={handleModal}
             handleGridRows={handleGridRows}
           />
-          <div className="mb-10 mt-5">
-            {/*<Pagination*/}
-            {/*  currentPage={currentPage}*/}
-            {/*  paginate={(pageNumber) => paginate(pageNumber)}*/}
-            {/*/>*/}
-          </div>
+          <div className="mb-10 mt-5"></div>
           <ModalStream
             setToggle={(boolean: boolean) => {
               if (!boolean) {

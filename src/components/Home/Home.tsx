@@ -1,4 +1,3 @@
-import SearchBar from "../Shared/SearchBar";
 import AnimeTrailersHome from "./AnimeTrailersHome";
 import TopAnime from "./TopAnime";
 import Navbar from "../Shared/Navbar";

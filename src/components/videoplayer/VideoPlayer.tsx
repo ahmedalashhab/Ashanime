@@ -16,6 +16,8 @@ const VideoPlayer = () => {
 
   const hlsConfig = {
     // ...
+
+    enableWorker: false,
   };
 
   const getEpisodeStream = async () => {
@@ -67,11 +69,7 @@ const VideoPlayer = () => {
                 config={hlsConfig}
                 poster="/media/poster.png"
               >
-                {!videoLink ? (
-                  ""
-                ) : (
-                  <source data-src={videoLink} type="application/x-mpegURL" />
-                )}
+                <source data-src={videoLink} type="application/x-mpegURL" />
               </Hls>
             </Player>
           </div>

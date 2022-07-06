@@ -26,10 +26,6 @@ const Pagination = ({ currentPage, paginate }: props) => {
   const dispatch = useAppDispatch();
   const windowLocation = window.location.pathname;
 
-  const searchResults = useSelector(
-    (state: RootState) => state.anime.searchResults
-  );
-
   useEffect(() => {
     if (currentPage % 10 === 1 && currentPage !== 1 && clickedNext) {
       setPageRange(

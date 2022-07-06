@@ -1,8 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-//TODO - add a backdrop to the modal
-
 interface data {
   entry: { title: string; mal_id: number };
   trailer: { embed_url: string };

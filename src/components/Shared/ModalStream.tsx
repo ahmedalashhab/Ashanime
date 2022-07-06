@@ -1,16 +1,8 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import PulseLoader from "react-spinners/PulseLoader";
+
 import {
-  anime,
-  episodesList,
-  streamModal,
-  streamSearch,
-} from "../../types/type";
-import {
-  setBookmarks,
-  setHasNextPage,
-  setLastPage,
   setModalData,
   setStream,
   setStreamId,
@@ -19,9 +11,7 @@ import {
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Notification from "./Notification";
-import { useNotification } from "../../hooks/useNotification";
 import axios from "axios";
-import { streamDataState } from "./initialDataState";
 import VideoPlayer from "../videoplayer/VideoPlayer";
 
 interface props {
@@ -33,9 +23,7 @@ interface props {
 export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
-  const { notificationHandler } = useNotification();
   const dispatch = useAppDispatch();
-  const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
   const modalData = useSelector((state: RootState) => state.anime.modalData);
   const episodeSelected = useSelector(
     (state: RootState) => state.anime.episodeSelected
