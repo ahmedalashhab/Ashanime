@@ -104,24 +104,22 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                   <VideoPlayer />
                 </div>
                 {loading ? (
-                  <div
-                    className="flex justify-center items-center"
-                    style={{ height: 400 }}
-                  >
+                  <div className="flex justify-center items-center lg:h-96 h-52 w-full">
                     <PulseLoader color={"white"} loading={loading} size={10} />
                   </div>
                 ) : (
-                  <div className="flex gap-6 lg:mt-3 justify-between px-8">
+                  <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-between lg:px-8 px-4">
                     <Dialog.Title
                       as="h3"
-                      className="lg:text-lg text-[12px] lg:leading-6 outfit-medium text-redor"
+                      className="lg:text-lg  lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
                     >
                       {modalData.animeTitle}
                     </Dialog.Title>
-                    <div>
+                    <div className="flex text-right items-center gap-6 content-end">
                       {/*  drop down list for episodes*/}
+
                       <select
-                        className="lg:w-44 w-32 h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
+                        className="lg:w-44 w-28 h-8 text-[10px] rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
                          appearance-none text-[12px] lg:text-sm lg:leading-5 lg:py-2 lg:px-4 lg:mt-0"
                         onChange={(e) => {
                           dispatch(setStreamId(""));
@@ -150,13 +148,13 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                       </select>
                     </div>
                     <div className="flex text-right items-center gap-6 content-end">
-                      <span className="text-white outfit-light text-[12px] text-right">
+                      <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                         {modalData.type}
                       </span>
-                      <span className="text-white outfit-light text-[12px] text-right">
+                      <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                         Episodes Aired: {modalData.totalEpisodes}
                       </span>
-                      <span className="text-white outfit-light text-[12px] text-right">
+                      <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                         {modalData.status}
                       </span>
                     </div>
@@ -166,22 +164,20 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                 {loading ? (
                   ""
                 ) : (
-                  <div className="my-4 px-8 overflow-y-auto">
-                    <p className="text-white outfit-light text-[12px]">
+                  <div className="my-4 lg:px-8 px-4 overflow-y-auto">
+                    <p className="text-white outfit-light lg:text-[12px] text-[10px]">
                       {modalData.synopsis}
                     </p>
                   </div>
                 )}
-                <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row justify-between">
+                <div className=" flex lg:px-4 mt-auto lg:pb-6 pb-4 sm:px-6 flex justify-between gap-6">
                   <div className="flex self-start">
-                    <div className="flex">
-                      <span className="outfit-medium text-white lg:text-[14px] text-[10px] px-4 ">
-                        {loading ? "" : "Genres: "}
-                        {loading
-                          ? ""
-                          : modalData?.genres?.map((genre) => genre).join(", ")}
-                      </span>
-                    </div>
+                    <span className="outfit-medium text-white lg:text-[14px] text-[10px] px-4 text-left ">
+                      {loading ? "" : "Genres: "}
+                      {loading
+                        ? ""
+                        : modalData?.genres?.map((genre) => genre).join(", ")}
+                    </span>
                   </div>
                 </div>
               </Dialog.Panel>

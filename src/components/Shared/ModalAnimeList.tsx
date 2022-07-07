@@ -90,15 +90,11 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                   {data.trailer.embed_url ? (
                     <iframe
                       title="video player"
-                      style={{ height: 400 }}
                       src={data.trailer.embed_url}
-                      className="h-full w-full"
+                      className="h-56 lg:h-96 w-full"
                     />
                   ) : (
-                    <div
-                      className="flex justify-center items-center"
-                      style={{ height: 400 }}
-                    >
+                    <div className="flex justify-center items-center h-56 lg:h-96 w-full">
                       <span className="text-white outfit-medium ">
                         {/*if no video URL then display below message*/}
                         No trailer available :(
@@ -107,26 +103,26 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                   )}
                 </div>
 
-                <div className="flex gap-6 lg:mt-3 justify-between px-8">
+                <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-between px-8">
                   <Dialog.Title
                     as="h3"
-                    className="lg:text-lg text-[12px] leading-6 outfit-medium text-redor"
+                    className="lg:text-lg mr-4 lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
                   >
                     {data.title}
                   </Dialog.Title>
                   <div className="flex text-right items-center gap-6 content-end">
-                    <span className="text-white outfit-light lg:text-[12px] text-[10px] text-right">
+                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                       {data.type}
-                    </span>
-                    <span className="text-white outfit-light lg:text-[12px] text-[10px] text-right">
+                    </p>
+                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                       Score: {data.score}
-                    </span>
-                    <span className="text-white outfit-light lg:text-[12px] text-[10px] text-right">
+                    </p>
+                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                       Episodes Aired: {data.episodes}
-                    </span>
-                    <span className="text-white outfit-light lg:text-[12px] text-[10px] text-right">
+                    </p>
+                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
                       {data.status}
-                    </span>
+                    </p>
                   </div>
                 </div>
 

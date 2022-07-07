@@ -41,27 +41,21 @@ const VideoPlayer = () => {
   return (
     <>
       {loading ? (
-        <div
-          className="flex justify-center items-center"
-          style={{ height: 400 }}
-        >
+        <div className="flex justify-center items-center h-56 lg:h-96 w-full">
           <div className="sweet-loading">
             <MoonLoader color={"white"} loading={loading} size={60} />
           </div>
         </div>
       ) : (
         (!videoLink && (
-          <div
-            className="flex justify-center items-center"
-            style={{ height: 400 }}
-          >
+          <div className="flex justify-center items-center h-56 lg:h-96 w-full">
             <span className="text-white outfit-medium ">
               {/*if no video URL then display below message*/}
               Select an episode to watch
             </span>
           </div>
         )) || (
-          <div style={{ height: 400 }}>
+          <div>
             <Player controls>
               {/*ts ignore*/}
               {videoLink && videoLink.includes("m3u8") ? (
