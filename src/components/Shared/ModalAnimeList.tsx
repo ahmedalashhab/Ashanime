@@ -84,7 +84,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="h-5/6 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
+              <Dialog.Panel className="h-5/6 mt-16 lg:mt-0 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
                 <div className="w-92 flex flex-col page-bg lg:pb-4">
                   {/*Checks if video URL is available*/}
                   {data.trailer.embed_url ? (
@@ -132,11 +132,11 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
 
                 {/*synopsis*/}
                 <div className="my-4 px-8 overflow-y-auto">
-                  <p className="text-white outfit-light text-[12px]">
+                  <p className="text-white outfit-light lg:text-[12px] text-[10px]">
                     {data.synopsis}
                   </p>
                 </div>
-                <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row-reverse justify-between">
+                <div className=" flex px-4 mt-auto lg:pb-6 pb-4 sm:px-6 flex flex-row-reverse justify-between gap-6">
                   <button
                     type="button"
                     // save the bookmark to localstorage or remove it if it already exists
@@ -147,29 +147,29 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                         ? removeFromBookmarks
                         : addToBookmarks
                     }
-                    className="w-36 ml-6 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 redor-button text-base font-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-24 lg:w-44 lg:py-2 py-0  inline-flex justify-center rounded-md border border-transparent shadow-sm lg:px-6 py-2 redor-button text-base font-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     {/*check if item is in bookmarks*/}
                     {bookmarks.includes(data) ? (
-                      <span className="text-white outfit-medium lg:text-[16px] text-[12px]">
+                      <p className="text-white outfit-medium lg:text-[16px] text-[10px]">
                         Remove from Watchlist
-                      </span>
+                      </p>
                     ) : (
-                      <span className="text-white outfit-medium lg:text-[16px] text-[12px]">
+                      <p className="text-white outfit-medium lg:text-[16px] text-[10px]">
                         Add to Watchlist
-                      </span>
+                      </p>
                     )}
                   </button>
                   <div className="flex self-end">
                     <div className="flex">
-                      <span className="outfit-medium text-white lg:text-[14px] text-[10px] ">
+                      <p className="outfit-medium text-white lg:text-[14px] text-[8px] ">
                         Genres:&nbsp;
                         {data.genres.map((genre) => genre.name).join(", ")}
-                      </span>
-                      <span className="ml-8 outfit-medium text-white lg:text-[14px] text-[10px] ">
+                      </p>
+                      <p className="ml-8 outfit-medium text-white lg:text-[14px] text-[8px] ">
                         Studio:&nbsp;
                         {data.studios.map((studio) => studio.name).join(", ")}
-                      </span>
+                      </p>
                     </div>
                   </div>
                 </div>
