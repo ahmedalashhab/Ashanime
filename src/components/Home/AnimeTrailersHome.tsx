@@ -41,15 +41,16 @@ const AnimeTrailersHome = () => {
   };
 
   return (
-    <div className="z-10">
+    <div className="z-10 lg:ml-0">
       <h3 className="outfit-light text-white text-[32px] mb-4 relative">
         Upcoming Anime
       </h3>
-      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden h-80 flex items-center">
+      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 flex items-center">
         <motion.div
           initial={{ opacity: 0, translateX: -100 }}
           animate={{ opacity: 1, translateX: 0 }}
           transition={{ duration: 1, delay: 0.1 }}
+          className="lg:ml-0"
         >
           {animeTrailer.map((anime) => {
             return (

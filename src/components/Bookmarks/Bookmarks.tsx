@@ -8,6 +8,7 @@ import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
 import LocalPagination from "./LocalPagination";
 import AnimeGrid from "../Shared/AnimeGrid";
+import MobileNav from "../Shared/MobileNav";
 
 const Bookmarks = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
@@ -49,10 +50,11 @@ const Bookmarks = () => {
   );
 
   return (
-    <div>
+    <div className="">
       <Navbar />
+      <MobileNav />
       <div className="flex justify-center mt-12">
-        <div className="mt-8 screen-width px-12" id="top-anime">
+        <div className="mt-8 lg:w-[1440px] lg:px-8" id="top-anime">
           <div className=" ml-8 mb-4">
             <span className="outfit-light text-white text-[32px]">
               {bookmarks.length > 0
@@ -65,7 +67,6 @@ const Bookmarks = () => {
             animeList={currentBookmarks}
             handleModal={handleModal}
             handleGridRows={handleGridRows}
-            className=""
           />
 
           {bookmarks.length > 0 && (

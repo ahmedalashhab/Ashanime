@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 // @ts-ignore
 import YoutubeBackground from "react-youtube-background";
+import MobileNav from "../Shared/MobileNav";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,9 +69,12 @@ const Home = () => {
           playlist={["F0evM-hBlcI"]}
         >
           <div>
+            <MobileNav
+              paginate={(pageNumber: number) => paginate(pageNumber)}
+            />
             <Navbar paginate={(pageNumber: number) => paginate(pageNumber)} />
             <div className="flex justify-center">
-              <div className="screen-width ml-44 mt-16 overflow-y-hidden">
+              <div className="lg:w-[1440px] ml-44 mt-16 overflow-y-hidden">
                 <h3 className="text-white outfit-medium text-[32px] mt-4">
                   <br />
                 </h3>
@@ -82,7 +86,7 @@ const Home = () => {
 
       <div
         style={{ marginTop: "40rem" }}
-        className="flex flex-col screen-width px-12 overflow-x-hidden"
+        className="flex flex-col lg:w-[1440px] w-screen lg:px-12 px-4 overflow-x-hidden"
       >
         <AnimeTrailersHome />
         {

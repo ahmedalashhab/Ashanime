@@ -69,13 +69,13 @@ const TopAnime = ({ currentPage, paginate }: props) => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="mt-8" id="top-anime">
         <div className="flex justify-between">
           <h2 className="outfit-light text-white text-[32px] mb-4 z-10">
             {handleTitle()}
           </h2>
-          <div>
+          <div className="flex items-center mb-4">
             {type !== "movie" && (
               <ToggleAiring
                 paginate={(pageNumber: number) => paginate(pageNumber)}

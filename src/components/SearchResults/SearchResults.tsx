@@ -10,6 +10,7 @@ import {
   setStream,
 } from "../../redux/search-slice";
 import ModalStream from "../Shared/ModalStream";
+import MobileNav from "../Shared/MobileNav";
 
 const SearchResults = () => {
   const [modalId, setModalId] = useState<string>("");
@@ -55,8 +56,9 @@ const SearchResults = () => {
   return (
     <div>
       <Navbar />
+      <MobileNav />
       <div className="flex justify-center mt-12">
-        <div className="mt-8 mx-12 screen-width" id="top-anime">
+        <div className="mt-8 lg:mx-12 mx-4 screen-width" id="top-anime">
           <div className=" ml-4 mb-4">
             <span className="outfit-light text-white text-[32px]">
               {handleSearchTitleStart()}

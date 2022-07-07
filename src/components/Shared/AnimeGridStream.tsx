@@ -4,7 +4,7 @@ import { streamSearch } from "../../types/type";
 
 const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
   return (
-    <div className={`grid grid-cols-5 ${handleGridRows}`}>
+    <div className={`grid lg:grid-cols-5 grid-cols-2 ${handleGridRows}`}>
       {animeList.map((anime: streamSearch, i: number) => {
         return (
           <motion.div
@@ -25,14 +25,14 @@ const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
             </div>
             <div className="flex gap-3 mt-2">
               {anime.status && (
-                <span className="outfit-light text-white text-[13px]">
+                <span className="outfit-light text-white lg:text-[13px] text-[8px]">
                   {anime.status}
                 </span>
               )}
             </div>
             <div className="w-52 flex justify-center">
               <span
-                className="outfit-medium mb-4 text-white hover:text-redor transition-all ease-in-out text-[16px] cursor-pointer text-center"
+                className="outfit-medium lg:mb-4 mb-8 lg:mx-0 mx-8 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center"
                 onClick={() => handleModal(true, anime)}
               >
                 {anime.animeTitle}

@@ -78,11 +78,11 @@ const Navbar = ({ paginate }: props) => {
 
   return (
     <div
-      className={`flex justify-center items-center bg-none dark-gradient-nav transition-all sticky-nav ${
+      className={` invisible lg:visible flex justify-center items-center bg-none dark-gradient-nav transition-all sticky-nav ${
         scrolled ? "scrolled-nav" : ""
       }`}
     >
-      <div className="flex justify-between items-center py-4 px-12 screen-width">
+      <div className="flex justify-between items-center py-4 px-12 w-[1440px]">
         <div className="flex gap-8">
           <div className="cursor-pointer" onClick={handleLogoClick}>
             <img alt="logo" className="mx-auto" src={logo} />

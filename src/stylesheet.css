@@ -101,6 +101,10 @@ background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0, 0.001))
     z-index: 100;
 }
 
+.z-index-100 {
+    z-index: 100;
+}
+
 .scrolled-nav{
     background-color: var(--whole-page);
     transition: background-color 0.5s ease 0s;
@@ -117,7 +121,7 @@ background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0, 0.001))
 .scrollbar::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: rgba(255,0,0,0.8);
+    background: var(--redor);
     -webkit-box-shadow: inset 0 0 6px var(--redor);
 }
 
@@ -133,6 +137,9 @@ position: absolute;
     width: 76rem
 }
 
+
+
+
 .seasonal-box{
     width: 30rem;
     display: inline-block;
@@ -143,6 +150,8 @@ position: absolute;
     align-items: center;
     border-radius: 10px;
 }
+
+
 
 .seasonal-img-box {
     width: 30rem;
@@ -156,7 +165,6 @@ position: absolute;
     width: 14rem;
     display: inline-block;
     height: 21rem;
-
     border-radius: 10px;
 }
 
@@ -188,9 +196,7 @@ position: absolute;
     width: 44rem;
 }
 
-.discover-modal-width {
-    width: 66rem;
-}
+
 
 .skeleton {
     animation: skeleton-loading 1s infinite alternate;
@@ -217,4 +223,45 @@ position: absolute;
         background-color: hsl(200,20%,95%); ;
     }
 }
+
+@media (max-width: 500px) {
+
+    .margin-fix {
+        margin-left: 31rem;
+    }
+
+    .seasonal-box {
+        width:10rem;
+        height: 5rem;
+        margin-right: 1rem;
+    }
+
+    .seasonal-img-box {
+        width:10rem;
+        height: 5rem;
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .discover-modal-width {
+        width: 50rem;
+    }
+
+    .standard-box {
+        width: 10rem;
+        height: 15rem;
+    }
+
+    .anime-box {
+        width: 10rem;
+        height: 15rem;
+    }
+
+
+
+
+}
+
 

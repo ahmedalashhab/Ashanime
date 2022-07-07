@@ -89,7 +89,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
         </Transition.Child>
 
         <div className="fixed modal-stream inset-0 overflow-y-auto">
-          <div className="h-full w-92 flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+          <div className="h-full w-92 mt-16 lg:mt-0 flex lg:items-center sm:items-center justify-center min-h-full lg:p-4 text-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -100,7 +100,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="h-5/6 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
-                <div className="w-92 flex flex-col page-bg pb-4">
+                <div className="w-92 flex flex-col page-bg lg:pb-4">
                   <VideoPlayer />
                 </div>
                 {loading ? (
@@ -111,17 +111,18 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                     <PulseLoader color={"white"} loading={loading} size={10} />
                   </div>
                 ) : (
-                  <div className="flex gap-2 mt-3 justify-between px-8">
+                  <div className="flex gap-6 lg:mt-3 justify-between px-8">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg leading-6 outfit-medium text-redor"
+                      className="lg:text-lg text-[12px] lg:leading-6 outfit-medium text-redor"
                     >
                       {modalData.animeTitle}
                     </Dialog.Title>
                     <div>
                       {/*  drop down list for episodes*/}
                       <select
-                        className="w-full h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300"
+                        className="lg:w-44 w-32 h-full rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
+                         appearance-none text-[12px] lg:text-sm lg:leading-5 lg:py-2 lg:px-4 lg:mt-0"
                         onChange={(e) => {
                           dispatch(setStreamId(""));
                           dispatch(setStream({}));
@@ -132,7 +133,9 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                         }}
                       >
                         {/*Load drop down list from oldest to newest episode*/}
-                        <option>Select an episode</option>
+                        <option className="text-center">
+                          Select an episode
+                        </option>
                         {episodesList &&
                           [...episodesList].reverse().map((episode) => {
                             return (
@@ -172,7 +175,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                 <div className=" flex px-4 mt-auto pb-6 sm:px-6 flex flex-row justify-between">
                   <div className="flex self-start">
                     <div className="flex">
-                      <span className="outfit-medium text-white text-[14px] ">
+                      <span className="outfit-medium text-white lg:text-[14px] text-[10px] px-4 ">
                         {loading ? "" : "Genres: "}
                         {loading
                           ? ""
