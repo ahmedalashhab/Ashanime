@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import LogoutButton from "../Login/LogoutButton";
-import SearchBar from "../Shared/SearchBar";
+import MobileSearchBar from "../Shared/MobileSearchBar";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface props {
@@ -113,19 +113,12 @@ const MobileNav = ({ paginate }: props) => {
           {/*  <img alt="logo" className="mx-auto" src={logo} />*/}
           {/*</div>*/}
 
-          <div className="flex gap-12">
-            <div className="">
-              <SearchBar />
-            </div>
-            {/*<img*/}
-            {/*  className="inline-block h-8 w-8 rounded-full mx-auto"*/}
-            {/*  src={profile.picture ? profile.picture : ""}*/}
-            {/*  alt="profile pic"*/}
-            {/*/>*/}
-            <div className="flex justify-center">
-              <LogoutButton />
-            </div>
-          </div>
+          <MobileSearchBar />
+          {/*<img*/}
+          {/*  className="inline-block h-8 w-8 rounded-full mx-auto"*/}
+          {/*  src={profile.picture ? profile.picture : ""}*/}
+          {/*  alt="profile pic"*/}
+          {/*/>*/}
         </div>
       </div>
       <motion.div
@@ -174,6 +167,7 @@ const MobileNav = ({ paginate }: props) => {
                     My Watchlist
                   </span>
                 </div>
+                <LogoutButton />
               </motion.div>
             </AnimatePresence>
           ) : (
