@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import LogoutButton from "../Login/LogoutButton";
 import MobileSearchBar from "../Shared/MobileSearchBar";
+import SearchBar from "./SearchBar";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface props {
@@ -113,7 +114,7 @@ const MobileNav = ({ paginate }: props) => {
           {/*  <img alt="logo" className="mx-auto" src={logo} />*/}
           {/*</div>*/}
 
-          <MobileSearchBar />
+          <SearchBar />
           {/*<img*/}
           {/*  className="inline-block h-8 w-8 rounded-full mx-auto"*/}
           {/*  src={profile.picture ? profile.picture : ""}*/}
