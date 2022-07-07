@@ -132,11 +132,10 @@ const MobileNav = ({ paginate }: props) => {
         initial={{
           opacity: 0,
           y: -100,
-          scale: 0.9,
         }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -100 }}
-        className="fixed top-16 bg-whole-page rounded-br z-index-100"
+        className="fixed top-14 bg-whole-page rounded-br z-index-100"
       >
         <div className="w-full px-4 ">
           {navToggle ? (
