@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className=" flex justify-center ">
-      <div className="lg:w-[1440px] screen-width">
+      <div className="lg:w-[1440px] w-screen">
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
