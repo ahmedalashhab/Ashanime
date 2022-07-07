@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import LogoutButton from "../Login/LogoutButton";
 import SearchBar from "../Shared/SearchBar";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface props {
   paginate?: (page: number) => void;
@@ -38,7 +39,7 @@ const MobileNav = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 975, behavior: "smooth" });
+    window.scroll({ top: 750, behavior: "smooth" });
   };
 
   //Handles the click highlighting of the movie button
@@ -51,7 +52,7 @@ const MobileNav = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 975, behavior: "smooth" });
+    window.scroll({ top: 750, behavior: "smooth" });
   };
 
   // Handles the highlighting of the TV shows button
@@ -64,7 +65,7 @@ const MobileNav = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 975, behavior: "smooth" });
+    window.scroll({ top: 750, behavior: "smooth" });
   };
 
   // Handles the highlighting of the bookmarks button
@@ -127,40 +128,60 @@ const MobileNav = ({ paginate }: props) => {
           </div>
         </div>
       </div>
-      <div className="fixed top-16 bg-whole-page rounded-br z-index-100">
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: -100,
+          scale: 0.9,
+        }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -100 }}
+        className="fixed top-16 bg-whole-page rounded-br z-index-100"
+      >
         <div className="w-full px-4 ">
           {navToggle ? (
             // make the nav transition animation
-            <div className="flex flex-col gap-8 pr-4 pb-4 ">
-              <div onClick={handleClickAll} title="All Anime">
-                <Link
-                  className="outfit-medium text-concrete text-[24px] "
-                  to={"/"}
-                >
-                  Top Anime
-                </Link>
-              </div>
-              <div onClick={handleClickMovie} title="Anime Movies">
-                <span className="outfit-medium text-concrete text-[24px] ">
-                  Top Movies
-                </span>
-              </div>
-              <div onClick={handleClickTV} title="Anime Shows">
-                <span className="outfit-medium text-concrete text-[24px]">
-                  Top Shows
-                </span>
-              </div>
-              <div onClick={handleClickBookmarks} title="Watchlist">
-                <span className="outfit-medium text-concrete text-[24px]">
-                  My Watchlist
-                </span>
-              </div>
-            </div>
+            <AnimatePresence>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  x: -100,
+                  scale: 0.9,
+                }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                className="flex flex-col gap-8 pr-4 pb-4 "
+              >
+                <div onClick={handleClickAll} title="All Anime">
+                  <Link
+                    className="outfit-medium text-concrete text-[24px] "
+                    to={"/"}
+                  >
+                    Top Anime
+                  </Link>
+                </div>
+                <div onClick={handleClickMovie} title="Anime Movies">
+                  <span className="outfit-medium text-concrete text-[24px] ">
+                    Top Movies
+                  </span>
+                </div>
+                <div onClick={handleClickTV} title="Anime Shows">
+                  <span className="outfit-medium text-concrete text-[24px]">
+                    Top Shows
+                  </span>
+                </div>
+                <div onClick={handleClickBookmarks} title="Watchlist">
+                  <span className="outfit-medium text-concrete text-[24px]">
+                    My Watchlist
+                  </span>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           ) : (
             ""
           )}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
