@@ -99,7 +99,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="h-2/3 lg:mt-0 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
+              <Dialog.Panel className="h-2/3 lg:h-5/6 lg:mt-0 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
                 <div className="w-92 flex flex-col page-bg lg:pb-4">
                   <VideoPlayer />
                 </div>
@@ -119,7 +119,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                       {/*  drop down list for episodes*/}
 
                       <select
-                        className="lg:w-44 w-28 h-8 text-[8px] flex justify-center pl-2  rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
+                        className="lg:w-44 lg:h-10 w-28 h-8 text-[8px] flex justify-center pl-2  rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
                          appearance-none text-[12px] lg:text-sm lg:leading-5 lg:py-2 lg:px-4 lg:mt-0"
                         onChange={(e) => {
                           dispatch(setStreamId(""));

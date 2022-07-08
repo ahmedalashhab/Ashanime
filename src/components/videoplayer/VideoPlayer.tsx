@@ -56,7 +56,9 @@ const VideoPlayer = () => {
           </div>
         )) || (
           <div>
-            <Player controls>
+            <Player
+            //playbackQuality="1920x1080"
+            >
               {/*ts ignore*/}
               {videoLink && videoLink.includes("m3u8") ? (
                 <Hls version="latest" config={hlsConfig}>
