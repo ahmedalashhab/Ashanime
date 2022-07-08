@@ -9,6 +9,7 @@ import { initialDataState } from "../Shared/initialDataState";
 import LocalPagination from "./LocalPagination";
 import AnimeGrid from "../Shared/AnimeGrid";
 import MobileNav from "../Shared/MobileNav";
+import MobileNavTW from "../Shared/MobileNavTW";
 
 const Bookmarks = () => {
   const [modalData, setModalData] = useState<anime>(initialDataState);
@@ -52,7 +53,7 @@ const Bookmarks = () => {
   return (
     <div className="">
       <Navbar />
-      <MobileNav />
+      <MobileNavTW />
       <div className="flex justify-center mt-12">
         <div className="mt-8 lg:w-[1440px] lg:px-8" id="top-anime">
           <div className=" ml-8 mb-4">

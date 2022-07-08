@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 // @ts-ignore
 import YoutubeBackground from "react-youtube-background";
-import MobileNav from "../Shared/MobileNav";
+import MobileNavTW from "../Shared/MobileNavTW";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +69,10 @@ const Home = () => {
           playlist={["F0evM-hBlcI"]}
         >
           <div>
-            <MobileNav
+            {/*<MobileNav*/}
+            {/*  paginate={(pageNumber: number) => paginate(pageNumber)}*/}
+            {/*/>*/}
+            <MobileNavTW
               paginate={(pageNumber: number) => paginate(pageNumber)}
             />
             <Navbar paginate={(pageNumber: number) => paginate(pageNumber)} />

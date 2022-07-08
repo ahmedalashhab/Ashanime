@@ -18,12 +18,12 @@ const LogoutButton = () => {
   };
 
   return (
-    <button
-      className="redor-button rounded w-24 h-8 outfit-medium text-white text-[14px] text-center"
+    <div
+      className="rounded w-24 text-base text-gray-300 hover:bg-gray-700 text-[14px] text-left flex items-center"
       onClick={() => handleSignOut()}
     >
       Sign Out
-    </button>
+    </div>
   );
 };
 

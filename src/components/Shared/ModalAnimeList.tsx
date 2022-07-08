@@ -85,7 +85,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="h-2/3 lg:h-5/6 mt-14 lg:mt-0 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
-                <div className="w-92 flex flex-col page-bg lg:pb-4">
+                <div className="flex flex-col page-bg lg:pb-4">
                   {/*Checks if video URL is available*/}
                   {data.trailer.embed_url ? (
                     <iframe
