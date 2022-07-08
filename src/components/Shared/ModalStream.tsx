@@ -111,7 +111,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                   <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-between lg:px-8 px-4">
                     <Dialog.Title
                       as="h3"
-                      className="lg:text-lg  lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
+                      className="flex items-center lg:text-lg lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
                     >
                       {modalData.animeTitle}
                     </Dialog.Title>
