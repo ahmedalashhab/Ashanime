@@ -119,8 +119,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                       {/*  drop down list for episodes*/}
 
                       <select
-                        className="lg:w-44 lg:h-10 w-28 h-8 text-[8px] flex justify-center pl-2  rounded-lg bg-white border-2 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
-                         appearance-none text-[12px] lg:text-sm lg:leading-5 lg:py-2 lg:px-4 lg:mt-0"
+                        className="lg:w-44 lg:h-10 w-28 h-10 text-[8px] lg:text-[12px] flex justify-center pr-6  rounded-lg bg-white border-0 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
+                         appearance-none lg:text-sm lg:leading-5"
                         onChange={(e) => {
                           dispatch(setStreamId(""));
                           dispatch(setStream({}));

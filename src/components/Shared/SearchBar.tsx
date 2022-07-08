@@ -116,7 +116,7 @@ const SearchBar = () => {
                   }
                 }}
                 value={searchQuery}
-                className="outfit-light text-[16px] bg-whole-page border-none appearance-none w-11/12 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
+                className=" outfit-light text-[16px] bg-whole-page border-none appearance-none w-11/12 ml-4 -my-1 text-white leading-tight outline-none input transition-all ease-in-out duration-200"
               />
               <button type="submit" />
             </form>
