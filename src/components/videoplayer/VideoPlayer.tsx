@@ -39,16 +39,16 @@ const VideoPlayer = () => {
   }, [episodeSelected]);
 
   return (
-    <>
+    <div className="lg:h-96 h-56 ">
       {loading ? (
-        <div className="flex justify-center items-center h-56 lg:h-96 w-full">
+        <div className="flex justify-center items-center w-full h-full">
           <div className="sweet-loading">
             <MoonLoader color={"white"} loading={loading} size={60} />
           </div>
         </div>
       ) : (
         (!videoLink && (
-          <div className="flex justify-center items-center h-56 lg:h-96 w-full">
+          <div className="flex justify-center items-center w-full h-full">
             <span className="text-white outfit-medium ">
               {/*if no video URL then display below message */}
               Select an episode to watch
@@ -71,7 +71,7 @@ const VideoPlayer = () => {
           </div>
         )
       )}
-    </>
+    </div>
   );
 };
 
