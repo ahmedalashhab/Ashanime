@@ -50,15 +50,13 @@ const VideoPlayer = () => {
         (!videoLink && (
           <div className="flex justify-center items-center h-56 lg:h-96 w-full">
             <span className="text-white outfit-medium ">
-              {/*if no video URL then display below message*/}
+              {/*if no video URL then display below message */}
               Select an episode to watch
             </span>
           </div>
         )) || (
           <div>
-            <Player
-            //playbackQuality="1920x1080"
-            >
+            <Player playbackQuality="1080p" controls>
               {/*ts ignore*/}
               {videoLink && videoLink.includes("m3u8") ? (
                 <Hls version="latest" config={hlsConfig}>
