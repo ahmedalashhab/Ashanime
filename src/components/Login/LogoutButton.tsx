@@ -19,7 +19,7 @@ const LogoutButton = () => {
 
   return (
     <div
-      className="rounded w-24 text-base text-gray-300 hover:bg-gray-700 text-[14px] text-left flex items-center"
+      className="rounded w-24 text-base text-gray-300 text-[14px] text-left flex items-center hover:text-white transition-all cursor-pointer"
       onClick={() => handleSignOut()}
     >
       Sign Out
