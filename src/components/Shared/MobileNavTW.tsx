@@ -34,7 +34,6 @@ interface props {
 
 export default function MobileNavTW({ paginate }: props) {
   const [scrolled, setScrolled] = useState(false);
-  const [navToggle, setNavToggle] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -57,7 +56,6 @@ export default function MobileNavTW({ paginate }: props) {
     dispatch(setType(""));
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
-    setNavToggle(false);
     if (paginate) {
       paginate(1);
     }
@@ -70,7 +68,6 @@ export default function MobileNavTW({ paginate }: props) {
     dispatch(setType("movie"));
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
-    setNavToggle(false);
     if (paginate) {
       paginate(1);
     }
@@ -83,7 +80,6 @@ export default function MobileNavTW({ paginate }: props) {
     dispatch(setType("tv"));
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
-    setNavToggle(false);
     if (paginate) {
       paginate(1);
     }
@@ -212,7 +208,7 @@ export default function MobileNavTW({ paginate }: props) {
                         id="search"
                         name="search"
                         className="w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-gray-700 text-gray-300 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 sm:text-sm"
-                        placeholder="Search"
+                        placeholder="Search for anime"
                         type="search"
                         // ref={(input) => input && input.focus()}
                         onChange={(e) => {
@@ -300,7 +296,7 @@ export default function MobileNavTW({ paginate }: props) {
               {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
               <Disclosure.Button
                 as="div"
-                className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                className="text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
               >
                 <Link to="/home" onClick={handleClickAll}>
                   Top All Anime
