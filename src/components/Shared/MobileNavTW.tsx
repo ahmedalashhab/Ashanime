@@ -151,8 +151,8 @@ export default function MobileNavTW({ paginate }: props) {
                 <div className="flex-shrink-0">
                   <img
                     className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
+                    src={logo}
+                    alt="logo"
                   />
                   <img
                     className="hidden lg:block h-8 w-auto"
