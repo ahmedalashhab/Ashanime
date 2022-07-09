@@ -8,7 +8,6 @@ import { anime } from "../../types/type";
 import { initialDataState } from "../Shared/initialDataState";
 import LocalPagination from "./LocalPagination";
 import AnimeGrid from "../Shared/AnimeGrid";
-import MobileNav from "../Shared/MobileNav";
 import MobileNavTW from "../Shared/MobileNavTW";
 
 const Bookmarks = () => {

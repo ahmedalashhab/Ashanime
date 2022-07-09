@@ -153,6 +153,9 @@ export default function MobileNavTW({ paginate }: props) {
                     className="block lg:hidden h-8 w-auto"
                     src={logo}
                     alt="logo"
+                    onClick={() => {
+                      navigate("/home");
+                    }}
                   />
                   <img
                     className="hidden lg:block h-8 w-auto"

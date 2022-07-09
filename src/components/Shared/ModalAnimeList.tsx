@@ -1,11 +1,20 @@
-import { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { anime } from "../../types/type";
-import { setBookmarks } from "../../redux/search-slice";
+import {
+  animeSearch,
+  searchLoadingAction,
+  setBookmarks,
+  setCurrentPage,
+  setPageLoadingAction,
+  setSearchQuery,
+  setSearchQueryView,
+} from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Notification from "./Notification";
 import { useNotification } from "../../hooks/useNotification";
+import axios from "axios";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -52,6 +61,31 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
       localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     }
   }, [bookmarks]);
+
+  // Search for the anime when clicking the button
+  const handleWatchOnClick = useCallback(() => {
+    dispatch(setSearchQueryView(data.title));
+    dispatch(setPageLoadingAction(false));
+    dispatch(searchLoadingAction(true));
+    dispatch(setSearchQuery(data.title));
+    const getSearch = async () => {
+      await axios
+        .get(`https://gogoanime.herokuapp.com/search`, {
+          params: {
+            keyw: data.title,
+          },
+        })
+        .then(async (res) => {
+          const data = res.data;
+          dispatch(searchLoadingAction(false));
+          if (data.length === 0 && setCurrentPage) {
+            setCurrentPage(1);
+          }
+          dispatch(animeSearch(data));
+        });
+    };
+    getSearch();
+  }, [dispatch, data.title]);
 
   return (
     <Transition.Root show={toggle} as={Fragment}>
@@ -135,6 +169,13 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                 <div className=" flex px-4 mt-auto lg:pb-6 pb-4 sm:px-6 flex flex-row-reverse justify-between gap-6">
                   <button
                     type="button"
+                    onClick={handleWatchOnClick}
+                    className="w-24 lg:w-44 lg:py-2 py-0 lg:text-[16px] text-[10px]  inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
+                    Watch Now
+                  </button>
+                  <button
+                    type="button"
                     // save the bookmark to localstorage or remove it if it already exists
                     onClick={
                       bookmarks.find(
@@ -143,7 +184,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                         ? removeFromBookmarks
                         : addToBookmarks
                     }
-                    className="w-24 lg:w-44 lg:py-2 py-0  inline-flex justify-center rounded-md border border-transparent shadow-sm lg:px-6 py-2 redor-button text-base font-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-24 lg:w-44 lg:py-2 py-0  inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     {/*check if item is in bookmarks*/}
                     {bookmarks.includes(data) ? (

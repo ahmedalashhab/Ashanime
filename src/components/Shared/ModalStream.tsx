@@ -7,12 +7,14 @@ import {
   setStream,
   setStreamId,
   setEpisodeSelected,
+  setBookmarks,
 } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Notification from "./Notification";
 import axios from "axios";
 import VideoPlayer from "../videoplayer/VideoPlayer";
+import { useNotification } from "../../hooks/useNotification";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -28,6 +30,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const episodeSelected = useSelector(
     (state: RootState) => state.anime.episodeSelected
   );
+  const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
+  const { notificationHandler } = useNotification();
   const episodesList = modalData.episodesList;
 
   const getAnimeDetails = async (modalId: string) => {
@@ -41,6 +45,51 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
       });
   };
 
+  // get bookmarks from localStorage
+  useEffect(() => {
+    const getBookmarks = localStorage.getItem("bookmarks");
+    if (getBookmarks) {
+      dispatch(setBookmarks(JSON.parse(getBookmarks)));
+    } else {
+      dispatch(setBookmarks([]));
+    }
+  }, [dispatch]);
+
+  // Add to bookmarks in local storage
+  /*
+  const addToBookmarks = () => {
+    const bookmarks: [] = localStorage.getItem("bookmarks");
+    if (bookmarks) {
+      const newBookmarks = JSON.parse(bookmarks);
+      newBookmarks.push(modalData);
+      localStorage.setItem("bookmarks-stream", JSON.stringify(newBookmarks));
+    } else {
+      localStorage.setItem("bookmarks-stream", JSON.stringify([modalData]));
+    }
+    notificationHandler("Added to Watchlist", "Success", true);
+    //ts-ignore
+    dispatch(setBookmarks([...bookmarks, modalData]));
+    setToggle(false); // close modal
+  };
+
+  // remove from bookmarks in local storage
+  const removeFromBookmarks = () => {
+    const bookmarks = localStorage.getItem("bookmarks");
+    if (bookmarks) {
+      const newBookmarks = JSON.parse(bookmarks);
+      const newBookmarksFiltered = newBookmarks.filter(
+        (item: { modalId: {} }) => item.modalId !== modalId
+      );
+      localStorage.setItem("bookmarks", JSON.stringify(newBookmarksFiltered));
+      //ts-ignore
+      dispatch(setBookmarks(newBookmarksFiltered));
+    }
+    notificationHandler("Removed from Watchlist", "Success", true);
+    setToggle(false); // close modal
+  };
+
+
+   */
   useEffect(() => {
     const getData = async () => {
       await getAnimeDetails(modalId);
