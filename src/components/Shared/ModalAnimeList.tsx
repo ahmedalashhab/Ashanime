@@ -198,7 +198,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                     )}
                   </button>
                   <div className="flex self-end">
-                    <div className="flex">
+                    <div className="flex items-center">
                       <p className="outfit-medium text-white lg:text-[14px] text-[8px] ">
                         Genres:&nbsp;
                         {data.genres.map((genre) => genre.name).join(", ")}
