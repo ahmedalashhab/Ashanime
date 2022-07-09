@@ -63,7 +63,9 @@ const SearchBar = () => {
             dispatch(animeSearch(data));
           });
       };
-      getSearch();
+      getSearch().then(() => {
+        dispatch(setSearchQuery(""));
+      });
     },
     [currentPage, dispatch, navigate, searchQuery, setCurrentPage, pageLoading]
   );
