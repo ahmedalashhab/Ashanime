@@ -157,55 +157,59 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                     <PulseLoader color={"white"} loading={loading} size={10} />
                   </div>
                 ) : (
-                  <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-between lg:px-8 px-4">
-                    <Dialog.Title
-                      as="h3"
-                      className="flex items-center lg:text-lg lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
-                    >
-                      {modalData.animeTitle}
-                    </Dialog.Title>
-                    <div className="flex text-right items-center gap-6 content-end">
-                      {/*  drop down list for episodes*/}
-
-                      <select
-                        className="lg:w-44 lg:h-10 w-28 h-10 text-[8px] lg:text-[12px] flex justify-center pr-6  rounded-lg bg-white border-0 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
-                         appearance-none lg:text-sm lg:leading-5"
-                        onChange={(e) => {
-                          dispatch(setStreamId(""));
-                          dispatch(setStream({}));
-                          const episodeId = e.target.value;
-                          dispatch(setStreamId(episodeId));
-                          // this is a fake toggle to trigger the video to play
-                          dispatch(setEpisodeSelected(!episodeSelected));
-                        }}
+                  <div>
+                    <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-center lg:px-8 px-4">
+                      <Dialog.Title
+                        as="h3"
+                        className="flex items-center lg:text-lg lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
                       >
-                        {/*Load drop down list from oldest to newest episode*/}
-                        <option className="text-center">
-                          Select an episode
-                        </option>
-                        {episodesList &&
-                          [...episodesList].reverse().map((episode) => {
-                            return (
-                              <option
-                                value={episode.episodeId}
-                                key={episode.episodeId}
-                              >
-                                {episode.episodeId}
-                              </option>
-                            );
-                          })}
-                      </select>
+                        {modalData.animeTitle}
+                      </Dialog.Title>
                     </div>
-                    <div className="flex text-right items-center gap-6 content-end">
-                      <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                        {modalData.type}
-                      </span>
-                      <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                        Episodes Aired: {modalData.totalEpisodes}
-                      </span>
-                      <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                        {modalData.status}
-                      </span>
+                    <div className="flex mt-2 justify-center pr-4">
+                      <div className="flex justify-center items-center gap-0 pl-4 pr-2">
+                        {/*  drop down list for episodes*/}
+
+                        <select
+                          className="lg:w-44 lg:h-10 w-28 h-5 text-[8px] lg:text-[12px] flex justify-center items-center pr-6 py-0 rounded-lg bg-white border-0 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
+                         appearance-none lg:text-sm lg:leading-5"
+                          onChange={(e) => {
+                            dispatch(setStreamId(""));
+                            dispatch(setStream({}));
+                            const episodeId = e.target.value;
+                            dispatch(setStreamId(episodeId));
+                            // this is a fake toggle to trigger the video to play
+                            dispatch(setEpisodeSelected(!episodeSelected));
+                          }}
+                        >
+                          {/*Load drop down list from oldest to newest episode*/}
+                          <option className="text-center">
+                            Select an episode
+                          </option>
+                          {episodesList &&
+                            [...episodesList].reverse().map((episode) => {
+                              return (
+                                <option
+                                  value={episode.episodeId}
+                                  key={episode.episodeId}
+                                >
+                                  {episode.episodeId}
+                                </option>
+                              );
+                            })}
+                        </select>
+                      </div>
+                      <div className="flex text-right items-center gap-2">
+                        <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                          {modalData.type}
+                        </span>
+                        <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                          Episodes Aired: {modalData.totalEpisodes}
+                        </span>
+                        <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                          {modalData.status}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 )}

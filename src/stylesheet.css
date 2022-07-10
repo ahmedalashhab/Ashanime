@@ -196,6 +196,9 @@ position: absolute;
     width: 44rem;
 }
 
+.modal-height {
+height: 25rem;
+}
 
 
 .skeleton {
@@ -259,8 +262,10 @@ position: absolute;
         height: 15rem;
     }
 
-
-
+    .modal-height {
+        height: 14rem;
+        width: 25rem;
+    }
 
 }
 

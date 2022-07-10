@@ -125,7 +125,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                     <iframe
                       title="video player"
                       src={data.trailer.embed_url}
-                      className="h-56 lg:h-96 w-full"
+                      className="modal-height modal-width "
                     />
                   ) : (
                     <div className="flex justify-center items-center h-56 lg:h-96 w-full">
@@ -136,28 +136,27 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                     </div>
                   )}
                 </div>
-
-                <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-between px-8">
+                <div className="flex justify-center lg:gap-6 gap-2 lg:-mt-4 mt-2 px-8">
                   <Dialog.Title
                     as="h3"
-                    className="lg:text-lg mr-4 lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
+                    className="lg:text-lg mr-4 lg:mr-0 text-[14px] flex justify-center text-center lg:leading-10 outfit-medium text-redor"
                   >
                     {data.title}
                   </Dialog.Title>
-                  <div className="flex text-right items-center gap-6 content-end">
-                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                      {data.type}
-                    </p>
-                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                      Score: {data.score}
-                    </p>
-                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                      Episodes Aired: {data.episodes}
-                    </p>
-                    <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                      {data.status}
-                    </p>
-                  </div>
+                </div>
+                <div className="flex justify-center items-center gap-6 px-8">
+                  <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                    {data.type}
+                  </p>
+                  <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                    Score: {data.score}
+                  </p>
+                  <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                    Episodes Aired: {data.episodes}
+                  </p>
+                  <p className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
+                    {data.status}
+                  </p>
                 </div>
 
                 {/*synopsis*/}
