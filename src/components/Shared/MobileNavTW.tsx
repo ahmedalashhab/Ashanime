@@ -5,7 +5,8 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+//@ts-ignore
+import logo from "../../assets/logo-icon.png";
 import {
   setType,
   setAiring,

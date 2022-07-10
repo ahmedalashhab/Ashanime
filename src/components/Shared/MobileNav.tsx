@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
 import { setType, setAiring, setSearchQuery } from "../../redux/search-slice";
 import { useAppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router";

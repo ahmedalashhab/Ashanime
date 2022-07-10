@@ -79,7 +79,7 @@ const Home = () => {
             />
             <Navbar paginate={(pageNumber: number) => paginate(pageNumber)} />
             <div className="flex justify-center">
-              <div className="h-20 mt-40">
+              <div className="h-20 mt-40 lg:invisible visible">
                 <img src={logo} alt="Ashanime logo" />
               </div>
             </div>

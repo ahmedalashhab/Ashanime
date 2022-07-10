@@ -25,8 +25,8 @@ function App() {
   const { show } = notificationReducer.notification;
 
   return (
-    <div className=" flex justify-center ">
-      <div className="lg:w-[1440px] w-screen">
+    <div className=" flex justify-center">
+      <div className="lg:w-screen w-screen">
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />

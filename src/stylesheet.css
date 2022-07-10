@@ -4,8 +4,12 @@
     --blue-gray: #5A698F;
     --navy-blue: #161D2F;
     --white: #FFF
-
 }
+
+html {
+    width: 100%;
+}
+
 .screen-width {
     width: 1440px
 }

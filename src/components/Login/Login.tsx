@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import logo from "../../assets/logo.svg";
+//@ts-ignore
+import logo from "../../assets/logo-long.png";
 import LoginButton from "./LoginButton";
 import { useNavigate } from "react-router";
 
@@ -16,15 +17,10 @@ const Login = () => {
 
   return (
     <section className="login-background">
-      <div className="lg:absolute lg:pt-16 lg:pl-16 flex flex-col items-center justify-center pt-28">
-        <h1 className="text-redor lg:text-[46px] text-[42px] flex justify-center outfit-medium">
-          Ashanime
-        </h1>
-        <h2 className="text-white lg:text-[46px] text-[24px] outfit-medium">
+      <div className="flex flex-col lg:items-center justify-center lg:h-screen">
+        <h2 className="text-white lg:text-[46px] text-[24px] outfit-medium lg:pb-10">
           Explore the world of <span className="text-redor inline">Anime</span>
         </h2>
-      </div>
-      <div className="flex lg:items-center justify-center lg:h-screen pt-16 ">
         <div className="flex flex-col justify-center items-center lg:h-96 h-52 lg:w-96 w-80 bg-whole-page rounded-2xl">
           <div className="lg:mb-20 mb-6">
             <img className="lg:h-16 h-12" src={logo} alt="logo" />

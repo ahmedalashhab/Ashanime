@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+//@ts-ignore
+import logo from "../../assets/logo-long.png";
 import { setType, setAiring, setSearchQuery } from "../../redux/search-slice";
 import { useAppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router";
@@ -85,7 +86,7 @@ const Navbar = ({ paginate }: props) => {
       <div className="flex justify-between items-center py-4 px-12 w-[1440px]">
         <div className="flex gap-8">
           <div className="cursor-pointer" onClick={handleLogoClick}>
-            <img alt="logo" className="mx-auto" src={logo} />
+            <img alt="logo" className="mx-auto h-6" src={logo} />
           </div>
           <div onClick={handleClickAll} title="All Anime">
             <Link
