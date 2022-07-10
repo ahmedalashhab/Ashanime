@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 // @ts-ignore
 import YoutubeBackground from "react-youtube-background";
 import MobileNavTW from "../Shared/MobileNavTW";
+// @ts-ignore
+import logo from "../../assets/logo-long.png";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,10 +79,8 @@ const Home = () => {
             />
             <Navbar paginate={(pageNumber: number) => paginate(pageNumber)} />
             <div className="flex justify-center">
-              <div className="lg:w-[1440px] ml-44 mt-16 overflow-y-hidden">
-                <h3 className="text-white outfit-medium text-[32px] mt-4">
-                  <br />
-                </h3>
+              <div className="h-20 mt-40">
+                <img src={logo} alt="Ashanime logo" />
               </div>
             </div>
           </div>
