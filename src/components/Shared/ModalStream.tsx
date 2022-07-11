@@ -166,8 +166,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                         {modalData.animeTitle}
                       </Dialog.Title>
                     </div>
-                    <div className="flex mt-2 justify-center pr-4">
-                      <div className="flex justify-center items-center gap-0 pl-4 pr-2">
+                    <div className="flex mt-2 justify-between lg:px-8 px-4">
+                      <div className="flex justify-center items-center gap-0 lg:pl-0">
                         {/*  drop down list for episodes*/}
 
                         <select
