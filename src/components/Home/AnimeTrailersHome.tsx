@@ -46,12 +46,7 @@ const AnimeTrailersHome = () => {
         Upcoming Anime
       </h3>
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 flex items-center">
-        <motion.div
-          initial={{ opacity: 0, translateX: -100 }}
-          animate={{ opacity: 1, translateX: 0 }}
-          transition={{ duration: 1, delay: 0.1 }}
-          className="lg:ml-0"
-        >
+        <div className="lg:ml-0">
           {animeTrailer.map((anime) => {
             return (
               // Code acts funny if fragments isn't used here
@@ -74,7 +69,7 @@ const AnimeTrailersHome = () => {
               </>
             );
           })}
-        </motion.div>
+        </div>
       </div>
       <Modal
         setToggle={(boolean: boolean) => {

@@ -158,10 +158,10 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                   </div>
                 ) : (
                   <div>
-                    <div className="flex lg:gap-6 gap-2 lg:mt-3 mt-2 justify-center lg:px-8 px-4">
+                    <div className=" lg:gap-6 gap-2 lg:mt-3  mt-2 lg:px-8 px-4">
                       <Dialog.Title
                         as="h3"
-                        className="flex items-center lg:text-lg lg:mr-0 text-[12px] text-left  lg:leading-6 outfit-medium text-redor"
+                        className="flex items-center lg:text-lg lg:mr-0 text-[12px] lg:text-left  lg:leading-6 outfit-medium text-redor"
                       >
                         {modalData.animeTitle}
                       </Dialog.Title>
@@ -171,7 +171,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                         {/*  drop down list for episodes*/}
 
                         <select
-                          className="lg:w-44 lg:h-10 w-28 h-5 text-[8px] lg:text-[12px] flex justify-center items-center pr-6 py-0 rounded-lg bg-white border-0 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
+                          className="lg:w-44 lg:h-6 w-28 lg:h-5 h-6 text-[8px] lg:text-[12px] flex justify-center items-center lg:pr-10 lg:pl-0 pr-6 py-0 rounded-lg bg-white border-0 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
                          appearance-none lg:text-sm lg:leading-5"
                           onChange={(e) => {
                             dispatch(setStreamId(""));

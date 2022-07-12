@@ -169,7 +169,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                   <button
                     type="button"
                     onClick={handleWatchOnClick}
-                    className="w-24 lg:w-44 lg:py-2 py-0 lg:text-[16px] text-[10px]  inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-24 lg:w-44 lg:py-2 py-0 lg:text-[16px] text-[10px]  inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
                   >
                     Watch Now
                   </button>
@@ -183,7 +183,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                         ? removeFromBookmarks
                         : addToBookmarks
                     }
-                    className="w-24 lg:w-44 lg:py-2 py-0  inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-24 lg:w-44 lg:py-2 py-0 inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500  sm:w-auto sm:text-sm"
                   >
                     {/*check if item is in bookmarks*/}
                     {bookmarks.includes(data) ? (
@@ -198,11 +198,11 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                   </button>
                   <div className="flex self-end">
                     <div className="flex items-center">
-                      <p className="outfit-medium text-white lg:text-[14px] text-[8px] ">
+                      <p className="outfit-medium text-white lg:text-[10px] text-[8px] ">
                         Genres:&nbsp;
                         {data.genres.map((genre) => genre.name).join(", ")}
                       </p>
-                      <p className="ml-8 outfit-medium text-white lg:text-[14px] text-[8px] ">
+                      <p className="ml-8 outfit-medium text-white lg:text-[10px] text-[8px] ">
                         Studio:&nbsp;
                         {data.studios.map((studio) => studio.name).join(", ")}
                       </p>
