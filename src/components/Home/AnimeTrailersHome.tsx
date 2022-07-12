@@ -46,11 +46,11 @@ const AnimeTrailersHome = () => {
         Upcoming Anime
       </h3>
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 flex items-center">
-        <div className="lg:ml-0">
+        <div className="lg:ml-0 flex">
           {animeTrailer.map((anime) => {
             return (
               // Code acts funny if fragments isn't used here
-              <>
+              <div>
                 {!anime.trailer.images.large_image_url ? null : (
                   <div className="seasonal-box rounded-xl" key={anime.mal_id}>
                     <img
@@ -66,7 +66,7 @@ const AnimeTrailersHome = () => {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             );
           })}
         </div>
