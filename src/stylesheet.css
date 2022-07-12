@@ -145,9 +145,9 @@ position: absolute;
 
 
 .seasonal-box{
-    width: 30rem;
+    width: 25rem;
     display: inline-block;
-    height: 15rem;
+    height: 12.5rem;
     margin-right: 3rem;
     flex-direction: column;
     justify-content: center;
@@ -158,8 +158,8 @@ position: absolute;
 
 
 .seasonal-img-box {
-    width: 30rem;
-    height: 15rem;
+    width: 25rem;
+    height: 12.5rem;
     border-radius: 10px;
     overflow: hidden;
     object-fit: cover;
@@ -238,14 +238,14 @@ height: 25rem;
     }
 
     .seasonal-box {
-        width:10rem;
-        height: 5rem;
+        width:7rem;
+        height: 3.5rem;
         margin-right: 1rem;
     }
 
     .seasonal-img-box {
-        width:10rem;
-        height: 5rem;
+        width:7rem;
+        height: 3.5rem;
     }
 
     .scrollbar::-webkit-scrollbar {

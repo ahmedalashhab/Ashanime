@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Modal from "./AnimeTrailerModal";
-import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const AnimeTrailersHome = () => {
   const [animeTrailer, setAnimeTrailer] = useState<any[]>([]);
@@ -38,6 +41,7 @@ const AnimeTrailersHome = () => {
     if (data) {
       setModalData(data);
     }
+    console.log(data.trailer.images);
   };
 
   return (
@@ -45,31 +49,38 @@ const AnimeTrailersHome = () => {
       <h3 className="outfit-light text-white text-[32px] mb-4 relative">
         Upcoming Anime
       </h3>
-      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 flex items-center">
-        <div className="lg:ml-0 flex">
+      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 lg:p-5 flex items-center">
+        <Swiper
+          className="lg:ml-0 flex"
+          slidesPerView={3}
+          spaceBetween={10}
+          modules={[Pagination]}
+        >
           {animeTrailer.map((anime) => {
-            return (
-              // Code acts funny if fragments isn't used here
-              <div>
-                {!anime.trailer.images.large_image_url ? null : (
-                  <div className="seasonal-box rounded-xl" key={anime.mal_id}>
-                    <img
-                      alt={`thumbnail of ${anime.title}`}
-                      src={anime.trailer.images.large_image_url}
-                      className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
-                      onClick={() => handleModal(true, anime)}
-                    />
-                    <div className="flex justify-center">
-                      <p className="text-white lg:text-[16px] text-[10px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
-                        {anime.title}
-                      </p>
+            if (anime.trailer.images.large_image_url) {
+              return (
+                // Code acts funny if fragments isn't used here
+                <SwiperSlide>
+                  {!anime.trailer.images.medium_image_url ? null : (
+                    <div className="seasonal-box rounded-xl" key={anime.mal_id}>
+                      <img
+                        alt={`thumbnail of ${anime.title}`}
+                        src={anime.trailer.images.medium_image_url}
+                        className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
+                        onClick={() => handleModal(true, anime)}
+                      />
+                      <div className="flex justify-center">
+                        <p className="text-white lg:text-[16px] text-[10px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                          {anime.title}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            );
+                  )}
+                </SwiperSlide>
+              );
+            }
           })}
-        </div>
+        </Swiper>
       </div>
       <Modal
         setToggle={(boolean: boolean) => {
