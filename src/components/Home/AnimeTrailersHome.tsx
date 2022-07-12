@@ -41,12 +41,11 @@ const AnimeTrailersHome = () => {
     if (data) {
       setModalData(data);
     }
-    console.log(data.trailer.images);
   };
 
   return (
     <div className="z-10 lg:ml-0">
-      <h3 className="outfit-light text-white text-[32px] mb-4 relative">
+      <h3 className="outfit-light text-white text-[32px] relative">
         Upcoming Anime
       </h3>
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 lg:p-5 flex items-center">
@@ -61,21 +60,19 @@ const AnimeTrailersHome = () => {
               return (
                 // Code acts funny if fragments isn't used here
                 <SwiperSlide>
-                  {!anime.trailer.images.medium_image_url ? null : (
-                    <div className="seasonal-box rounded-xl" key={anime.mal_id}>
-                      <img
-                        alt={`thumbnail of ${anime.title}`}
-                        src={anime.trailer.images.medium_image_url}
-                        className="rounded-xl seasonal-img-box mb-2 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
-                        onClick={() => handleModal(true, anime)}
-                      />
-                      <div className="flex justify-center">
-                        <p className="text-white lg:text-[16px] text-[10px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
-                          {anime.title}
-                        </p>
-                      </div>
+                  <div className="seasonal-box rounded-xl" key={anime.mal_id}>
+                    <img
+                      alt={`thumbnail of ${anime.title}`}
+                      src={anime.trailer.images.medium_image_url}
+                      className="rounded-xl seasonal-img-box mb-2 mt-1 cursor-pointer hover:scale-105 overflow-visible transition-all duration-300 ease-in-out"
+                      onClick={() => handleModal(true, anime)}
+                    />
+                    <div className="flex justify-center">
+                      <p className="text-white lg:text-[16px] text-[10px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                        {anime.title}
+                      </p>
                     </div>
-                  )}
+                  </div>
                 </SwiperSlide>
               );
             }
