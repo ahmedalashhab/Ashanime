@@ -17,7 +17,7 @@ const Login = () => {
 
   return (
     <section className="login-background flex justify-center items-center">
-      <div className="flex flex-col gap-32 items-center justify-center lg:h-screen">
+      <div className="flex flex-col gap-32 lg:gap-0 items-center justify-center lg:h-screen">
         <h2 className="text-white lg:text-[46px] text-[24px] outfit-medium lg:pb-24 pb-10 lg:-mt-36 -mt-52 ">
           Explore the world of <span className="text-redor inline">Anime</span>
         </h2>
