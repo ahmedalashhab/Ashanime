@@ -60,7 +60,7 @@ export default function MobileNavTW({ paginate }: props) {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 750, behavior: "smooth" });
+    window.scroll({ top: 0, behavior: "smooth" });
   };
 
   //Handles the click highlighting of the movie button
@@ -72,7 +72,7 @@ export default function MobileNavTW({ paginate }: props) {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 750, behavior: "smooth" });
+    window.scroll({ top: 0, behavior: "smooth" });
   };
 
   // Handles the highlighting of the TV shows button
@@ -84,7 +84,7 @@ export default function MobileNavTW({ paginate }: props) {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 750, behavior: "smooth" });
+    window.scroll({ top: 0, behavior: "smooth" });
   };
 
   // Handles the highlighting of the bookmarks button
