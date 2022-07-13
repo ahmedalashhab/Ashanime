@@ -1,11 +1,13 @@
 
-import React, {Fragment, useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState, useRef} from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import {setStreamId} from "../../redux/search-slice";
 import {episodesList} from "../../types/type";
+import {setSavedAnimeTitle, setSavedEpisode} from "../../redux/videoState-slice";
+
 
 
 
@@ -20,13 +22,57 @@ const [selected, setSelected] = useState<any>(null);
   const dispatch = useAppDispatch();
   const streamId = useSelector((state: RootState) => state.anime.streamId);
   const episodesList = useSelector((state: RootState) => state.anime.modalData.episodesList);
+  const modalData = useSelector((state: RootState) => state.anime.modalData);
+  const savedEpisode = useSelector((state: RootState) => state.videoState.savedEpisode);
+  const animeTitle = useSelector(
+    (state: RootState) => state.anime.modalData.animeTitle
+  );
+  const episodeSelected = useSelector(
+    (state: RootState) => state.anime.episodeSelected
+  );
+
+
+
 
   useEffect(() => {
     if (selected) {
-      dispatch(setStreamId(selected))
+      dispatch(setStreamId(selected));
+      dispatch(setSavedEpisode(selected))
+      localStorage.setItem("streamId", JSON.stringify(selected));
+      localStorage.setItem("savedAnimeTitle", JSON.stringify(animeTitle))
     }
+
   }
-  , [dispatch, selected])
+  , [selected])
+
+  const savedAnimeTitle = JSON.parse(localStorage.getItem("savedAnimeTitle") as string);
+
+
+  //set to local storage
+  useEffect(() => {
+    if (animeTitle && animeTitle.length > 3 && episodeSelected) {
+      dispatch(setSavedAnimeTitle(animeTitle));
+     }
+    //  save savedEpisode to local storage
+    if (streamId !== null && streamId !== "") {
+      localStorage.setItem("savedEpisode", JSON.stringify(streamId))}
+
+  }, [episodeSelected, animeTitle, streamId, dispatch])
+
+  // get from local storage
+  useEffect(() => {
+    if ( savedAnimeTitle === modalData.animeTitle) {
+
+      const savedEpisode = JSON.parse(localStorage.getItem("savedEpisode") as string);
+      dispatch(setStreamId(savedEpisode));
+      setSelected(savedEpisode);
+    }
+
+    return () => {
+      setSelected(null)
+    }
+
+  }, [savedAnimeTitle, dispatch, modalData])
 
   console.log(selected)
 

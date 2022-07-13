@@ -53,15 +53,6 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   };
 
   useEffect(() => {
-    //  check if animTitle is in local storage
-    if (!loading) {
-      if (savedAnimeTitle === animeTitle && savedEpisode) {
-        localStorage.getItem(savedEpisode);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
     const getData = async () => {
       await getAnimeDetails(modalId);
     };
@@ -74,7 +65,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
     localStorage.setItem("savedAnimeTitle", JSON.stringify(animeTitle));
     //  save savedEpisode to local storage
     localStorage.setItem("savedEpisode", JSON.stringify(streamId));
-  }, [episodeSelected, animeTitle, dispatch]);
+  }, [episodeSelected]);
 
   return (
     <Transition.Root show={toggle} as={Fragment}>

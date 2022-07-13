@@ -27,19 +27,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const dispatch = useAppDispatch();
   const modalData = useSelector((state: RootState) => state.anime.modalData);
   const streamId = useSelector((state: RootState) => state.anime.streamId);
-  const episodeSelected = useSelector(
-    (state: RootState) => state.anime.episodeSelected
-  );
-  const animeTitle = useSelector(
-    (state: RootState) => state.anime.modalData.animeTitle
-  );
-  const savedAnimeTitle = useSelector(
-    (state: RootState) => state.videoState.savedAnimeTitle
-  );
-  const savedEpisode = useSelector(
-    (state: RootState) => state.videoState.savedEpisode
-  );
-  const episodesList = modalData.episodesList;
+
+
 
   const getAnimeDetails = async (modalId: string) => {
     setLoading(true);
@@ -52,29 +41,20 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
       });
   };
 
-  useEffect(() => {
-    //  check if animTitle is in local storage
-    if (!loading) {
-      if (savedAnimeTitle === animeTitle && savedEpisode) {
-        localStorage.getItem(savedEpisode);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     const getData = async () => {
       await getAnimeDetails(modalId);
     };
     getData();
+
+
+
   }, [modalId, toggle]);
 
-  useEffect(() => {
-    dispatch(setSavedAnimeTitle(animeTitle));
-    //  save savedAnimeTitle to local storage
-    localStorage.setItem("savedAnimeTitle", JSON.stringify(animeTitle));
-    //  save savedEpisode to local storage
-    localStorage.setItem("savedEpisode", JSON.stringify(streamId));
-  }, [episodeSelected, animeTitle, dispatch]);
+  console.log(streamId)
+
+
 
   return (
     <Transition.Root show={toggle} as={Fragment}>
