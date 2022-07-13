@@ -4,7 +4,6 @@ import PulseLoader from "react-spinners/PulseLoader";
 
 import {
   setModalData,
-  setStream,
   setStreamId,
   setEpisodeSelected,
 } from "../../redux/search-slice";
@@ -14,6 +13,7 @@ import { useSelector } from "react-redux";
 import Notification from "./Notification";
 import axios from "axios";
 import VideoPlayer from "../videoplayer/VideoPlayer";
+import Dropdown from "./Dropdown";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -143,37 +143,10 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                       </Dialog.Title>
                     </div>
                     <div className="flex mt-2 justify-between lg:px-8 px-4">
-                      <div className="flex justify-center items-center gap-0 lg:pl-0">
+                      <div className="">
                         {/*  drop down list for episodes*/}
 
-                        <select
-                          className="lg:w-44 lg:h-6 w-28 lg:h-5 h-6 text-[8px] lg:text-[12px] flex justify-center items-center lg:pr-10 lg:pl-0 pr-6 py-0 rounded-lg bg-white border-0 border-gray-300 focus:outline-none focus:border-gray-500 focus:shadow-outline-blue focus:border-blue-300
-                         appearance-none lg:text-sm lg:leading-5"
-                          onChange={(e) => {
-                            dispatch(setStreamId(""));
-
-                            const episodeId = e.target.value;
-                            dispatch(setStreamId(episodeId));
-                            // this is a fake toggle to trigger the video to play
-                            dispatch(setEpisodeSelected(!episodeSelected));
-                          }}
-                        >
-                          {/*Load drop down list from oldest to newest episode*/}
-                          <option className="text-center">
-                            Select an episode
-                          </option>
-                          {episodesList &&
-                            [...episodesList].reverse().map((episode) => {
-                              return (
-                                <option
-                                  value={episode.episodeId}
-                                  key={episode.episodeId}
-                                >
-                                  {episode.episodeId}
-                                </option>
-                              );
-                            })}
-                        </select>
+                        <Dropdown  />
                       </div>
                       <div className="flex text-right items-center gap-2">
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">

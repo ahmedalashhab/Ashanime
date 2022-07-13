@@ -10,6 +10,7 @@ import {
   setStream,
 } from "../../redux/search-slice";
 import ModalStream from "../Shared/ModalStream";
+import ModalStreamTW from "../Shared/ModalStreamTW";
 import MobileNavTW from "../Shared/MobileNavTW";
 
 const SearchResults = () => {
@@ -73,10 +74,9 @@ const SearchResults = () => {
             handleGridRows={handleGridRows}
           />
           <div className="mb-10 mt-5"></div>
-          <ModalStream
+          <ModalStreamTW
             setToggle={(boolean: boolean) => {
               if (!boolean) {
-                dispatch(setStream({}));
                 dispatch(setModalData({} as any));
               }
               setModal(boolean);
