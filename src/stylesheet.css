@@ -42,7 +42,7 @@ font-family: outfit-medium, sans-serif;
 
 .login-background {
     /*style background image*/
-    background-image: url("https://wallpapercave.com/wp/wc1783047.png");
+    background-image: url("https://ani-flix.herokuapp.com/assets/aniflixpic-5bedb287a8dde0e1b1c1a770b95c521eac9d18fe004cdf6c492d13b72bb36183.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -53,7 +53,7 @@ font-family: outfit-medium, sans-serif;
 /*make login-background responsive for iphone 12*/
 @media only screen and (max-width: 500px) {
     .login-background {
-        background-image: url("https://wallpapercave.com/wp/wc1783047.png");
+        background-image: url("https://ani-flix.herokuapp.com/assets/aniflixpic-5bedb287a8dde0e1b1c1a770b95c521eac9d18fe004cdf6c492d13b72bb36183.jpg");
         background-size: 200vh 120vh;
         background-position: right;
         background-repeat: no-repeat;

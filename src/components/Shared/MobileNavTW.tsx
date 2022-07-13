@@ -22,7 +22,6 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import LogoutButton from "../Login/LogoutButton";
-import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
 
 function classNames(...classes: string[]) {

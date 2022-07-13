@@ -6,8 +6,6 @@ import { useNavigate } from "react-router";
 // @ts-ignore
 import YoutubeBackground from "react-youtube-background";
 import MobileNavTW from "../Shared/MobileNavTW";
-// @ts-ignore
-import logo from "../../assets/logo-long.png";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);

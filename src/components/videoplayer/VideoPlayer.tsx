@@ -36,6 +36,8 @@ const VideoPlayer = () => {
     if (streamId) {
       getData();
     }
+    // store anime details in local storage so that it can be accessed later
+    localStorage.setItem("episodeId", JSON.stringify(streamId));
   }, [episodeSelected]);
 
   return (
