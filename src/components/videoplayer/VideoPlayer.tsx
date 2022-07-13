@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
 import { Player, Hls, Video } from "@vime/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 
@@ -13,6 +13,23 @@ const VideoPlayer = () => {
   const episodeSelected = useSelector(
     (state: RootState) => state.anime.episodeSelected
   );
+  const animeTitle = useSelector(
+    (state: RootState) => state.anime.modalData.animeTitle
+  );
+  const savedAnimeTitle = useSelector(
+    (state: RootState) => state.videoState.savedAnimeTitle
+  );
+  const savedEpisode = useSelector(
+    (state: RootState) => state.videoState.savedEpisode
+  );
+  const currentTime = useSelector(
+    (state: RootState) => state.videoState.savedCurrentTime
+  );
+  const startTime = useSelector(
+    (state: RootState) => state.videoState.savedStartTime
+  );
+
+  const dispatch = useDispatch();
 
   const hlsConfig = {
     crossOrigin: "anonymous",
@@ -36,9 +53,11 @@ const VideoPlayer = () => {
     if (streamId) {
       getData();
     }
-    // store anime details in local storage so that it can be accessed later
-    localStorage.setItem("episodeId", JSON.stringify(streamId));
   }, [episodeSelected]);
+
+  useEffect(() => {
+    //  get anime details from local storage
+  }, []);
 
   return (
     <div className="lg:h-96 h-56 ">

@@ -9,6 +9,7 @@ import {
   setEpisodeSelected,
   setBookmarks,
 } from "../../redux/search-slice";
+import { setSavedAnimeTitle } from "../../redux/videoState-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Notification from "./Notification";
@@ -27,11 +28,19 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const cancelButtonRef = useRef(null);
   const dispatch = useAppDispatch();
   const modalData = useSelector((state: RootState) => state.anime.modalData);
+  const streamId = useSelector((state: RootState) => state.anime.streamId);
   const episodeSelected = useSelector(
     (state: RootState) => state.anime.episodeSelected
   );
-  const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
-  const { notificationHandler } = useNotification();
+  const animeTitle = useSelector(
+    (state: RootState) => state.anime.modalData.animeTitle
+  );
+  const savedAnimeTitle = useSelector(
+    (state: RootState) => state.videoState.savedAnimeTitle
+  );
+  const savedEpisode = useSelector(
+    (state: RootState) => state.videoState.savedEpisode
+  );
   const episodesList = modalData.episodesList;
 
   const getAnimeDetails = async (modalId: string) => {
@@ -45,51 +54,15 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
       });
   };
 
-  // get bookmarks from localStorage
   useEffect(() => {
-    const getBookmarks = localStorage.getItem("bookmarks");
-    if (getBookmarks) {
-      dispatch(setBookmarks(JSON.parse(getBookmarks)));
-    } else {
-      dispatch(setBookmarks([]));
+    //  check if animTitle is in local storage
+    if (!loading) {
+      if (savedAnimeTitle === animeTitle && savedEpisode) {
+        localStorage.getItem(savedEpisode);
+      }
     }
-  }, [dispatch]);
+  }, []);
 
-  // Add to bookmarks in local storage
-  /*
-  const addToBookmarks = () => {
-    const bookmarks: [] = localStorage.getItem("bookmarks");
-    if (bookmarks) {
-      const newBookmarks = JSON.parse(bookmarks);
-      newBookmarks.push(modalData);
-      localStorage.setItem("bookmarks-stream", JSON.stringify(newBookmarks));
-    } else {
-      localStorage.setItem("bookmarks-stream", JSON.stringify([modalData]));
-    }
-    notificationHandler("Added to Watchlist", "Success", true);
-    //ts-ignore
-    dispatch(setBookmarks([...bookmarks, modalData]));
-    setToggle(false); // close modal
-  };
-
-  // remove from bookmarks in local storage
-  const removeFromBookmarks = () => {
-    const bookmarks = localStorage.getItem("bookmarks");
-    if (bookmarks) {
-      const newBookmarks = JSON.parse(bookmarks);
-      const newBookmarksFiltered = newBookmarks.filter(
-        (item: { modalId: {} }) => item.modalId !== modalId
-      );
-      localStorage.setItem("bookmarks", JSON.stringify(newBookmarksFiltered));
-      //ts-ignore
-      dispatch(setBookmarks(newBookmarksFiltered));
-    }
-    notificationHandler("Removed from Watchlist", "Success", true);
-    setToggle(false); // close modal
-  };
-
-
-   */
   useEffect(() => {
     const getData = async () => {
       await getAnimeDetails(modalId);
@@ -97,7 +70,13 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
     getData();
   }, [modalId, toggle]);
 
-  // Reverse list of episodes to show from first to last.
+  useEffect(() => {
+    dispatch(setSavedAnimeTitle(animeTitle));
+    //  save savedAnimeTitle to local storage
+    localStorage.setItem("savedAnimeTitle", JSON.stringify(animeTitle));
+    //  save savedEpisode to local storage
+    localStorage.setItem("savedEpisode", JSON.stringify(streamId));
+  }, [episodeSelected, animeTitle, dispatch]);
 
   return (
     <Transition.Root show={toggle} as={Fragment}>

@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     !userSignedIn && navigate("/login");
     userSignedIn && navigate("/home");
-  }, [navigate, userSignedIn]);
+  }, []);
 
   const notificationReducer = useSelector(
     (state: RootState) => state.notification
