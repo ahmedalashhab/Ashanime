@@ -37,7 +37,7 @@ const Home = () => {
             "rgba(0,0,0,.4)"
           } /* default -> null | e.g. "rgba(0,0,0,.4)" */
           className={
-            "video-background dark-gradiant-video overflow-y-visible"
+            "lg:visible invisible video-background dark-gradiant-video overflow-y-visible"
           } /* default -> null */
           nocookie={
             false
@@ -74,23 +74,15 @@ const Home = () => {
             {/*<MobileNav*/}
             {/*  paginate={(pageNumber: number) => paginate(pageNumber)}*/}
             {/*/>*/}
-            <MobileNavTW
-              paginate={(pageNumber: number) => paginate(pageNumber)}
-            />
+
             <Navbar paginate={(pageNumber: number) => paginate(pageNumber)} />
-            <div className="flex justify-center">
-              <div className="h-20 mt-40 lg:invisible visible">
-                <img src={logo} alt="Ashanime logo" />
-              </div>
-            </div>
+            <div className="flex justify-center"></div>
           </div>
         </YoutubeBackground>
+        <MobileNavTW paginate={(pageNumber: number) => paginate(pageNumber)} />
       </div>
 
-      <div
-        style={{ marginTop: "40rem" }}
-        className="flex flex-col lg:w-[1440px] w-screen lg:px-12 px-4 overflow-x-hidden"
-      >
+      <div className="flex flex-col lg:w-[1440px] w-screen large-margin lg:px-12 px-4 overflow-x-hidden">
         <AnimeTrailersHome />
         {
           <TopAnime
