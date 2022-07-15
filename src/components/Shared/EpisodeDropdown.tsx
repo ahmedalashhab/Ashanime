@@ -6,15 +6,31 @@ import { useSelector } from "react-redux";
 import { setStreamId } from "../../redux/search-slice";
 import { episodesList } from "../../types/type";
 import {
+	setContinueWatching,
 	setSavedAnimeTitle,
 	setSavedEpisode,
 } from "../../redux/videoState-slice";
+import continueWatching from "../Home/ContinueWatching";
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
 export default function Dropdown() {
+
+	const [selected, setSelected] = useState<any>(null);
+
+	const dispatch = useAppDispatch();
+	const streamId = useSelector((state: RootState) => state.anime.streamId);
+	const episodesList = useSelector(
+		(state: RootState) => state.anime.modalData.episodesList
+	);
+	const modalData = useSelector((state: RootState) => state.anime.modalData);
+	const animeTitle = useSelector(
+		(state: RootState) => state.anime.modalData.animeTitle
+	);
+	const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
+
 	const updateCurrentEpisode = (anime: string, episode: any) => {
 		localStorage.setItem(
 			"CurrentEpisodeTracker",
@@ -27,23 +43,18 @@ export default function Dropdown() {
 		);
 	};
 
-	const [selected, setSelected] = useState<any>(null);
+	useEffect(() => {
+		//check if episode is already in continue watching
+		if (selected) {
+		const InContinueWatching = continueWatching.find(
+			(anime: any) => anime.animeTitle === modalData.animeTitle)
+		if (!InContinueWatching) {
+		const newContinueWatching = [...continueWatching, modalData];
+		dispatch(setContinueWatching(newContinueWatching));
 
-	const dispatch = useAppDispatch();
-	const streamId = useSelector((state: RootState) => state.anime.streamId);
-	const episodesList = useSelector(
-		(state: RootState) => state.anime.modalData.episodesList
-	);
-	const modalData = useSelector((state: RootState) => state.anime.modalData);
-	const savedEpisode = useSelector(
-		(state: RootState) => state.videoState.savedEpisode
-	);
-	const animeTitle = useSelector(
-		(state: RootState) => state.anime.modalData.animeTitle
-	);
-	const episodeSelected = useSelector(
-		(state: RootState) => state.anime.episodeSelected
-	);
+		// Save anime data to local storage so it can be listed in the continue watching section
+		localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching))}}
+	}, [selected]);
 
 	useEffect(() => {
 		//selected represents selectedStreamId
@@ -51,6 +62,7 @@ export default function Dropdown() {
 			dispatch(setStreamId(selected));
 			dispatch(setSavedEpisode(selected));
 			updateCurrentEpisode(animeTitle, selected);
+
 		}
 	}, [selected]);
 
@@ -61,8 +73,8 @@ export default function Dropdown() {
 				localStorage.getItem("CurrentEpisodeTracker") as string
 			) || {};
 
-		if (CurrentEpisodeTracker[modalData.animeTitle]) {
-			const savedEpisode = CurrentEpisodeTracker[modalData.animeTitle];
+		if (CurrentEpisodeTracker[animeTitle]) {
+			const savedEpisode = CurrentEpisodeTracker[animeTitle];
 			dispatch(setStreamId(savedEpisode));
 			setSelected(savedEpisode);
 		}
@@ -72,7 +84,6 @@ export default function Dropdown() {
 		};
 	}, [dispatch, modalData]);
 
-	console.log(selected);
 
 	return (
 		<Listbox value={selected} onChange={setSelected}>
@@ -102,7 +113,7 @@ export default function Dropdown() {
 							leaveTo="opacity-0"
 						>
 							<Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-								{[...episodesList]
+								{episodesList && [...episodesList]
 									.reverse()
 									.map((episode: episodesList) => (
 										<Listbox.Option

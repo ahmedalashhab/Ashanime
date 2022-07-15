@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 // @ts-ignore
 import YoutubeBackground from "react-youtube-background";
 import MobileNavTW from "../Shared/MobileNavTW";
+import ContinueWatching from "./ContinueWatching";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,6 +83,7 @@ const Home = () => {
 
       <div className="flex flex-col lg:w-[1440px] w-screen large-margin lg:px-12 px-4 overflow-x-hidden">
         <AnimeTrailersHome />
+        <ContinueWatching/>
         {
           <TopAnime
             currentPage={currentPage}

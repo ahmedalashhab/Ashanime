@@ -1,17 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {streamModal} from "../types/type";
+
+interface savedEpisode {
+  savedStreamId: string;
+  savedTitle: string;
+}
+
 
 interface initialStateInterface {
   savedCurrentTime: number;
   savedStartTime: number;
-  savedEpisode: string;
+  savedEpisode: savedEpisode[];
   savedAnimeTitle: string;
+  continueWatching: streamModal[];
 }
 
 const initialState: initialStateInterface = {
   savedCurrentTime: 0,
   savedStartTime: 0,
-  savedEpisode: "",
+  savedEpisode: [],
   savedAnimeTitle: "",
+  continueWatching: [],
 };
 
 export const videoSlice = createSlice({
@@ -24,12 +33,15 @@ export const videoSlice = createSlice({
     setSavedStartTime: (state, action: PayloadAction<number>) => {
       state.savedStartTime = action.payload;
     },
-    setSavedEpisode: (state, action: PayloadAction<string>) => {
+    setSavedEpisode: (state, action: PayloadAction<[savedEpisode]>) => {
       state.savedEpisode = action.payload;
     },
     setSavedAnimeTitle: (state, action: PayloadAction<string>) => {
       state.savedAnimeTitle = action.payload;
     },
+    setContinueWatching: (state, action: PayloadAction<streamModal[]>) => {
+      state.continueWatching = action.payload;
+    }
   },
 });
 
@@ -39,6 +51,7 @@ export const {
   setSavedStartTime,
   setSavedEpisode,
   setSavedAnimeTitle,
+  setContinueWatching,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

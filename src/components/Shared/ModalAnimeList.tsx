@@ -55,7 +55,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
     }
   }, [dispatch]);
 
-  // check if items are in bookmarks
+  // check if items are in bookmarks and set
   useEffect(() => {
     if (bookmarks.length > 0) {
       localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
@@ -183,18 +183,16 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                         ? removeFromBookmarks
                         : addToBookmarks
                     }
-                    className="w-24 lg:w-44 lg:py-2 py-0 inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500  sm:w-auto sm:text-sm"
+                    className="w-24 lg:w-44 lg:py-2 text-[10px]  lg:text-[16px] py-0 inline-flex justify-center items-center rounded-md border border-transparent shadow-sm lg:px-2 px-4 py-2 redor-button outfit-medium text-white hover:bg-red-600 transition-all ease-linear duration-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500  sm:w-auto sm:text-sm"
                   >
                     {/*check if item is in bookmarks*/}
-                    {bookmarks.includes(data) ? (
-                      <p className="text-white outfit-medium lg:text-[16px] text-[10px]">
-                        Remove from Watchlist
-                      </p>
-                    ) : (
-                      <p className="text-white outfit-medium lg:text-[16px] text-[10px]">
-                        Add to Watchlist
-                      </p>
-                    )}
+                    {
+                      bookmarks.find(
+                        (bookmark) => bookmark.mal_id === data.mal_id
+                      )
+                        ? "Remove from Bookmarks"
+                        : "Add to Bookmarks"
+                    }
                   </button>
                   <div className="flex self-end">
                     <div className="flex items-center">
