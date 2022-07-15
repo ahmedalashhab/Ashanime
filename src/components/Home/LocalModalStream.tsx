@@ -6,6 +6,7 @@ import {
   setModalData,
   setStreamId,
   setEpisodeSelected,
+
 } from "../../redux/search-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -28,13 +29,14 @@ export default function LocalModalStream({ setToggle, toggle, data }: props) {
 
   useEffect(() => {
     dispatch(setModalData(data));
-  }, [data]);
+  }, [toggle]);
 
   const handleOnClose = () => {
     setToggle(false);
     dispatch(setStreamId(""));
 
   }
+
 
 
   return (
@@ -90,7 +92,7 @@ export default function LocalModalStream({ setToggle, toggle, data }: props) {
                       <div className="">
                         {/*  drop down list for episodes*/}
 
-                        <EpisodeDropdown  />
+                        <EpisodeDropdown/>
                       </div>
                       <div className="flex text-right items-center gap-2">
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">

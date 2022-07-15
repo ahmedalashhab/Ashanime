@@ -39,6 +39,14 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
     dispatch(setContinueWatching(ContinueWatching));
   } , [dispatch]);
 
+  // remove continue watching from local storage by pressing the remove button
+  const removeContinueWatching = (animeTitle: string) => {
+    const newContinueWatching = [...continueWatching];
+    const newContinueWatching2 = newContinueWatching.filter(item => item.animeTitle !== animeTitle);
+    dispatch(setContinueWatching(newContinueWatching2));
+    localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching2));
+  }
+
   const handleModal = (active: boolean, anime: any) => {
     setModal(active);
     if (anime) {
@@ -49,11 +57,18 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
   const itemCount = () => {
    const length = continueWatching.length;
   if (length <= 5) {
-    return length
+    return 5
   }
   else {
     return 5}
   }
+
+  //revere the order of the continue watching list
+  const reverseContinueWatching = () => {
+    const newContinueWatching = [...continueWatching];
+    return newContinueWatching.reverse();
+  }
+
 
 
 
@@ -62,26 +77,32 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
       <h3 className="outfit-light text-white text-[32px] relative">
         Continue watching
       </h3>
-      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 lg:p-5 flex items-center">
+      <div className="lg:px-5">
         <Swiper
-          className="lg:ml-0 flex"
+          className="lg:ml-0 swiper-height"
           slidesPerView={itemCount()}
-          spaceBetween={10}
+          spaceBetween={35}
           modules={[Pagination]}
         >
-          {continueWatching.map((anime) => {
+          {reverseContinueWatching().map((anime) => {
             if (anime.animeImg) {
               return (
-                <SwiperSlide>
-                  <div className="standard-box cursor-pointer" key={anime.animeTitle}>
+                <SwiperSlide className='flex items-center justify-center standard-box-continue'>
+                  <div className="standard-box-continue cursor-pointer mt-4 relative" key={anime.animeTitle}>
+                    {/*x button on the top right corner of the img */}
+                    <div className="absolute z-index-99 top-1 left-2">
+                      <button className="flex items-center justify-center bg-redor lg:w-8 lg:h-8 w-4 h-4 rounded-full border-0 text-white text-[12px] lg:text-2xl" onClick={() => removeContinueWatching(anime.animeTitle)}>
+                        <i className="outfit-medium not-italic"> X </i>
+                      </button>
+                    </div>
                     <img
                       alt={`thumbnail of ${anime.animeTitle}`}
                       src={anime.animeImg}
-                      className="skeleton anime-box hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
+                      className="skeleton h-full rounded-xl hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
                       onClick={() => handleModal(true, anime)}
                     />
-                    <div className="flex justify-center">
-                      <p className="text-white lg:text-[16px] text-[10px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                    <div className="lg:visible invisible w-52 flex justify-center">
+                      <p className="outfit-medium lg:mb-4 lg:mt-2 lg:mb-8 lg:mx-0 mx-8 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
                         {anime.animeTitle}
                       </p>
                     </div>
