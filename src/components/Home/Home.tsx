@@ -9,6 +9,8 @@ import MobileNavTW from "../Shared/MobileNavTW";
 import ContinueWatching from "./ContinueWatching";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
+import {setContinueWatching} from "../../redux/videoState-slice";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +22,14 @@ const Home = () => {
   const paginate = (pageNumber: number) => {
     return setCurrentPage(pageNumber);
   };
+
+  const dispatch = useDispatch();
+
+  //  get continue watching from local storage on load
+  useEffect(() => {
+    const ContinueWatching = JSON.parse(localStorage.getItem("ContinueWatching") as string) || [];
+    dispatch(setContinueWatching(ContinueWatching));
+  } , [dispatch]);
 
   useEffect(() => {
     !userSignedIn && navigate("/login");
