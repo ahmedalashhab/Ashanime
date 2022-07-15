@@ -10,9 +10,12 @@ import {RootState, useAppDispatch} from "../../redux/store";
 import {streamModal} from "../../types/type";
 import {Pagination} from "swiper";
 import LocalModalStream from "./LocalModalStream";
+import useWindowResize from "../../hooks/useWindowResize";
 
 const ContinueWatching = () => {
   const [modal, setModal] = useState(false)
+  const {windowDimension} = useWindowResize();
+  const {winWidth, winHeight} = windowDimension;
   const [localModalData, setLocalModalData] = useState<streamModal>({
     animeImg: "",
     animeTitle: "",
@@ -56,11 +59,12 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
 
   const itemCount = () => {
    const length = continueWatching.length;
-  if (length <= 5) {
+  if ( winWidth <= 500) {
+    return 3
+  }
+  if  (winWidth > 500 ) {
     return 5
   }
-  else {
-    return 5}
   }
 
   //revere the order of the continue watching list
@@ -69,7 +73,14 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
     return newContinueWatching.reverse();
   }
 
-
+const spaceBetween = () => {
+  if (winWidth <= 500) {
+    return 10
+  }
+  if (winWidth > 500) {
+    return 35
+  }
+}
 
 
   return (
@@ -81,7 +92,7 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
         <Swiper
           className="lg:ml-0 swiper-height"
           slidesPerView={itemCount()}
-          spaceBetween={35}
+          spaceBetween={spaceBetween()}
           modules={[Pagination]}
         >
           {reverseContinueWatching().map((anime) => {
