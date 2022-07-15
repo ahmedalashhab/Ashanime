@@ -53,7 +53,7 @@ const VideoPlayer = () => {
     if (streamId) {
       getData();
     }
-  }, [episodeSelected, streamId]);
+  }, [streamId]);
 
   useEffect(() => {
     //  get anime details from local storage

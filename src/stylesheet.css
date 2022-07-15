@@ -105,6 +105,10 @@ background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0, 0.001))
     z-index: 100;
 }
 
+.z-index-99 {
+    z-index: 99;
+}
+
 .z-index-100 {
     z-index: 100;
 }
@@ -145,8 +149,10 @@ position: absolute;
     width: 76rem
 }
 
+.swiper-height {
+    height: 26rem;
 
-
+}
 
 .seasonal-box{
     width: 25rem;
@@ -158,8 +164,6 @@ position: absolute;
     align-items: center;
     border-radius: 10px;
 }
-
-
 
 .seasonal-img-box {
     width: 25rem;
@@ -176,7 +180,22 @@ position: absolute;
     border-radius: 10px;
 }
 
+.standard-box-continue {
+    width: 14rem;
+    display: inline-block;
+    height: 21rem;
+    border-radius: 10px;
+}
+
 .anime-box {
+    display: inline-block;
+    width: 14rem;
+    height: 21rem;
+    border-radius: 10px;
+    object-fit: fill;
+}
+
+.anime-box-continue {
     display: inline-block;
     width: 14rem;
     height: 21rem;
@@ -263,6 +282,15 @@ height: 25rem;
     .standard-box {
         width: 10rem;
         height: 15rem;
+    }
+
+    .standard-box-continue{
+        width: 6rem;
+        height: 9rem;
+    }
+
+    .swiper-height{
+        height: 11rem;
     }
 
     .anime-box {

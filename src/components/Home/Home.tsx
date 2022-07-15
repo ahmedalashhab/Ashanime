@@ -6,12 +6,16 @@ import { useNavigate } from "react-router";
 // @ts-ignore
 import YoutubeBackground from "react-youtube-background";
 import MobileNavTW from "../Shared/MobileNavTW";
+import ContinueWatching from "./ContinueWatching";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const navigate = useNavigate();
   const userSignedIn = typeof localStorage.getItem("user") === "string";
+  const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
 
   const paginate = (pageNumber: number) => {
     return setCurrentPage(pageNumber);
@@ -82,12 +86,11 @@ const Home = () => {
 
       <div className="flex flex-col lg:w-[1440px] w-screen large-margin lg:px-12 px-4 overflow-x-hidden">
         <AnimeTrailersHome />
-        {
+        {continueWatching.length > 0 && <ContinueWatching />}
           <TopAnime
             currentPage={currentPage}
             paginate={(pageNumber: number) => paginate(pageNumber)}
           />
-        }
       </div>
     </div>
   );

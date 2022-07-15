@@ -6,51 +6,36 @@ import {
   setModalData,
   setStreamId,
   setEpisodeSelected,
+
 } from "../../redux/search-slice";
-import { setSavedAnimeTitle } from "../../redux/videoState-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
-import Notification from "./Notification";
-import axios from "axios";
 import VideoPlayer from "../videoplayer/VideoPlayer";
-import EpisodeDropdown from "./EpisodeDropdown";
+import EpisodeDropdown from "../Shared/EpisodeDropdown";
+import {streamModal} from "../../types/type";
 
 interface props {
   setToggle: (toggle: boolean) => void;
   toggle: boolean;
-  modalId: string;
+  data: streamModal
 }
 
-export default function ModalStream({ setToggle, toggle, modalId }: props) {
+export default function LocalModalStream({ setToggle, toggle, data }: props) {
   const [loading, setLoading] = useState(false);
   const cancelButtonRef = useRef(null);
   const dispatch = useAppDispatch();
   const modalData = useSelector((state: RootState) => state.anime.modalData);
-  const streamId = useSelector((state: RootState) => state.anime.streamId);
-
-
-
-  const getAnimeDetails = async (modalId: string) => {
-    setLoading(true);
-    await axios
-      .get(`https://gogoanime.herokuapp.com/anime-details/${modalId}`)
-      .then(async (response) => {
-        const data = response.data;
-        dispatch(setModalData(data));
-        setLoading(false);
-      });
-  };
 
 
   useEffect(() => {
-    const getData = async () => {
-      await getAnimeDetails(modalId);
-    };
-    getData();
+    dispatch(setModalData(data));
+  }, [toggle]);
 
+  const handleOnClose = () => {
+    setToggle(false);
+    dispatch(setStreamId(""));
 
-
-  }, [modalId, toggle]);
+  }
 
 
 
@@ -60,24 +45,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
         as="div"
         className="relative modal-stream"
         initialFocus={cancelButtonRef}
-        onClose={() => {
-          setToggle(false);
-          dispatch(
-            setModalData({
-              animeTitle: "",
-              type: "",
-              releasedDate: "",
-              status: "",
-              genres: [""],
-              otherNames: "",
-              synopsis: "",
-              animeImg: "",
-              totalEpisodes: 0,
-              episodesList: [],
-            })
-          );
-          dispatch(setStreamId(""));
-        }}
+        onClose={handleOnClose}
       >
         <Transition.Child
           as={Fragment}
@@ -117,24 +85,24 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                         as="h3"
                         className="flex items-center lg:text-lg lg:mr-0 text-[12px] lg:text-left  lg:leading-6 outfit-medium text-redor"
                       >
-                        {modalData.animeTitle}
+                        {data.animeTitle}
                       </Dialog.Title>
                     </div>
                     <div className="flex mt-2 justify-between lg:px-8 px-4">
                       <div className="">
                         {/*  drop down list for episodes*/}
 
-                        <EpisodeDropdown  />
+                        <EpisodeDropdown/>
                       </div>
                       <div className="flex text-right items-center gap-2">
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                          {modalData.type}
+                          {data.type}
                         </span>
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                          Episodes Aired: {modalData.totalEpisodes}
+                          Episodes Aired: {data.totalEpisodes}
                         </span>
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
-                          {modalData.status}
+                          {data.status}
                         </span>
                       </div>
                     </div>
@@ -146,7 +114,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                 ) : (
                   <div className="my-4 lg:px-8 px-4 overflow-y-auto">
                     <p className="text-white outfit-light lg:text-[12px] text-[10px]">
-                      {modalData.synopsis}
+                      {data.synopsis}
                     </p>
                   </div>
                 )}
@@ -156,14 +124,13 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                       {loading ? "" : "Genres: "}
                       {loading
                         ? ""
-                        : modalData?.genres?.map((genre) => genre).join(", ")}
+                        : data?.genres?.map((genre) => genre).join(", ")}
                     </span>
                   </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
-          <Notification />
         </div>
       </Dialog>
     </Transition.Root>
