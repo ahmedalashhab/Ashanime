@@ -151,7 +151,10 @@ position: absolute;
 
 .swiper-height {
     height: 26rem;
+}
 
+.recent-height {
+    height: 27rem;
 }
 
 .seasonal-box{
@@ -291,6 +294,10 @@ height: 25rem;
 
     .swiper-height{
         height: 12rem;
+    }
+
+    .recent-height {
+        height: 15rem;
     }
 
     .anime-box {

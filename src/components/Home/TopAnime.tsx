@@ -69,7 +69,7 @@ const TopAnime = ({ currentPage, paginate }: props) => {
   };
 
   return (
-    <div className="">
+    <div>
       <div className="lg:mt-8 mt-0" id="top-anime">
         <div className="flex justify-between">
           <h2 className="outfit-light text-white text-[32px] mb-4 z-10">

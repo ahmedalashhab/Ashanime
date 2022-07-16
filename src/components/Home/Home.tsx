@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import YoutubeBackground from "react-youtube-background";
 import MobileNavTW from "../Shared/MobileNavTW";
 import ContinueWatching from "./ContinueWatching";
+import {RecentReleases} from "./RecentReleases";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import {setContinueWatching} from "../../redux/videoState-slice";
@@ -96,6 +97,7 @@ const Home = () => {
 
       <div className="flex flex-col lg:w-[1440px] w-screen large-margin lg:px-12 px-4 overflow-x-hidden">
         <AnimeTrailersHome />
+        <RecentReleases/>
         {continueWatching.length > 0 && <ContinueWatching />}
           <TopAnime
             currentPage={currentPage}

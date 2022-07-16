@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -30,10 +29,7 @@ const ContinueWatching = () => {
   })
 
   const dispatch = useAppDispatch();
-  const streamId = useSelector((state: RootState) => state.anime.streamId);
 const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
-  const modalData = useSelector((state: RootState) => state.anime.modalData);
-  const savedEpisode = useSelector((state: RootState) => state.videoState.savedEpisode);
 
 
 //  get continue watching from local storage on load
@@ -58,7 +54,6 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
   };
 
   const itemCount = () => {
-   const length = continueWatching.length;
   if ( winWidth <= 500) {
     return 3
   }
@@ -101,7 +96,7 @@ const spaceBetween = () => {
                 <SwiperSlide className='flex items-center justify-center standard-box-continue'>
                   <div className="standard-box-continue cursor-pointer mt-4 relative" key={anime.animeTitle}>
                     {/*x button on the top right corner of the img */}
-                    <div className="absolute z-index-99 top-1 left-2">
+                    <div className="absolute z-index-99 top-1 right-2">
                       <button className="flex items-center justify-center bg-redor lg:w-8 lg:h-8 w-4 h-4 rounded-full border-0 text-white text-[12px] lg:text-2xl" onClick={() => removeContinueWatching(anime.animeTitle)}>
                         <i className="outfit-medium not-italic"> X </i>
                       </button>
@@ -113,7 +108,7 @@ const spaceBetween = () => {
                       onClick={() => handleModal(true, anime)}
                     />
                     <div className="lg:visible invisible w-52 flex justify-center">
-                      <p className="outfit-medium lg:mb-4 lg:mt-2 lg:mb-8 lg:mx-0 mx-8 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
+                      <p className="outfit-medium lg:mt-2 lg:mx-0 mx-8 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
                         {anime.animeTitle}
                       </p>
                     </div>
