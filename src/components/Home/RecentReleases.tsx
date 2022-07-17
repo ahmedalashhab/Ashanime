@@ -2,7 +2,8 @@ import React, {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import {Pagination} from "swiper";
+import {A11y, Navigation, Pagination, Scrollbar} from "swiper";
+import "swiper/css/navigation";
 import {
   animeSearch,
   searchLoadingAction, setCurrentPage,
@@ -80,16 +81,20 @@ export const RecentReleases = () => {
   }
 
   return (
-    <div className="z-10 lg:ml-0 lg:mb-10 mt-2 lg:mt-0">
+    <div className="z-10 lg:ml-0 mt-2 lg:mt-0">
       <h3 className="outfit-light text-white text-[32px] relative">
         Recent Releases
       </h3>
       <div className="lg:px-5">
         <Swiper
           className="lg:ml-0 recent-height"
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
           slidesPerView={itemCount()}
           spaceBetween={spaceBetween()}
-          modules={[Pagination]}
+          navigation={true}
+          pagination={{clickable: true}}
+          scrollbar={{ draggable: true }}
+          loop={true}
         >
           {animeBelt.map((anime: {
             animeTitle: string;
@@ -97,18 +102,19 @@ export const RecentReleases = () => {
             episodeNum: number;
             subOrDub: string;
             episodeId: string;
+            // eslint-disable-next-line array-callback-return
           }) => {
             if (anime.animeImg) {
               return (
                 <SwiperSlide className='flex items-center justify-center standard-box-continue'>
-                  <div className="standard-box-continue cursor-pointer mt-4 relative" key={anime.animeTitle}>
+                  <div className="standard-box-continue flex justify-center cursor-pointer mt-4 relative" key={anime.animeTitle}>
                     <img
                       alt={`thumbnail of ${anime.animeTitle}`}
                       src={anime.animeImg}
                       className="skeleton h-full rounded-xl hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
                       onClick={() => handleClick(anime.animeTitle)}
                     />
-                    <div className=" lg:w-52 flex flex-col justify-center overflow-ellipsis">
+                    <div className="  flex flex-col justify-center overflow-ellipsis">
                       <p className='outfit-medium lg:mt-2 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[12px] text-[8px] cursor-pointer text-center'>Episode: {anime.episodeNum}</p>
                       <h3 className=" overflow-ellipsis outfit-medium lg:mt-2 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
                         {anime.animeTitle}

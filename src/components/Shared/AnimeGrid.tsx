@@ -24,28 +24,28 @@ const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
               />
             </div>
             <div className="flex gap-3 lg:mt-2 ">
-              <span className="outfit-light text-white lg:text-[13px] text-[8px]">
+              <p className="outfit-light text-white lg:text-[13px] text-[8px]">
                 Rank: {anime.rank}
-              </span>
+              </p>
               {anime.year && (
-                <span className="outfit-light text-white  lg:text-[13px] text-[8px]">
+                <p className="outfit-light text-white  lg:text-[13px] text-[8px]">
                   {anime.year}
-                </span>
+                </p>
               )}
-              <span className="outfit-light text-white  lg:text-[13px] text-[8px]">
+              <p className="outfit-light text-white  lg:text-[13px] text-[8px]">
                 {anime.type}
-              </span>
-              <span className="flex outfit-light text-white  lg:text-[13px] text-[8px] items-center">
+              </p>
+              <p className="flex outfit-light text-white  lg:text-[13px] text-[8px] items-center">
                 Score: {anime.score}
-              </span>
+              </p>
             </div>
             <div className="w-52 flex justify-center">
-              <span
+              <h2
                 className="outfit-medium lg:mb-4 mb-8 lg:mx-0 mx-8 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center"
                 onClick={() => handleModal(true, anime)}
               >
                 {anime.title}
-              </span>
+              </h2>
             </div>
           </motion.div>
         );

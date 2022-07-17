@@ -154,7 +154,7 @@ position: absolute;
 }
 
 .recent-height {
-    height: 27rem;
+    height: 29rem;
 }
 
 .seasonal-box{
@@ -184,7 +184,6 @@ position: absolute;
 }
 
 .standard-box-continue {
-    width: 14rem;
     display: inline-block;
     height: 21rem;
     border-radius: 10px;
@@ -257,6 +256,29 @@ height: 25rem;
     }
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute;
+    top: 40%!important;
+    width: 3.5rem!important;
+    height: 3.5rem!important;
+    color: var(--white)!important;
+    background-color: var(--redor)!important;
+    border-radius: 50%;
+}
+
+.swiper-pagination {
+    bottom: 0!important;
+}
+
+.swiper-pagination-bullet {
+    width: 0.5rem!important;
+    height: 0.5rem!important;
+    border-radius: 50%;
+    background-color: var(--redor)!important;
+}
+
+
 @media (max-width: 500px) {
 
     .margin-fix {
@@ -283,21 +305,20 @@ height: 25rem;
     }
 
     .standard-box {
-        width: 10rem;
         height: 15rem;
+        width: 10rem;
     }
 
     .standard-box-continue{
-        width: 7rem;
-        height: 10.5rem;
+        height: 10rem;
     }
 
-    .swiper-height{
+    .continue-height{
         height: 12rem;
     }
 
     .recent-height {
-        height: 15rem;
+        height: 16rem;
     }
 
     .anime-box {
@@ -312,6 +333,23 @@ height: 25rem;
 
     .large-margin{
         margin-top: 5rem;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        visibility: hidden;
+        position: absolute;
+        top: 45%!important;
+        width: 3rem!important;
+        height: 3rem!important;
+        color: var(--white)!important;
+        background-color: var(--redor)!important;
+        border-radius: 50%;
+    }
+
+    .swiper-pagination {
+        bottom: 0!important;
+        visibility: hidden;
     }
 
 }

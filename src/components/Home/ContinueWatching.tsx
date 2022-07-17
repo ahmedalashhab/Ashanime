@@ -85,7 +85,7 @@ const spaceBetween = () => {
       </h3>
       <div className="lg:px-5">
         <Swiper
-          className="lg:ml-0 swiper-height"
+          className="lg:ml-0 continue-height"
           slidesPerView={itemCount()}
           spaceBetween={spaceBetween()}
           modules={[Pagination]}
@@ -94,9 +94,9 @@ const spaceBetween = () => {
             if (anime.animeImg) {
               return (
                 <SwiperSlide className='flex items-center justify-center standard-box-continue'>
-                  <div className="standard-box-continue cursor-pointer mt-4 relative" key={anime.animeTitle}>
+                  <div className="standard-box-continue flex justify-center cursor-pointer mt-4 relative" key={anime.animeTitle}>
                     {/*x button on the top right corner of the img */}
-                    <div className="absolute z-index-99 top-1 right-2">
+                    <div className="absolute z-index-99 lg:top-1 lg:right-1 right-5 top-1">
                       <button className="flex items-center justify-center bg-redor lg:w-8 lg:h-8 w-4 h-4 rounded-full border-0 text-white text-[12px] lg:text-2xl" onClick={() => removeContinueWatching(anime.animeTitle)}>
                         <i className="outfit-medium not-italic"> X </i>
                       </button>
@@ -107,7 +107,7 @@ const spaceBetween = () => {
                       className="skeleton h-full rounded-xl hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
                       onClick={() => handleModal(true, anime)}
                     />
-                    <div className="lg:visible invisible w-52 flex justify-center">
+                    <div className="lg:visible invisible  flex justify-center">
                       <p className="outfit-medium lg:mt-2 lg:mx-0 mx-8 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
                         {anime.animeTitle}
                       </p>
