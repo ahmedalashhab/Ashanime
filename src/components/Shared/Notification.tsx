@@ -1,6 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect} from "react";
 import { Transition } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -43,10 +42,10 @@ export default function Notification() {
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <CheckCircleIcon
-                      className="h-6 w-6 text-green-400"
-                      aria-hidden="true"
-                    />
+                    {/*<CheckCircleIcon*/}
+                    {/*  className="h-6 w-6 text-green-400"*/}
+                    {/*  aria-hidden="true"*/}
+                    {/*/>*/}
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="outfit-medium text-navy-blue">{title}</p>

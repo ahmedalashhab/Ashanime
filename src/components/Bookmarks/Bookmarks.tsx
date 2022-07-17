@@ -56,11 +56,11 @@ const Bookmarks = () => {
       <div className="flex justify-center mt-12">
         <div className="mt-8 lg:w-[1440px] lg:px-8" id="top-anime">
           <div className=" ml-8 mb-4">
-            <span className="outfit-light text-white text-[32px]">
+            <h1 className="outfit-light text-white text-[32px]">
               {bookmarks.length > 0
                 ? "My Watchlist"
                 : "Build your watchlist by checking out some anime!"}
-            </span>
+            </h1>
           </div>
 
           <AnimeGrid

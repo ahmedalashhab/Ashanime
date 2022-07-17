@@ -102,7 +102,7 @@ background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0, 0.001))
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 200;
 }
 
 .z-index-99 {
@@ -111,6 +111,10 @@ background: linear-gradient(to bottom, rgba(0,0,0, 0.8), rgba(0,0,0, 0.001))
 
 .z-index-100 {
     z-index: 100;
+}
+
+.z-index-102{
+    z-index: 102;
 }
 
 .scrolled-nav{
@@ -206,11 +210,11 @@ position: absolute;
 }
 
 .modal-stream{
-    z-index: 101;
+    z-index: 1000;
 }
 
 .notification{
-    z-index: 102
+    z-index: 201
 }
 
 .redor-button {
@@ -274,7 +278,6 @@ height: 25rem;
 .swiper-pagination-bullet {
     width: 0.5rem!important;
     height: 0.5rem!important;
-    border-radius: 50%;
     background-color: var(--redor)!important;
 }
 

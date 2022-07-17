@@ -13,9 +13,10 @@ import {
 interface props {
   currentPage: number;
   paginate: (page: number) => void;
+  elementCount?: number
 }
 
-const Pagination = ({ currentPage, paginate }: props) => {
+const Pagination = ({ currentPage, paginate, elementCount }: props) => {
   const [pageRange, setPageRange] = useState<number[]>([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
   ]);
@@ -49,6 +50,8 @@ const Pagination = ({ currentPage, paginate }: props) => {
   const hasNextPage = useSelector(
     (state: RootState) => state.anime.hasNextPage
   );
+
+  const hasNextPageGenre = elementCount === 20
 
   const paginationHandler = (arg: string, page?: number) => {
     if (windowLocation === "/search-results") {

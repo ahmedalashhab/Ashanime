@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link } from "react-router-dom";
 //@ts-ignore
 import logo from "../../assets/logo-icon.png";
@@ -33,8 +33,6 @@ interface props {
 }
 
 export default function MobileNavTW({ paginate }: props) {
-  const [scrolled, setScrolled] = useState(false);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const profile = useSelector((state: RootState) => state.google.profileObject);
@@ -93,6 +91,11 @@ export default function MobileNavTW({ paginate }: props) {
     navigate(`/bookmarks`);
   };
 
+  const handleClickGenres = () => {
+    dispatch(setSearchQuery(""));
+    navigate(`/genres`);
+  }
+
   // FETCHES FROM API
 
   const handleSubmit = useCallback(
@@ -128,12 +131,7 @@ export default function MobileNavTW({ paginate }: props) {
     [currentPage, dispatch, navigate, searchQuery, setCurrentPage, pageLoading]
   );
 
-  useEffect(() => {
-    // change nav background to black when scrolling
-    window.addEventListener("scroll", () => {
-      window.scrollY > 25 ? setScrolled(true) : setScrolled(false);
-    });
-  }, []);
+
 
   useEffect(() => {
     if (searchLoading) {
@@ -153,9 +151,8 @@ export default function MobileNavTW({ paginate }: props) {
                     className="block lg:hidden h-8 w-auto"
                     src={logo}
                     alt="logo"
-                    onClick={() => {
-                      navigate("/home");
-                    }}
+                    onClick={() => {handleLogoClick()}
+                    }
                   />
                   <img
                     className="hidden lg:block h-8 w-auto"
@@ -184,6 +181,12 @@ export default function MobileNavTW({ paginate }: props) {
                       className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                     >
                       Top Anime Movies
+                    </div>
+                    <div
+                      onClick={handleClickGenres}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Genres
                     </div>
                     <div
                       onClick={handleClickBookmarks}
@@ -318,6 +321,13 @@ export default function MobileNavTW({ paginate }: props) {
                 onClick={handleClickMovie}
               >
                 Top Anime Movies
+              </Disclosure.Button>
+              <Disclosure.Button
+                as="div"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                onClick={handleClickGenres}
+              >
+                Genres
               </Disclosure.Button>
               <Disclosure.Button
                 as="div"

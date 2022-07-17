@@ -18,6 +18,7 @@ interface initialStateInterface {
   stream: any;
   streamId: string;
   episodeSelected: boolean;
+  genre: string;
 }
 
 const initialState: initialStateInterface = {
@@ -38,6 +39,7 @@ const initialState: initialStateInterface = {
   stream: {},
   streamId: "",
   episodeSelected: false,
+  genre:"action",
 };
 
 export const animeSlice = createSlice({
@@ -89,6 +91,9 @@ export const animeSlice = createSlice({
     setEpisodeSelected: (state, action: PayloadAction<boolean>) => {
       state.episodeSelected = action.payload;
     },
+    setGenre: (state, action: PayloadAction<string>) => {
+      state.genre = action.payload;
+    }
   },
 });
 
@@ -109,6 +114,7 @@ export const {
   setStream,
   setStreamId,
   setEpisodeSelected,
+  setGenre
 } = animeSlice.actions;
 
 export default animeSlice.reducer;

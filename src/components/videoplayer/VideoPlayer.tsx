@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 
-const VideoPlayer = () => {
+interface props {
+  animeStatus?: string;
+}
+
+const VideoPlayer = (props : props) => {
   const [loading, setLoading] = useState(false);
   const [videoLink, setVideoLink] = useState("");
 
@@ -71,8 +75,10 @@ const VideoPlayer = () => {
         (!videoLink && (
           <div className="flex justify-center items-center w-full h-full">
             <span className="text-white outfit-medium ">
-              {/*if no video URL then display below message */}
-              Select an episode to watch
+              {/*if no video URL then display below message and if animeStatus is upcoming say that it is upcoming */}
+              {props.animeStatus === "Upcoming"
+                ? "This anime is yet to be released."
+                : "Select an episode to watch!"}
             </span>
           </div>
         )) || (

@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import SearchResults from "./components/SearchResults/SearchResults";
+import Genres from "./components/Genres/Genres";
 import Bookmarks from "./components/Bookmarks/Bookmarks";
 import Notification from "./components/Shared/Notification";
 import { RootState } from "./redux/store";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path={"/search-results"} element={<SearchResults />} />
+          <Route path={"/genres"} element={<Genres/>} />
           <Route path={"/bookmarks"} element={<Bookmarks />} />
         </Routes>
         {show && <Notification />}

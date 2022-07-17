@@ -73,7 +73,6 @@ const SearchResults = () => {
 						handleModal={handleModal}
 						handleGridRows={handleGridRows}
 					/>
-					<div className="mb-10 mt-5"></div>
 					<ModalStreamTW
 						setToggle={(boolean: boolean) => {
 							if (!boolean) {

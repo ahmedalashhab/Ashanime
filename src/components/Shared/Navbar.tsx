@@ -64,6 +64,10 @@ const Navbar = ({ paginate }: props) => {
     window.scroll({ top: 975, behavior: "smooth" });
   };
 
+  const handleClickGenres = () => {
+    navigate("/genres");
+  }
+
   // Handles the highlighting of the bookmarks button
   const handleClickBookmarks = () => {
     dispatch(setSearchQuery(""));
@@ -97,19 +101,24 @@ const Navbar = ({ paginate }: props) => {
             </Link>
           </div>
           <div onClick={handleClickMovie} title="Anime Movies">
-            <span className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
+            <h3 className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
               Top Movies
-            </span>
+            </h3>
           </div>
           <div onClick={handleClickTV} title="Anime Shows">
-            <span className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
+            <h3 className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
               Top Shows
-            </span>
+            </h3>
+          </div>
+          <div onClick={handleClickGenres} title="Anime Shows">
+            <h3 className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
+              Genres
+            </h3>
           </div>
           <div onClick={handleClickBookmarks} title="Watchlist">
-            <span className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
+            <h3 className="outfit-medium text-concrete hover:text-white transition-colors duration-200 cursor-pointer">
               My Watchlist
-            </span>
+            </h3>
           </div>
         </div>
         <div className="flex gap-12">

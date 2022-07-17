@@ -5,9 +5,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import {
   setModalData,
   setStreamId,
-  setEpisodeSelected,
 } from "../../redux/search-slice";
-import { setSavedAnimeTitle } from "../../redux/videoState-slice";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Notification from "./Notification";
@@ -26,7 +24,6 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
   const cancelButtonRef = useRef(null);
   const dispatch = useAppDispatch();
   const modalData = useSelector((state: RootState) => state.anime.modalData);
-  const streamId = useSelector((state: RootState) => state.anime.streamId);
 
 
 
@@ -104,7 +101,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
             >
               <Dialog.Panel className="h-2/3 lg:h-5/6 lg:mt-0 modal-width flex flex-col relative page-bg rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
                 <div className="w-92 flex flex-col page-bg lg:pb-4">
-                  <VideoPlayer />
+                  <VideoPlayer animeStatus={modalData.status} />
                 </div>
                 {loading ? (
                   <div className="flex justify-center items-center lg:h-96 h-52 w-full">
@@ -123,8 +120,8 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                     <div className="flex mt-2 justify-between lg:px-8 px-4">
                       <div className="">
                         {/*  drop down list for episodes*/}
+                        {modalData.episodesList.length > 0 ? (<EpisodeDropdown />) : ""}
 
-                        <EpisodeDropdown  />
                       </div>
                       <div className="flex text-right items-center gap-2">
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">
