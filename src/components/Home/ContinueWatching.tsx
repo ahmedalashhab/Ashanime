@@ -14,7 +14,7 @@ import useWindowResize from "../../hooks/useWindowResize";
 const ContinueWatching = () => {
   const [modal, setModal] = useState(false)
   const {windowDimension} = useWindowResize();
-  const {winWidth, winHeight} = windowDimension;
+  const {winWidth} = windowDimension;
   const [localModalData, setLocalModalData] = useState<streamModal>({
     animeImg: "",
     animeTitle: "",
