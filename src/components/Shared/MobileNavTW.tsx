@@ -236,9 +236,9 @@ export default function MobileNavTW({ paginate }: props) {
                   </div>
                 </div>
               </div>
-              <div className="flex lg:hidden">
+              <div className="flex lg:hidden transition-all ease-in-out duration-200 ">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white ">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -300,7 +300,17 @@ export default function MobileNavTW({ paginate }: props) {
             </div>
           </div>
 
-          <Disclosure.Panel className="lg:hidden">
+          {/* Mobile menu */}
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95 translate-x-full"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95 translate-x-full"
+          >
+          <Disclosure.Panel className="lg:hidden ">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
               <Disclosure.Button
@@ -346,6 +356,7 @@ export default function MobileNavTW({ paginate }: props) {
               </div>
             </div>
           </Disclosure.Panel>
+          </Transition>
         </>
       )}
     </Disclosure>
