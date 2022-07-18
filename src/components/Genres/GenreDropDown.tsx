@@ -9,7 +9,11 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function GenreDropDown() {
+interface props {
+  paginate?: any
+}
+
+export default function GenreDropDown(props:props) {
   const dispatch = useAppDispatch()
 
   const genreList = [
@@ -59,7 +63,9 @@ export default function GenreDropDown() {
       {({ active }) => (
         <span
           onClick={() => {
-            dispatch(setGenre(genre))}
+            dispatch(setGenre(genre));
+            props.paginate(1)
+            }
           }
           className={classNames(
             active ? ' cursor-pointer bg-gray-100 text-gray-900' : 'cursor-pointer text-gray-700',

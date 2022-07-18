@@ -3,7 +3,7 @@ import axios from "axios";
 import Navbar from "../Shared/Navbar";
 import MobileNavTW from "../Shared/MobileNavTW";
 import AnimeGridStream from "../Shared/AnimeGridStream";
-import GenreDropDown from "../Shared/GenreDropDown";
+import GenreDropDown from "./GenreDropDown";
 import {useSelector} from "react-redux";
 import {RootState,useAppDispatch} from "../../redux/store";
 import ModalStreamTW from "../Shared/ModalStreamTW";
@@ -24,7 +24,9 @@ const Genres = () => {
   const { notificationHandler } = useNotification();
 
   const paginate = (pageNumber: number) => {
+    console.log(pageNumber);
     return setCurrentPage(pageNumber);
+
   };
 
   const getAnime = async (genre: string) => {
@@ -44,9 +46,19 @@ const Genres = () => {
       });
   };
 
+
+  // get Anime only after resetting the page to one when changing genre
+  // useEffect(() => {
+  //   setCurrentPage(1);
+  //   getAnime(genre);
+  // } , [genre]);
+
+  //get anime whenever the page changes
   useEffect(() => {
     getAnime(genre);
-  }, [genre, currentPage]);
+  }, [currentPage, genre]);
+
+
 
   const handleModal = (active: boolean, data: string) => {
     setModal(active);
@@ -78,7 +90,7 @@ const Genres = () => {
           <h2 className="flex items-center outfit-light text-white text-[32px] z-10" id='top-anime'>
             Genre: {genre}
           </h2>
-          <GenreDropDown/>
+          <GenreDropDown paginate={(value: number) => paginate(value)}/>
           </div>
           <AnimeGridStream
             animeList={animeList}
