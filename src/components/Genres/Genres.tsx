@@ -23,6 +23,9 @@ const Genres = () => {
   const dispatch = useAppDispatch()
   const { notificationHandler } = useNotification();
 
+
+  localStorage.removeItem("type")
+
   const paginate = (pageNumber: number) => {
     console.log(pageNumber);
     return setCurrentPage(pageNumber);

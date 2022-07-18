@@ -17,6 +17,7 @@ const Bookmarks = () => {
 
   useEffect(() => {
     window.scroll({ top: 0 });
+    localStorage.removeItem("type")
   }, []);
 
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);

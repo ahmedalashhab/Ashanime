@@ -19,8 +19,10 @@ const SearchResults = () => {
 
 	const dispatch = useAppDispatch();
 
+
 	useEffect(() => {
 		dispatch(setCurrentPage(1));
+		localStorage.removeItem("type")
 		return () => {
 			dispatch(animeSearch([]));
 		};

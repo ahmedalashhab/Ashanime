@@ -51,6 +51,29 @@ const TopAnime = ({ currentPage, paginate }: props) => {
     dispatch(setUser(JSON.parse(localStorage.getItem("user") as string)));
   }, [type, airing, currentPage]);
 
+  useEffect(() => {
+    if (type) {
+      document.getElementById("top-anime")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [type]);
+
+  //get type from local storage
+  const savedType = localStorage.getItem("type");
+  // scroll down to id===top-anime when user loads the page if type is set
+
+  useEffect(() => {
+    if (savedType) {
+      document.getElementById("top-anime")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [savedType, topAnimeList]);
+
+
   const handleModal = (active: boolean, data: anime) => {
     setModal(active);
     if (data) {
@@ -69,8 +92,7 @@ const TopAnime = ({ currentPage, paginate }: props) => {
   };
 
   return (
-    <div>
-      <div className="lg:mt-8 mt-0" id="top-anime">
+      <div className="lg:mt-8 mt-0" id="top-anime" >
         <div className="flex justify-between">
           <h2 className="outfit-light text-white text-[32px] mb-4 z-10">
             {handleTitle()}
@@ -99,7 +121,6 @@ const TopAnime = ({ currentPage, paginate }: props) => {
           toggle={modal}
         />
       </div>
-    </div>
   );
 };
 

@@ -31,17 +31,21 @@ const Navbar = ({ paginate }: props) => {
   // Handles the click highlighting of the Home button
   const handleClickAll = () => {
     dispatch(setType(""));
+    // set type to local storage for type persistence when navigating to other pages
+    localStorage.setItem("type", "all");
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
     if (paginate) {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 975, behavior: "smooth" });
+  //
   };
 
   //Handles the click highlighting of the movie button
   const handleClickMovie = () => {
+    // set type to local storage for type persistence when navigating to other pages
+    localStorage.setItem("type", "movie");
     dispatch(setType("movie"));
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
@@ -49,19 +53,19 @@ const Navbar = ({ paginate }: props) => {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 975, behavior: "smooth" });
   };
 
   // Handles the highlighting of the TV shows button
   const handleClickTV = () => {
     dispatch(setType("tv"));
+    // set type to local storage for type persistence when navigating to other pages
+    localStorage.setItem("type", "tv");
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
     if (paginate) {
       paginate(1);
     }
     navigate("/home");
-    window.scroll({ top: 975, behavior: "smooth" });
   };
 
   const handleClickGenres = () => {
