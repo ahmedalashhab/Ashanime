@@ -46,13 +46,6 @@ const Genres = () => {
       });
   };
 
-
-  // get Anime only after resetting the page to one when changing genre
-  // useEffect(() => {
-  //   setCurrentPage(1);
-  //   getAnime(genre);
-  // } , [genre]);
-
   //get anime whenever the page changes
   useEffect(() => {
     getAnime(genre);
