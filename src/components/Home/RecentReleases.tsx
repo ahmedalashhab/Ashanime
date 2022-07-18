@@ -104,20 +104,22 @@ export const RecentReleases = () => {
             episodeId: string;
             // eslint-disable-next-line array-callback-return
           }) => {
-            if (anime.animeImg) {
+            // only include animeTitle if it does not have special characters
+            const title = anime.animeTitle.replace(/[^a-zA-Z0-9 ]/g, ` `);
+            if (title) {
               return (
                 <SwiperSlide className='flex items-center justify-center standard-box-continue'>
                   <div className="standard-box-continue flex justify-center cursor-pointer mt-4 relative" key={anime.animeTitle}>
                     <img
-                      alt={`thumbnail of ${anime.animeTitle}`}
+                      alt={`thumbnail of ${title}`}
                       src={anime.animeImg}
                       className="skeleton h-full rounded-xl hover:scale-105 hover:shadow-2xl overflow-visible transition-all duration-300 ease-in-out"
-                      onClick={() => handleClick(anime.animeTitle)}
+                      onClick={() => handleClick(title)}
                     />
                     <div className="  flex flex-col justify-center overflow-ellipsis">
                       <p className='outfit-medium lg:mt-2 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[12px] text-[8px] cursor-pointer text-center'>Episode: {anime.episodeNum}</p>
                       <h3 className=" overflow-ellipsis outfit-medium lg:mt-2 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
-                        {anime.animeTitle}
+                        {title}
                       </h3>
 
                     </div>
