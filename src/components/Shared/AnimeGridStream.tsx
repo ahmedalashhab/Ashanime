@@ -5,7 +5,7 @@ import { streamSearch } from "../../types/type";
 const AnimeGrid = ({ animeList, handleModal, handleGridRows }: any) => {
   return (
     <div className={`grid lg:grid-cols-5 grid-cols-2 ${handleGridRows}`}>
-      {animeList.map((anime: streamSearch, i: number) => {
+      {animeList?.map((anime: streamSearch, i: number) => {
         return (
           <motion.div
             initial={{ opacity: 0, translateX: -50 }}

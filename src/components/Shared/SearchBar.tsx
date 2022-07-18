@@ -40,7 +40,7 @@ const SearchBar = () => {
       e?.preventDefault();
       dispatch(setSearchQueryView(searchQuery));
       if (searchQuery === "") {
-        return alert("Please input a search term");
+        return alert("Please input a valid search term");
       }
       dispatch(setPageLoadingAction(false));
       dispatch(searchLoadingAction(true));
