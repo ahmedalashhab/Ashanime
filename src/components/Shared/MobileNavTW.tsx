@@ -52,6 +52,7 @@ export default function MobileNavTW({ paginate }: props) {
   // Handles the click highlighting of the Home button
   const handleClickAll = () => {
     dispatch(setType(""));
+    localStorage.setItem("type", "all");
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
     if (paginate) {
@@ -64,6 +65,7 @@ export default function MobileNavTW({ paginate }: props) {
   //Handles the click highlighting of the movie button
   const handleClickMovie = () => {
     dispatch(setType("movie"));
+    localStorage.setItem("type", "movie");
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
     if (paginate) {
@@ -76,6 +78,7 @@ export default function MobileNavTW({ paginate }: props) {
   // Handles the highlighting of the TV shows button
   const handleClickTV = () => {
     dispatch(setType("tv"));
+    localStorage.setItem("type", "tv");
     dispatch(setAiring(false));
     dispatch(setSearchQuery(""));
     if (paginate) {
