@@ -91,7 +91,7 @@ export const RecentReleases = () => {
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           slidesPerView={itemCount()}
           spaceBetween={spaceBetween()}
-          navigation={true}
+          // navigation={true}
           pagination={{clickable: true}}
           scrollbar={{ draggable: true }}
           loop={true}

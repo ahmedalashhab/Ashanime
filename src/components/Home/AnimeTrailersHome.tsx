@@ -71,13 +71,14 @@ const AnimeTrailersHome = () => {
       <h3 className="outfit-light text-white text-[32px] relative">
         Upcoming Anime
       </h3>
-      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 lg:p-5 flex items-center">
+      <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 lg:px-5 flex items-center">
         <Swiper
-          className="lg:ml-0 flex"
+          className="lg:ml-0 flex lg:h-72"
           slidesPerView={itemCount()}
           spaceBetween={spaceBetween()}
           modules={[Pagination]}
           loop={true}
+          pagination={{clickable: true}}
         >
           {animeTrailer.map((anime) => {
             if (anime.trailer.images.large_image_url) {
