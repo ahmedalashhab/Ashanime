@@ -203,7 +203,6 @@ position: absolute;
 
 .anime-box-continue {
     display: inline-block;
-    width: 14rem;
     height: 21rem;
     border-radius: 10px;
     object-fit: fill;
