@@ -62,17 +62,19 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
     }
   }, [bookmarks]);
 
+  const title = data.title.replace(/[^a-zA-Z0-9 ]/g, ` `);
+
   // Search for the anime when clicking the button
   const handleWatchOnClick = useCallback(() => {
-    dispatch(setSearchQueryView(data.title));
+    dispatch(setSearchQueryView(title));
     dispatch(setPageLoadingAction(false));
     dispatch(searchLoadingAction(true));
-    dispatch(setSearchQuery(data.title));
+    dispatch(setSearchQuery(title));
     const getSearch = async () => {
       await axios
         .get(`https://gogoanime.herokuapp.com/search`, {
           params: {
-            keyw: data.title,
+            keyw: title,
           },
         })
         .then(async (res) => {
