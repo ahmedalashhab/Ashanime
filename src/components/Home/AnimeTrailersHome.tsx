@@ -77,6 +77,7 @@ const AnimeTrailersHome = () => {
           slidesPerView={itemCount()}
           spaceBetween={spaceBetween()}
           modules={[Pagination]}
+          loop={true}
         >
           {animeTrailer.map((anime) => {
             if (anime.trailer.images.large_image_url) {
@@ -91,7 +92,7 @@ const AnimeTrailersHome = () => {
                       onClick={() => handleModal(true, anime)}
                     />
                     <div className="flex justify-center">
-                      <p className="text-white lg:text-[16px] text-[10px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
+                      <p className="text-white lg:text-[16px] text-[12px] text-ellipsis overflow-x-hidden outfit-medium hover:text-redor transition-all ease-in-out cursor-pointer">
                         {anime.title}
                       </p>
                     </div>
