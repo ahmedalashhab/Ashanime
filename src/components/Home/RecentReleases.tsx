@@ -117,8 +117,8 @@ export const RecentReleases = () => {
                       onClick={() => handleClick(title)}
                     />
                     <div className="  flex flex-col justify-center overflow-ellipsis">
-                      <p className='outfit-medium lg:mt-2 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[12px] text-[8px] cursor-pointer text-center'>Episode: {anime.episodeNum}</p>
-                      <h3 className=" overflow-ellipsis outfit-medium lg:mt-2 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
+                      <p className='outfit-medium lg:mt-2 mt-1 lg:mx-0 text-white hover:text-redor transition-all ease-in-out lg:text-[12px] text-[8px] cursor-pointer text-center'>Episode: {anime.episodeNum}</p>
+                      <h3 className="h-14 lg:h-12 overflow-y-scroll outfit-medium lg:mt-2 lg:mx-0 mt-1 text-white hover:text-redor transition-all ease-in-out lg:text-[16px] text-[12px] cursor-pointer text-center">
                         {title}
                       </h3>
 

@@ -288,14 +288,13 @@ height: 25rem;
     }
 
     .seasonal-box {
-        width:7rem;
-        height: 3.5rem;
-        margin-right: 1rem;
+        width:10rem;
+        height: 5rem;
     }
 
     .seasonal-img-box {
-        width:7rem;
-        height: 3.5rem;
+        width:10rem;
+        height:5rem;
     }
 
     .scrollbar::-webkit-scrollbar {

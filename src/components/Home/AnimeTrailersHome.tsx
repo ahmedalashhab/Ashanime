@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
+import useWindowResize from "../../hooks/useWindowResize";
 
 const AnimeTrailersHome = () => {
   const [animeTrailer, setAnimeTrailer] = useState<any[]>([]);
@@ -15,6 +16,28 @@ const AnimeTrailersHome = () => {
     url: "",
   });
   const [modal, setModal] = useState<boolean>(false);
+
+  const {windowDimension} = useWindowResize();
+  const {winWidth} = windowDimension;
+
+  const itemCount = () => {
+    if ( winWidth <= 500) {
+      return 2
+    }
+    if  (winWidth > 500 ) {
+      return 3
+    }
+  }
+
+  const spaceBetween = () => {
+    if (winWidth <= 500) {
+      return 10
+    }
+    if (winWidth > 500) {
+      return 35
+    }
+  }
+
 
   const getAnimeTrailer = async () => {
     await axios
@@ -51,8 +74,8 @@ const AnimeTrailersHome = () => {
       <div className="overflow-x-scroll whitespace-nowrap scrollbar overflow-y-hidden lg:h-80 lg:p-5 flex items-center">
         <Swiper
           className="lg:ml-0 flex"
-          slidesPerView={3}
-          spaceBetween={10}
+          slidesPerView={itemCount()}
+          spaceBetween={spaceBetween()}
           modules={[Pagination]}
         >
           {animeTrailer.map((anime) => {
