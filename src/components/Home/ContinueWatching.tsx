@@ -93,10 +93,10 @@ const spaceBetween = () => {
           {reverseContinueWatching().map((anime) => {
             if (anime.animeImg) {
               return (
-                <SwiperSlide className='flex items-center justify-center standard-box-continue relative'>
-                  <div className="standard-box-continue flex justify-center cursor-pointer mt-4" key={anime.animeTitle}>
+                <SwiperSlide className='flex items-center justify-center standard-box-continue '>
+                  <div className="standard-box-continue flex justify-center cursor-pointer mt-4 relative" key={anime.animeTitle}>
                     {/*x button on the top right corner of the img */}
-                    <div className="absolute z-index-99 lg:right-3 right-1 top-5">
+                    <div className="absolute z-index-99 right-1 top-1">
                       <button className="flex items-center justify-center bg-redor lg:w-8 lg:h-8 w-4 h-4 rounded-full border-0 text-white text-[12px] lg:text-2xl" onClick={() => removeContinueWatching(anime.animeTitle)}>
                         <i className="outfit-medium not-italic"> X </i>
                       </button>
