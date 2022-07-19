@@ -189,8 +189,7 @@ position: absolute;
 
 .standard-box-continue {
     display: inline-block;
-    height: 10rem;
-    width: 7rem;
+    height: 21rem;
     border-radius: 10px;
 }
 
@@ -204,8 +203,7 @@ position: absolute;
 
 .anime-box-continue {
     display: inline-block;
-    height: 10rem;
-    width: 7rem;
+    height: 21rem;
     border-radius: 10px;
     object-fit: fill;
 }
@@ -315,6 +313,7 @@ height: 25rem;
 
     .standard-box-continue{
         height: 10rem;
+        width: 7rem
     }
 
     .continue-height{
