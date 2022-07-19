@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import MoonLoader from "react-spinners/MoonLoader";
-import { Player, Hls, Video } from "@vime/react";
+import {Player, Hls, Video, Ui, SettingsControl, Controls, DefaultUi} from "@vime/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import axios from "axios";
+import {setSavedCurrentTime} from "../../redux/videoState-slice";
 
 interface props {
   animeStatus?: string;
@@ -12,6 +13,8 @@ interface props {
 const VideoPlayer = (props : props) => {
   const [loading, setLoading] = useState(false);
   const [videoLink, setVideoLink] = useState("");
+
+  const videoplayer = useRef<HTMLVmPlayerElement>(null);
 
   const streamId = useSelector((state: RootState) => state.anime.streamId);
   const episodeSelected = useSelector(
@@ -34,6 +37,14 @@ const VideoPlayer = (props : props) => {
   );
 
   const dispatch = useDispatch();
+
+  const seekForward = () => {
+    dispatch(setSavedCurrentTime(currentTime + 10));
+  }
+
+  const onTimeUpdate = (event: CustomEvent<number>) => {
+    dispatch(setSavedCurrentTime(event.detail));
+  }
 
   const hlsConfig = {
     crossOrigin: "anonymous",
@@ -83,7 +94,8 @@ const VideoPlayer = (props : props) => {
           </div>
         )) || (
           <div>
-            <Player playbackQuality="1080p" controls>
+            <Player  currentTime={currentTime}
+            onVmCurrentTimeChange={onTimeUpdate} >
               {/*ts ignore*/}
               {videoLink && videoLink.includes("m3u8") ? (
                 <Hls version="latest" config={hlsConfig}>
@@ -94,6 +106,7 @@ const VideoPlayer = (props : props) => {
                   <source data-src={videoLink} type="video/mp4" />
                 </Video>
               )}
+              <DefaultUi/>
             </Player>
           </div>
         )
