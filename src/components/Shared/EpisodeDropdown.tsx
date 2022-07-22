@@ -9,9 +9,10 @@ import {
 	setContinueWatching,
 	setSavedAnimeTitle,
 	setSavedEpisode,
+	setSavedEpisodes,
 } from "../../redux/videoState-slice";
 import continueWatching from "../Home/ContinueWatching";
-import {ref, set} from "firebase/database";
+import {onValue, ref, set} from "firebase/database";
 import {db} from "../../firebase/Firebase";
 
 function classNames(...classes: string[]) {
@@ -32,11 +33,29 @@ export default function Dropdown() {
 		(state: RootState) => state.anime.modalData.animeTitle
 	);
 	const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
+	const savedEpisode = useSelector((state: RootState) => state.videoState.savedEpisode);
+	const savedEpisodes = useSelector((state: RootState) => state.videoState.savedEpisodes);
+
+	const email = useSelector((state: RootState) => state.google.profileObject.email)
+	//remove all characters from email after period
+	const emailClean = email.split("@")[0].split(".").join("");
 
 	const CurrentEpisodeTracker =
 		JSON.parse(
 			localStorage.getItem("CurrentEpisodeTracker") as string
 		) || {};
+
+
+// get savedEpisodes from firebase
+	useEffect(() => {
+		const getEpisodes = onValue(ref(db), (snapshot: { val: () => any; }) => {
+			const data= snapshot.val();
+			if(data !==null){
+				const savedEpisodes = data[emailClean].savedEpisodes;
+				dispatch(setSavedEpisodes(savedEpisodes));
+			}  } )
+		getEpisodes();
+	} , []);
 
 	const updateCurrentEpisode = (anime: string, episode: any) => {
 		localStorage.setItem(
@@ -50,9 +69,7 @@ export default function Dropdown() {
 		);
 	};
 
-	const email = useSelector((state: RootState) => state.google.profileObject.email)
-	//remove all characters from email after period
-	const emailClean = email.split("@")[0].split(".").join("");
+
 
 	// save current episode to firebase
 	function writeUserData() {
@@ -66,10 +83,9 @@ export default function Dropdown() {
 					episode: savedEpisodes[key]
 				}
 			} )
-		console.log(savedEpisodesArray)
 
 		set(ref(db, `${emailClean}/savedEpisodes`), {
-			"savedEpisodes": savedEpisodesArray,
+			 ...savedEpisodesArray,
 		});
 	}
 
@@ -78,7 +94,7 @@ export default function Dropdown() {
 	function writeContinueWatching(newContinueWatching: any) {
 		// write continue watching to firebase
 		set(ref(db, `${emailClean}/continueWatching`), {
-			"continueWatching": newContinueWatching,
+			...newContinueWatching,
 		});
 	}
 

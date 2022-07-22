@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 import {setSavedCurrentTime} from "../../redux/videoState-slice";
-import {ref, set} from "firebase/database";
-import {db} from "../../firebase/Firebase";
 
 interface props {
   animeStatus?: string;

@@ -1,6 +1,6 @@
-import React, { Fragment, useCallback, useEffect, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { anime } from "../../types/type";
+import React, {Fragment, useCallback, useEffect, useRef} from "react";
+import {Dialog, Transition} from "@headlessui/react";
+import {anime} from "../../types/type";
 import {
   animeSearch,
   searchLoadingAction,
@@ -10,13 +10,13 @@ import {
   setSearchQuery,
   setSearchQueryView,
 } from "../../redux/search-slice";
-import { RootState, useAppDispatch } from "../../redux/store";
-import { useSelector } from "react-redux";
+import {RootState, useAppDispatch} from "../../redux/store";
+import {useSelector} from "react-redux";
 import Notification from "./Notification";
-import { useNotification } from "../../hooks/useNotification";
+import {useNotification} from "../../hooks/useNotification";
 import axios from "axios";
 import {db} from "../../firebase/Firebase";
-import {set,ref} from "firebase/database";
+import {onValue, ref, set} from "firebase/database";
 
 
 interface props {
@@ -37,8 +37,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
 
   function writeUserData(newBookmarks: any) {
     set(ref(db, `${emailClean}/bookmarks`), {
-      bookmarks: newBookmarks,
-      email,
+      ...newBookmarks,
     });
   }
 
@@ -63,14 +62,25 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
   };
 
   // get bookmarks from localStorage
+  // useEffect(() => {
+  //   const getBookmarks = localStorage.getItem("bookmarks");
+  //   if (getBookmarks) {
+  //     dispatch(setBookmarks(JSON.parse(getBookmarks)));
+  //   } else {
+  //     dispatch(setBookmarks([]));
+  //   }
+  // }, [dispatch]);
+
+  // get bookmarks from firebase
   useEffect(() => {
-    const getBookmarks = localStorage.getItem("bookmarks");
-    if (getBookmarks) {
-      dispatch(setBookmarks(JSON.parse(getBookmarks)));
-    } else {
-      dispatch(setBookmarks([]));
+    onValue(ref(db, `${emailClean}/bookmarks`), (snapshot: { val: () => any; }) => {
+      const data= snapshot.val();
+      if(data !==null){
+        dispatch(setBookmarks(data));
+      }
     }
-  }, [dispatch]);
+    )
+  } , [dispatch, emailClean]);
 
   // check if items are in bookmarks and set
   useEffect(() => {

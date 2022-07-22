@@ -12,6 +12,8 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import {setContinueWatching} from "../../redux/videoState-slice";
 import { useDispatch } from "react-redux";
+import {onValue, ref} from "firebase/database";
+import {db} from "../../firebase/Firebase";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,11 +28,25 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  //  get continue watching from local storage on load
+  //  get continue watching from firebase on load
+
+  const email = useSelector((state: RootState) => state.google.profileObject.email)
+  //remove all characters from email after period
+  const emailClean = email.split("@")[0].split(".").join("");
+
   useEffect(() => {
-    const ContinueWatching = JSON.parse(localStorage.getItem("ContinueWatching") as string) || [];
-    dispatch(setContinueWatching(ContinueWatching));
-  } , [dispatch]);
+    onValue(ref(db), (snapshot: { val: () => any; }) => {
+      const data= snapshot.val();
+      if(data !==null){
+        const ContinueWatching = data[emailClean].continueWatching
+        dispatch(setContinueWatching(ContinueWatching))
+      }
+    })} , [dispatch, emailClean]);
+
+  // useEffect(() => {
+  //   const ContinueWatching = JSON.parse(localStorage.getItem("ContinueWatching") as string) || [];
+  //   dispatch(setContinueWatching(ContinueWatching));
+  // } , [dispatch]);
 
   useEffect(() => {
     !userSignedIn && navigate("/login");

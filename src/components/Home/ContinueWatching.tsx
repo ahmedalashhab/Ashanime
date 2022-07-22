@@ -10,6 +10,8 @@ import {streamModal} from "../../types/type";
 import {Pagination} from "swiper";
 import LocalModalStream from "./LocalModalStream";
 import useWindowResize from "../../hooks/useWindowResize";
+import {ref, set, onValue} from "firebase/database";
+import {db} from "../../firebase/Firebase";
 
 const ContinueWatching = () => {
   const [modal, setModal] = useState(false)
@@ -33,10 +35,25 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
 
 
 //  get continue watching from local storage on load
-  useEffect(() => {
-    const ContinueWatching = JSON.parse(localStorage.getItem("ContinueWatching") as string) || [];
-    dispatch(setContinueWatching(ContinueWatching));
-  } , [dispatch]);
+//   useEffect(() => {
+//     const ContinueWatching = JSON.parse(localStorage.getItem("ContinueWatching") as string) || [];
+//     dispatch(setContinueWatching(ContinueWatching));
+//   } , [dispatch]);
+
+  const email = useSelector((state: RootState) => state.google.profileObject.email)
+  //remove all characters from email after period
+  const emailClean = email.split("@")[0].split(".").join("");
+  // get continue watching from firebase on load
+
+  // useEffect(() => {
+  //   onValue(ref(db), (snapshot: { val: () => any; }) => {
+  //     const data= snapshot.val();
+  //     if(data !==null){
+  //       const ContinueWatching = data[emailClean].ContinueWatching;
+  //       dispatch(setContinueWatching(ContinueWatching));
+  //     }
+  //   })
+  // } , []);
 
   // remove continue watching from local storage by pressing the remove button
   const removeContinueWatching = (animeTitle: string) => {
@@ -62,7 +79,7 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
   }
   }
 
-  //revere the order of the continue watching list
+  //reverse the order of the continue watching list
   const reverseContinueWatching = () => {
     const newContinueWatching = [...continueWatching];
     return newContinueWatching.reverse();
