@@ -33,6 +33,11 @@ export default function Dropdown() {
 	);
 	const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
 
+	const CurrentEpisodeTracker =
+		JSON.parse(
+			localStorage.getItem("CurrentEpisodeTracker") as string
+		) || {};
+
 	const updateCurrentEpisode = (anime: string, episode: any) => {
 		localStorage.setItem(
 			"CurrentEpisodeTracker",
@@ -49,9 +54,11 @@ export default function Dropdown() {
 	//remove all characters from email after period
 	const emailClean = email.split("@")[0].split(".").join("");
 
-	function writeUserData(savedEpisode: any) {
-		set(ref(db, `${emailClean}/savedEpisodes`), {
-			[animeTitle]: savedEpisode,
+	function writeUserData() {
+		const savedEpisodes = JSON.parse(
+			localStorage.getItem("CurrentEpisodeTracker") || "{}")
+		set(ref(db, `${emailClean}`), {
+			savedEpisodes,
 		});
 	}
 
@@ -73,18 +80,14 @@ export default function Dropdown() {
 		if (selected) {
 			dispatch(setStreamId(selected));
 			dispatch(setSavedEpisode(selected));
-			writeUserData(selected);
 			updateCurrentEpisode(animeTitle, selected);
-
+			writeUserData();
 		}
 	}, [selected]);
 
 	// get from local storage
 	useEffect(() => {
-		const CurrentEpisodeTracker =
-			JSON.parse(
-				localStorage.getItem("CurrentEpisodeTracker") as string
-			) || {};
+
 
 		if (CurrentEpisodeTracker[animeTitle]) {
 			const savedEpisode = CurrentEpisodeTracker[animeTitle];
