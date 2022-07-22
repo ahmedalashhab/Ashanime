@@ -77,7 +77,7 @@ export default function Dropdown() {
 		if (!InContinueWatching) {
 		const newContinueWatching = [...continueWatching, modalData];
 		dispatch(setContinueWatching(newContinueWatching));
-		writeContinueWatching(newContinueWatching);
+		// writeContinueWatching(newContinueWatching);
 
 		// Save anime data to local storage so it can be listed in the continue watching section
 		localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching))}}
@@ -89,7 +89,7 @@ export default function Dropdown() {
 			dispatch(setStreamId(selected));
 			dispatch(setSavedEpisode(selected));
 			updateCurrentEpisode(animeTitle, selected);
-			writeUserData();
+			// writeUserData();
 		}
 	}, [selected]);
 
