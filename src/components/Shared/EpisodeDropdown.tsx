@@ -54,18 +54,31 @@ export default function Dropdown() {
 	//remove all characters from email after period
 	const emailClean = email.split("@")[0].split(".").join("");
 
+	// save current episode to firebase
 	function writeUserData() {
 		const savedEpisodes = JSON.parse(
-			localStorage.getItem("CurrentEpisodeTracker") || "{}")
-		set(ref(db, `${emailClean}/currentEpisodeTracker`), {
-			savedEpisodes,
+			localStorage.getItem("CurrentEpisodeTracker") || "{}");
+
+		// turn savedEpisodes into an array of objects
+	 		const savedEpisodesArray = Object.keys(savedEpisodes).map( (key: string) => {
+				return {
+					anime: key,
+					episode: savedEpisodes[key]
+				}
+			} )
+		console.log(savedEpisodesArray)
+
+		set(ref(db, `${emailClean}/savedEpisodes`), {
+			"savedEpisodes": savedEpisodesArray,
 		});
 	}
+
+
 
 	function writeContinueWatching(newContinueWatching: any) {
 		// write continue watching to firebase
 		set(ref(db, `${emailClean}/continueWatching`), {
-			newContinueWatching,
+			"continueWatching": newContinueWatching,
 		});
 	}
 
@@ -77,7 +90,7 @@ export default function Dropdown() {
 		if (!InContinueWatching) {
 		const newContinueWatching = [...continueWatching, modalData];
 		dispatch(setContinueWatching(newContinueWatching));
-		// writeContinueWatching(newContinueWatching);
+		writeContinueWatching(newContinueWatching);
 
 		// Save anime data to local storage so it can be listed in the continue watching section
 		localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching))}}
@@ -89,7 +102,7 @@ export default function Dropdown() {
 			dispatch(setStreamId(selected));
 			dispatch(setSavedEpisode(selected));
 			updateCurrentEpisode(animeTitle, selected);
-			// writeUserData();
+			writeUserData();
 		}
 	}, [selected]);
 
