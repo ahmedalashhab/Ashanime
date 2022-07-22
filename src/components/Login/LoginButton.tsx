@@ -29,6 +29,8 @@ const LoginButton = () => {
       document.getElementById("google-login-button"),
       { theme: "outline", size: "large" }
     );
+
+
   }, []);
 
   return <div id="google-login-button"></div>;

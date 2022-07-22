@@ -15,6 +15,9 @@ import { useSelector } from "react-redux";
 import Notification from "./Notification";
 import { useNotification } from "../../hooks/useNotification";
 import axios from "axios";
+import {db} from "../../firebase/Firebase";
+import {set,ref} from "firebase/database";
+
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -28,10 +31,24 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
   const dispatch = useAppDispatch();
   const bookmarks = useSelector((state: RootState) => state.anime.bookmarks);
 
+  const email = useSelector((state: RootState) => state.google.profileObject.email)
+  //remove all characters from email after period
+  const emailClean = email.split("@")[0].split(".").join("");
+
+  function writeUserData(newBookmarks: any) {
+    set(ref(db, emailClean), {
+      bookmarks: newBookmarks,
+      email,
+    });
+    console.log(emailClean)
+  }
+
   const addToBookmarks = () => {
     dispatch(setBookmarks([...bookmarks, data]));
-    notificationHandler("Added to Watchlist", "Success", true);
+    writeUserData(bookmarks);
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    notificationHandler("Added to Watchlist", "Success", true);
+
     setToggle(false); // close modal
   };
 
@@ -42,6 +59,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
     notificationHandler("Removed from Watchlist", "Success", true);
     dispatch(setBookmarks(newBookmarks));
     localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+    writeUserData(newBookmarks);
     setToggle(false); // close modal
   };
 
@@ -192,8 +210,8 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
                       bookmarks.find(
                         (bookmark) => bookmark.mal_id === data.mal_id
                       )
-                        ? "Remove from Bookmarks"
-                        : "Add to Bookmarks"
+                        ? "Remove from Watchlist"
+                        : "Add to Watchlist"
                     }
                   </button>
                   <div className="flex self-end">
