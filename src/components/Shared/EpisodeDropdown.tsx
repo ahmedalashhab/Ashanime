@@ -50,7 +50,7 @@ export default function Dropdown() {
 	const emailClean = email.split("@")[0].split(".").join("");
 
 	function writeUserData(savedEpisode: any) {
-		set(ref(db, emailClean), {
+		set(ref(db, `${emailClean}/savedEpisodes`), {
 			[animeTitle]: savedEpisode,
 		});
 	}
