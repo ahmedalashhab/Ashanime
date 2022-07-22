@@ -40,13 +40,12 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
       bookmarks: newBookmarks,
       email,
     });
-    console.log(emailClean)
   }
 
   const addToBookmarks = () => {
     dispatch(setBookmarks([...bookmarks, data]));
-    writeUserData(bookmarks);
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    writeUserData([...bookmarks, data]);
     notificationHandler("Added to Watchlist", "Success", true);
 
     setToggle(false); // close modal

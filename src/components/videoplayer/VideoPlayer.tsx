@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import axios from "axios";
 import {setSavedCurrentTime} from "../../redux/videoState-slice";
+import {ref, set} from "firebase/database";
+import {db} from "../../firebase/Firebase";
 
 interface props {
   animeStatus?: string;
@@ -35,6 +37,8 @@ const VideoPlayer = (props : props) => {
   const startTime = useSelector(
     (state: RootState) => state.videoState.savedStartTime
   );
+
+
 
   const dispatch = useDispatch();
 
@@ -69,10 +73,6 @@ const VideoPlayer = (props : props) => {
       getData();
     }
   }, [streamId]);
-
-  useEffect(() => {
-    //  get anime details from local storage
-  }, []);
 
   return (
     <div className="lg:h-96 h-56 ">

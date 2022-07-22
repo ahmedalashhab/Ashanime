@@ -11,6 +11,8 @@ import {
 	setSavedEpisode,
 } from "../../redux/videoState-slice";
 import continueWatching from "../Home/ContinueWatching";
+import {ref, set} from "firebase/database";
+import {db} from "../../firebase/Firebase";
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
@@ -43,6 +45,16 @@ export default function Dropdown() {
 		);
 	};
 
+	const email = useSelector((state: RootState) => state.google.profileObject.email)
+	//remove all characters from email after period
+	const emailClean = email.split("@")[0].split(".").join("");
+
+	function writeUserData(savedEpisode: any) {
+		set(ref(db, emailClean), {
+			[animeTitle]: savedEpisode,
+		});
+	}
+
 	useEffect(() => {
 		//check if episode is already in continue watching
 		if (selected) {
@@ -61,6 +73,7 @@ export default function Dropdown() {
 		if (selected) {
 			dispatch(setStreamId(selected));
 			dispatch(setSavedEpisode(selected));
+			writeUserData(selected);
 			updateCurrentEpisode(animeTitle, selected);
 
 		}
