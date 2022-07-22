@@ -36,7 +36,7 @@ export default function ModalAnimeList({ setToggle, toggle, data }: props) {
   const emailClean = email.split("@")[0].split(".").join("");
 
   function writeUserData(newBookmarks: any) {
-    set(ref(db, emailClean), {
+    set(ref(db, `${emailClean}/bookmarks`), {
       bookmarks: newBookmarks,
       email,
     });

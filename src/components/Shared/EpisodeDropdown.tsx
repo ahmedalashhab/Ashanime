@@ -57,8 +57,15 @@ export default function Dropdown() {
 	function writeUserData() {
 		const savedEpisodes = JSON.parse(
 			localStorage.getItem("CurrentEpisodeTracker") || "{}")
-		set(ref(db, `${emailClean}`), {
+		set(ref(db, `${emailClean}/currentEpisodeTracker`), {
 			savedEpisodes,
+		});
+	}
+
+	function writeContinueWatching(newContinueWatching: any) {
+		// write continue watching to firebase
+		set(ref(db, `${emailClean}/continueWatching`), {
+			newContinueWatching,
 		});
 	}
 
@@ -70,6 +77,7 @@ export default function Dropdown() {
 		if (!InContinueWatching) {
 		const newContinueWatching = [...continueWatching, modalData];
 		dispatch(setContinueWatching(newContinueWatching));
+		writeContinueWatching(newContinueWatching);
 
 		// Save anime data to local storage so it can be listed in the continue watching section
 		localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching))}}
