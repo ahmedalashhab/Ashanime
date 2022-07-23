@@ -10,12 +10,11 @@ interface savedEpisodes {
   [key: string]: savedEpisode;
 }
 
-
 interface initialStateInterface {
   savedCurrentTime: number;
   savedStartTime: number;
   savedEpisode: savedEpisode[];
-  savedEpisodes: savedEpisodes
+  savedEpisodes: savedEpisodes[]
   savedAnimeTitle: string;
   continueWatching: streamModal[];
 }
@@ -24,7 +23,7 @@ const initialState: initialStateInterface = {
   savedCurrentTime: 0,
   savedStartTime: 0,
   savedEpisode: [],
-  savedEpisodes: {},
+  savedEpisodes: [],
   savedAnimeTitle: "",
   continueWatching: [],
 };
@@ -42,7 +41,7 @@ export const videoSlice = createSlice({
     setSavedEpisode: (state, action: PayloadAction<[savedEpisode]>) => {
       state.savedEpisode = action.payload;
     },
-    setSavedEpisodes: (state, action: PayloadAction<savedEpisodes>) => {
+    setSavedEpisodes: (state, action: PayloadAction<[savedEpisodes]>) => {
       state.savedEpisodes = action.payload;
     },
     setSavedAnimeTitle: (state, action: PayloadAction<string>) => {

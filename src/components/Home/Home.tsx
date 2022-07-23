@@ -37,10 +37,10 @@ const Home = () => {
   useEffect(() => {
     onValue(ref(db), (snapshot: { val: () => any; }) => {
       const data= snapshot.val();
-      if(data !==null){
-        const ContinueWatching = data[emailClean].continueWatching
-        dispatch(setContinueWatching(ContinueWatching))
-      }
+      const ContinueWatching = data[emailClean]?.continueWatching || [];
+      dispatch(setContinueWatching(ContinueWatching || []))
+
+
     })} , [dispatch, emailClean]);
 
   // useEffect(() => {

@@ -51,11 +51,12 @@ export default function Dropdown() {
 		const getEpisodes = onValue(ref(db), (snapshot: { val: () => any; }) => {
 			const data= snapshot.val();
 			if(data !==null){
-				const savedEpisodes = data[emailClean].savedEpisodes;
+				const savedEpisodes = data[emailClean]?.savedEpisodes;
 				dispatch(setSavedEpisodes(savedEpisodes));
 			}  } )
 		getEpisodes();
 	} , []);
+
 
 	const updateCurrentEpisode = (anime: string, episode: any) => {
 		localStorage.setItem(
@@ -72,21 +73,25 @@ export default function Dropdown() {
 
 
 	// save current episode to firebase
-	function writeUserData() {
-		const savedEpisodes = JSON.parse(
-			localStorage.getItem("CurrentEpisodeTracker") || "{}");
-
+	function writeSavedEpisodes(animeTitle: string, episode: string) {
 		// turn savedEpisodes into an array of objects
-	 		const savedEpisodesArray = Object.keys(savedEpisodes).map( (key: string) => {
+		if (savedEpisodes) {
+			console.log(savedEpisodes)
+	 		const savedEpisodesArray = Object.keys(savedEpisodes).map( (key: {}) => {
 				return {
-					anime: key,
-					episode: savedEpisodes[key]
+					anime: animeTitle,
+					episode: episode
 				}
-			} )
+				console.log(savedEpisodesArray)
 
-		set(ref(db, `${emailClean}/savedEpisodes`), {
-			 ...savedEpisodesArray,
-		});
+
+			} )}
+
+
+
+		// set(ref(db, `${emailClean}/savedEpisodes`), {
+		// 	 ...savedEpisodesArray,
+		// });
 	}
 
 
@@ -101,7 +106,7 @@ export default function Dropdown() {
 	useEffect(() => {
 		//check if episode is already in continue watching
 		if (selected) {
-		const InContinueWatching = continueWatching.find(
+		const InContinueWatching = continueWatching?.find(
 			(anime: any) => anime.animeTitle === modalData.animeTitle)
 		if (!InContinueWatching) {
 		const newContinueWatching = [...continueWatching, modalData];
@@ -117,25 +122,43 @@ export default function Dropdown() {
 		if (selected) {
 			dispatch(setStreamId(selected));
 			dispatch(setSavedEpisode(selected));
-			updateCurrentEpisode(animeTitle, selected);
-			writeUserData();
+			// push selected episode to savedEpisodes
+			const newSavedEpisodes = {
+				...savedEpisodes,
+				[animeTitle]: selected,
+			};
+			// dispatch(setSavedEpisodes(newSavedEpisodes));
+			writeSavedEpisodes(animeTitle, selected);
+
+			// updateCurrentEpisode(animeTitle, selected);
 		}
 	}, [selected]);
 
-	// get from local storage
+	// auto select episode if the modalTitle matches the animeTitle in savedEpisodes
 	useEffect(() => {
-
-
-		if (CurrentEpisodeTracker[animeTitle]) {
-			const savedEpisode = CurrentEpisodeTracker[animeTitle];
-			dispatch(setStreamId(savedEpisode));
-			setSelected(savedEpisode);
+		if (savedEpisodes) {
+			const savedEpisode: any = savedEpisodes.find(
+				(anime: any) => anime.anime === modalData.animeTitle
+			);
+			console.log(savedEpisode)
+			if (savedEpisode) {
+				const stream = savedEpisode.episode;
+				dispatch(setStreamId( stream ));
+				setSelected(stream)
+			}
 		}
+
+
+		// if (CurrentEpisodeTracker[animeTitle]) {
+		// 	const savedEpisode = CurrentEpisodeTracker[animeTitle];
+		// 	dispatch(setStreamId(savedEpisode));
+		// 	setSelected(savedEpisode);
+		// }
 
 		return () => {
 			setSelected(null);
 		};
-	}, [dispatch, modalData]);
+	}, [dispatch, modalData, savedEpisodes]);
 
 
 	return (
