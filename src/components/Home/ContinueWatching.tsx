@@ -31,7 +31,7 @@ const ContinueWatching = () => {
   })
 
   const dispatch = useAppDispatch();
-const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
+  const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
 
 
 //  get continue watching from local storage on load
@@ -50,17 +50,20 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
   //     const data= snapshot.val();
   //     if(data !==null){
   //       const ContinueWatching = data[emailClean].ContinueWatching;
-  //       dispatch(setContinueWatching(ContinueWatching));
+  //       dispatch(setContinueWatching(ContinueWatching || []));
   //     }
   //   })
-  // } , []);
+  // } , [dispatch, emailClean]);
 
   // remove continue watching from local storage by pressing the remove button
   const removeContinueWatching = (animeTitle: string) => {
     const newContinueWatching = [...continueWatching];
     const newContinueWatching2 = newContinueWatching.filter(item => item.animeTitle !== animeTitle);
     dispatch(setContinueWatching(newContinueWatching2));
-    localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching2));
+    // remove from firebase
+set(ref(db, `${emailClean}/continueWatching`), {
+  ...newContinueWatching2,
+} );
   }
 
   const handleModal = (active: boolean, anime: any) => {
@@ -71,12 +74,12 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
   };
 
   const itemCount = () => {
-  if ( winWidth <= 500) {
-    return 3
-  }
-  if  (winWidth > 500 ) {
-    return 5
-  }
+    if ( winWidth <= 500) {
+      return 3
+    }
+    if  (winWidth > 500 ) {
+      return 5
+    }
   }
 
   //reverse the order of the continue watching list
@@ -85,14 +88,14 @@ const continueWatching = useSelector( (state: RootState) => state.videoState.con
     return newContinueWatching.reverse();
   }
 
-const spaceBetween = () => {
-  if (winWidth <= 500) {
-    return 10
+  const spaceBetween = () => {
+    if (winWidth <= 500) {
+      return 10
+    }
+    if (winWidth > 500) {
+      return 35
+    }
   }
-  if (winWidth > 500) {
-    return 35
-  }
-}
 
 
   return (
@@ -144,7 +147,7 @@ const spaceBetween = () => {
           setModal(boolean);
         }}
         toggle={modal}
-       data={localModalData}/>
+        data={localModalData}/>
     </div>)
 
 

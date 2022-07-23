@@ -37,10 +37,11 @@ const Home = () => {
   useEffect(() => {
     onValue(ref(db), (snapshot: { val: () => any; }) => {
       const data= snapshot.val();
-      if(data !==null){
-        const ContinueWatching = data[emailClean].continueWatching
-        dispatch(setContinueWatching(ContinueWatching))
-      }
+      const ContinueWatching = data[emailClean]?.continueWatching || [];
+      dispatch(setContinueWatching(ContinueWatching))
+
+
+
     })} , [dispatch, emailClean]);
 
   // useEffect(() => {
@@ -115,10 +116,10 @@ const Home = () => {
         <AnimeTrailersHome />
         <RecentReleases/>
         {continueWatching.length > 0 && <ContinueWatching />}
-          <TopAnime
-            currentPage={currentPage}
-            paginate={(pageNumber: number) => paginate(pageNumber)}
-          />
+        <TopAnime
+          currentPage={currentPage}
+          paginate={(pageNumber: number) => paginate(pageNumber)}
+        />
       </div>
     </div>
   );
