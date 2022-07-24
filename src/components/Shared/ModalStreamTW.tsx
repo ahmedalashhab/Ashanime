@@ -12,6 +12,7 @@ import Notification from "./Notification";
 import axios from "axios";
 import VideoPlayer from "../videoplayer/VideoPlayer";
 import EpisodeDropdown from "./EpisodeDropdown";
+import TESTEpisodeDropdown from "./TESTEpisodeDropdown";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -120,7 +121,7 @@ export default function ModalStream({ setToggle, toggle, modalId }: props) {
                     <div className="flex mt-2 justify-between lg:px-8 px-4">
                       <div className="">
                         {/*  drop down list for episodes*/}
-                        {modalData.episodesList?.length > 0 ? (<EpisodeDropdown />) : ""}
+                        {modalData.episodesList?.length > 0 ? (<TESTEpisodeDropdown />) : ""}
 
                       </div>
                       <div className="flex text-right items-center gap-2">
