@@ -12,15 +12,14 @@ import {
 	setSavedEpisodes,
 } from "../../redux/videoState-slice";
 import continueWatching from "../Home/ContinueWatching";
-import {onValue, ref, set} from "firebase/database";
-import {db} from "../../firebase/Firebase";
+import { onValue, ref, set } from "firebase/database";
+import { db } from "../../firebase/Firebase";
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
 export default function Dropdown() {
-
 	const [selected, setSelected] = useState<any>(null);
 
 	const dispatch = useAppDispatch();
@@ -32,32 +31,43 @@ export default function Dropdown() {
 	const animeTitle = useSelector(
 		(state: RootState) => state.anime.modalData.animeTitle
 	);
-	const continueWatching = useSelector( (state: RootState) => state.videoState.continueWatching);
-	const savedEpisode = useSelector((state: RootState) => state.videoState.savedEpisode);
-	const savedEpisodes = useSelector((state: RootState) => state.videoState.savedEpisodes);
+	const continueWatching = useSelector(
+		(state: RootState) => state.videoState.continueWatching
+	);
+	const savedEpisode = useSelector(
+		(state: RootState) => state.videoState.savedEpisode
+	);
+	const savedEpisodes = useSelector(
+		(state: RootState) => state.videoState.savedEpisodes
+	);
 
-	const email = useSelector((state: RootState) => state.google.profileObject.email)
+	const email = useSelector(
+		(state: RootState) => state.google.profileObject.email
+	);
 	//remove all characters from email after period
 	const emailClean = email.split("@")[0].split(".").join("");
 
 	const CurrentEpisodeTracker =
-		JSON.parse(
-			localStorage.getItem("CurrentEpisodeTracker") as string
-		) || {};
+		JSON.parse(localStorage.getItem("CurrentEpisodeTracker") as string) ||
+		{};
 
-
-// get savedEpisodes from firebase
+	// get savedEpisodes from firebase
 	useEffect(() => {
-		const getEpisodes = onValue(ref(db), (snapshot: { val: () => any; }) => {
-			const data= snapshot.val();
-			if(data !==null){
+		const getEpisodes = onValue(ref(db), (snapshot: { val: () => any }) => {
+			const data = snapshot.val();
+			if (data !== null) {
 				const savedEpisodes = data[emailClean].savedEpisodes;
 				dispatch(setSavedEpisodes(savedEpisodes));
-			}  } )
+			}
+		});
 		getEpisodes();
-	} , []);
+	}, []);
 
 	const updateCurrentEpisode = (anime: string, episode: any) => {
+		//  CurrentEpisodeTracker = {
+		// 	...CurrentEpisodeTracker,
+		// 	[btoa(anime)]: episode
+		// }
 		localStorage.setItem(
 			"CurrentEpisodeTracker",
 			JSON.stringify({
@@ -69,27 +79,26 @@ export default function Dropdown() {
 		);
 	};
 
-
-
 	// save current episode to firebase
 	function writeUserData() {
 		const savedEpisodes = JSON.parse(
-			localStorage.getItem("CurrentEpisodeTracker") || "{}");
+			localStorage.getItem("CurrentEpisodeTracker") || "{}"
+		);
 
 		// turn savedEpisodes into an array of objects
-	 		const savedEpisodesArray = Object.keys(savedEpisodes).map( (key: string) => {
+		const savedEpisodesArray = Object.keys(savedEpisodes).map(
+			(key: string) => {
 				return {
 					anime: key,
-					episode: savedEpisodes[key]
-				}
-			} )
+					episode: savedEpisodes[key],
+				};
+			}
+		);
 
 		set(ref(db, `${emailClean}/savedEpisodes`), {
-			 ...savedEpisodesArray,
+			...savedEpisodesArray,
 		});
 	}
-
-
 
 	function writeContinueWatching(newContinueWatching: any) {
 		// write continue watching to firebase
@@ -101,15 +110,21 @@ export default function Dropdown() {
 	useEffect(() => {
 		//check if episode is already in continue watching
 		if (selected) {
-		const InContinueWatching = continueWatching.find(
-			(anime: any) => anime.animeTitle === modalData.animeTitle)
-		if (!InContinueWatching) {
-		const newContinueWatching = [...continueWatching, modalData];
-		dispatch(setContinueWatching(newContinueWatching));
-		writeContinueWatching(newContinueWatching);
+			const InContinueWatching = continueWatching.find(
+				(anime: any) => anime.animeTitle === modalData.animeTitle
+			);
+			if (!InContinueWatching) {
+				const newContinueWatching = [...continueWatching, modalData];
+				dispatch(setContinueWatching(newContinueWatching));
+				writeContinueWatching(newContinueWatching);
 
-		// Save anime data to local storage so it can be listed in the continue watching section
-		localStorage.setItem( "ContinueWatching", JSON.stringify(newContinueWatching))}}
+				// Save anime data to local storage so it can be listed in the continue watching section
+				localStorage.setItem(
+					"ContinueWatching",
+					JSON.stringify(newContinueWatching)
+				);
+			}
+		}
 	}, [selected]);
 
 	useEffect(() => {
@@ -124,8 +139,6 @@ export default function Dropdown() {
 
 	// get from local storage
 	useEffect(() => {
-
-
 		if (CurrentEpisodeTracker[animeTitle]) {
 			const savedEpisode = CurrentEpisodeTracker[animeTitle];
 			dispatch(setStreamId(savedEpisode));
@@ -136,7 +149,6 @@ export default function Dropdown() {
 			setSelected(null);
 		};
 	}, [dispatch, modalData]);
-
 
 	return (
 		<Listbox value={selected} onChange={setSelected}>
@@ -166,53 +178,54 @@ export default function Dropdown() {
 							leaveTo="opacity-0"
 						>
 							<Listbox.Options className="absolute episode-selector mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-								{episodesList && [...episodesList]
-									.reverse()
-									.map((episode: episodesList) => (
-										<Listbox.Option
-											key={episode.episodeNum}
-											className={({ active }) =>
-												classNames(
-													active
-														? "text-white bg-indigo-600"
-														: "text-gray-900",
-													"cursor-default select-none relative py-2 pl-3 pr-9"
-												)
-											}
-											value={episode.episodeId}
-										>
-											{({ selected, active }) => (
-												<>
-													<span
-														className={classNames(
-															selected
-																? "font-semibold"
-																: "font-normal",
-															"block truncate"
-														)}
-													>
-														{episode.episodeNum}
-													</span>
-
-													{selected ? (
+								{episodesList &&
+									[...episodesList]
+										.reverse()
+										.map((episode: episodesList) => (
+											<Listbox.Option
+												key={episode.episodeNum}
+												className={({ active }) =>
+													classNames(
+														active
+															? "text-white bg-indigo-600"
+															: "text-gray-900",
+														"cursor-default select-none relative py-2 pl-3 pr-9"
+													)
+												}
+												value={episode.episodeId}
+											>
+												{({ selected, active }) => (
+													<>
 														<span
 															className={classNames(
-																active
-																	? "text-white"
-																	: "text-indigo-600",
-																"absolute inset-y-0 right-0 flex items-center pr-4"
+																selected
+																	? "font-semibold"
+																	: "font-normal",
+																"block truncate"
 															)}
 														>
-															<CheckIcon
-																className="h-5 w-5"
-																aria-hidden="true"
-															/>
+															{episode.episodeNum}
 														</span>
-													) : null}
-												</>
-											)}
-										</Listbox.Option>
-									))}
+
+														{selected ? (
+															<span
+																className={classNames(
+																	active
+																		? "text-white"
+																		: "text-indigo-600",
+																	"absolute inset-y-0 right-0 flex items-center pr-4"
+																)}
+															>
+																<CheckIcon
+																	className="h-5 w-5"
+																	aria-hidden="true"
+																/>
+															</span>
+														) : null}
+													</>
+												)}
+											</Listbox.Option>
+										))}
 							</Listbox.Options>
 						</Transition>
 					</div>
