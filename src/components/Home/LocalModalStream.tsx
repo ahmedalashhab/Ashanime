@@ -11,8 +11,8 @@ import {
 import { RootState, useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import VideoPlayer from "../videoplayer/VideoPlayer";
-import EpisodeDropdown from "../Shared/EpisodeDropdown";
 import {streamModal} from "../../types/type";
+import TESTEpisodeDropdown from "../Shared/TESTEpisodeDropdown";
 
 interface props {
   setToggle: (toggle: boolean) => void;
@@ -92,7 +92,7 @@ export default function LocalModalStream({ setToggle, toggle, data }: props) {
                       <div className="">
                         {/*  drop down list for episodes*/}
 
-                        <EpisodeDropdown/>
+                        <TESTEpisodeDropdown/>
                       </div>
                       <div className="flex text-right items-center gap-2">
                         <span className="text-white outfit-light lg:text-[12px] text-[10px] text-center">

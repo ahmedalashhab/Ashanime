@@ -42,7 +42,7 @@ export const videoSlice = createSlice({
     setSavedEpisode: (state, action: PayloadAction<[savedEpisode]>) => {
       state.savedEpisode = action.payload;
     },
-    setSavedEpisodes: (state, action: PayloadAction<[savedEpisodes]>) => {
+    setSavedEpisodes: (state, action: PayloadAction<savedEpisodes[]>) => {
       state.savedEpisodes = action.payload;
     },
     setSavedAnimeTitle: (state, action: PayloadAction<string>) => {

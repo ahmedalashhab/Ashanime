@@ -12,14 +12,14 @@ import {
   setSavedEpisodes,
 } from "../../redux/videoState-slice";
 import continueWatching from "../Home/ContinueWatching";
-import {onValue, ref, set} from "firebase/database";
+import {get, child, ref, set, getDatabase} from "firebase/database";
 import {db} from "../../firebase/Firebase";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dropdown() {
+export default function TESTEpisodeDropdown(modalToggle:any) {
 
   const [selected, setSelected] = useState<any>(null);
 
@@ -41,16 +41,67 @@ export default function Dropdown() {
   const emailClean = email.split("@")[0].split(".").join("");
 
 
-// get savedEpisodes from firebase
+  function writeContinueWatching(newContinueWatching: any) {
+    // write continue watching to firebase
+    set(ref(db, `${emailClean}/continueWatching`), {
+      ...newContinueWatching,
+    });
+  }
+
+// fetch savedEpisodes from firebase
   useEffect(() => {
-    const getEpisodes = onValue(ref(db), (snapshot: { val: () => any; }) => {
-      const data= snapshot.val();
-      if(data !==null){
-        const savedEpisodes = data[emailClean].savedEpisodes;
-        dispatch(setSavedEpisodes(savedEpisodes));
-      }  } )
-    getEpisodes();
-  } , []);
+    console.log("useEffect");
+
+
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `${emailClean}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        const data= snapshot.val();
+          if(data !==null && data[emailClean]?.savedEpisodes){
+            const savedEpisodes = data[emailClean].savedEpisodes;
+            dispatch(setSavedEpisodes(savedEpisodes));
+            console.log(data)
+          }
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+
+    // const getEpisodes = onValue(ref(db, `${emailClean}`,(snapshot: { val: () => any; }) => {
+    //   const data= snapshot.val();
+    //   if(data !==null && data.emailClean.savedEpisodes){
+    //     const savedEpisodes = data[emailClean].savedEpisodes;
+    //     dispatch(setSavedEpisodes(savedEpisodes));
+    //     console.log(data)
+    //   }  } )
+    // getEpisodes();
+  }, [dispatch, modalToggle]);
+
+  // send the selected episode to the video player
+  useEffect(() => {
+    if (selected) {
+      dispatch(setStreamId(selected));
+      console.log(savedEpisodes);
+
+      //check if episode is already in continue watching
+      if (selected) {
+        const InContinueWatching = continueWatching.find(
+          (anime: any) => anime.animeTitle === modalData.animeTitle)
+        if (!InContinueWatching) {
+          const newContinueWatching = [...continueWatching, modalData];
+          dispatch(setContinueWatching(newContinueWatching));
+          writeContinueWatching(newContinueWatching);
+        }
+      }
+
+    }}, [selected]);
+
+
+
 
 
 
@@ -84,7 +135,7 @@ export default function Dropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute episode-selector mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                 {episodesList && [...episodesList]
                   .reverse()
                   .map((episode: episodesList) => (

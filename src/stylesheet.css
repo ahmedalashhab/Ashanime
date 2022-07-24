@@ -214,6 +214,10 @@ position: absolute;
     z-index: 1000;
 }
 
+.episode-selector{
+    z-index:1001;
+}
+
 .notification{
     z-index: 201
 }
